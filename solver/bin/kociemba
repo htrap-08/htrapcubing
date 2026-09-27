@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+import Cube from '../../src/vendor/cubejs/index.js';
+const state = process.argv[2];
+if (!state || !/^[URFDLB]{54}$/.test(state)) process.exit(1);
+Cube.initSolver();
+const cube = Cube.fromString(state);
+const solution = cube.solve();
+cube.move(solution);
+if (!cube.isSolved()) process.exit(1);
+console.log(solution);
