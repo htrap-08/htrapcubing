@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="htrap — learn, practice, and solve Rubik's Cubes." />
+    <title>htrap</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%231f633d'/%3E%3Cpath fill='%23d9e95b' d='M4 4h7v7H4zm9 0h7v7h-7zm9 0h6v7h-6zM4 13h7v7H4zm9 0h7v7h-7zm9 0h6v7h-6zM4 22h7v6H4zm9 0h7v6h-7zm9 0h6v6h-6z'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="#home" aria-label="htrap home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <span>htrap</span>
+      </a>
+      <button class="nav-toggle icon-button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#home" data-route="home" class="active">Home</a>
+        <a href="#solver" data-route="solver">Solver</a>
+        <a href="#tutorials" data-route="tutorials">Tutorials</a>
+        <a href="#timer" data-route="timer">Timer</a>
+      </nav>
+      <button class="theme-toggle icon-button" aria-label="Switch color theme" title="Switch color theme">
+        <span class="sun">☼</span><span class="moon">◐</span>
+      </button>
+    </header>
+
+    <main id="main">
+      <section id="home" class="page home-page active-page" data-page="home">
+        <div class="hero grain">
+          <div class="hero-copy">
+            <p class="eyebrow"><span></span> built for thoughtful turns</p>
+            <h1>Learn the cube<br />Own the solve</h1>
+            <p class="hero-lede">A focused toolkit for learning algorithms, checking a scramble, and getting faster</p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#solver">Solve a cube <span>→</span></a>
+              <a class="text-link" href="#tutorials">Start learning <span>↗</span></a>
+            </div>
+            <div class="supported"><span>Supports</span><b>2×2</b><b>3×3</b><b>4×4</b></div>
+          </div>
+          <div class="hero-cube-wrap" aria-label="Illustration of a Rubik's Cube">
+            <div class="hero-cube-shadow"></div>
+            <div class="hero-cube" aria-hidden="true">
+              <div class="hero-face hero-face-top"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <div class="hero-face hero-face-front"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <div class="hero-face hero-face-right"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            </div>
+          </div>
+        </div>
+
+        <section class="home-tools section-shell">
+          <div class="section-heading"><div><p class="eyebrow"><span></span> your practice bench</p></div></div>
+          <div class="feature-grid">
+            <a href="#solver" class="feature-card feature-solver"><div class="feature-number">01</div><div class="mini-net" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div><h3>Solve a cube</h3><p>Build your state, validate it, then follow each turn with confidence.</p><span class="card-arrow">Open solver →</span></div></a>
+            <a href="#tutorials" class="feature-card feature-tutorial"><div class="feature-number">02</div><div class="algorithm-scribble" aria-hidden="true">R U R′<br /><span>U′</span></div><div><h3>Learn algorithms</h3><p>Clear notation and methods—from the first layer to full PLL.</p><span class="card-arrow">Browse tutorials →</span></div></a>
+            <a href="#timer" class="feature-card feature-timer"><div class="feature-number">03</div><div class="mini-clock" aria-hidden="true">0<span>:</span>19<small>.11</small></div><div><h3>Practice with timer</h3><p>Scramble, inspect, and build a session worth measuring.</p><span class="card-arrow">Start a session →</span></div></a>
+          </div>
+        </section>
+
+        <section class="method-strip section-shell">
+          <p>From first turns to fluid solves</p><div class="method-steps"><span>Notation</span><i>→</i><span>Method</span><i>→</i><span>Algorithms</span><i>→</i><span>Speed</span></div><a class="text-link" href="#tutorials">Explore the method <span>→</span></a>
+        </section>
+      </section>
+
+      <section id="solver" class="page solver-page" data-page="solver">
+        <div class="page-intro section-shell"><p class="eyebrow"><span></span> cube solver</p><h1>See every turn <em>before</em> you make it.</h1><p>Set a cube with the visual editor or begin from a fresh scramble. The move engine records a valid state and gives you a move-by-move recovery.</p></div>
+        <div class="solver-layout section-shell">
+          <aside class="solver-controls card-panel">
+            <div class="panel-title-row"><h2>Build your state</h2><button class="small-button" id="resetCube" title="Restore a solved cube">Reset</button></div>
+            <label class="field-label" for="cubeSize">Cube size</label>
+            <div class="segmented" id="cubeSize" role="group" aria-label="Cube size"><button data-size="2">2×2</button><button data-size="3" class="selected">3×3</button><button data-size="4">4×4</button></div>
+            <div class="control-divider"></div>
+            <p class="control-label">Quick start</p>
+            <button class="action-row" id="newScramble"><span class="action-icon">↻</span><span><b>Generate a scramble</b><small>Apply a valid state to the cube</small></span><span class="row-arrow">→</span></button>
+            <button class="action-row" id="solveCube"><span class="action-icon">✦</span><span><b>Find the recovery</b><small>Validate then create a solution</small></span><span class="row-arrow">→</span></button>
+            <div class="control-divider"></div>
+            <div class="legend"><p class="control-label">Sticker editor</p><p>Click any sticker to cycle its colour. A manually painted state is checked for colour counts before it can be solved.</p><div class="colour-key"><span class="sticker white"></span>Up <span class="sticker green"></span>Front <span class="sticker red"></span>Right</div></div>
+          </aside>
+          <div class="cube-workspace card-panel">
+            <div class="workspace-head"><div><p class="overline" id="cubeModeLabel">3×3 cube · solved</p><h2 id="cubeStatus">Ready to set your cube</h2></div><div class="cube-badge" id="cubeBadge">3×3</div></div>
+            <div class="cube-display-wrap">
+              <div id="cubeDisplay" class="cube-display" aria-live="polite"></div>
+              <div class="cube-hint"><span>✦</span> Select a sticker to edit its colour</div>
+            </div>
+            <div class="cube-moves" aria-label="Manual cube turns"><span>Try a move</span><div id="manualMoves"></div></div>
+          </div>
+          <section class="solution-panel card-panel" aria-live="polite">
+            <div class="panel-title-row"><div><p class="overline">solution</p><h2>Move guide</h2></div><span id="solutionCount" class="move-count">—</span></div>
+            <div id="solutionEmpty" class="solution-empty"><div class="empty-orbit">↻</div><h3>Your solution will appear here</h3><p>Generate a scramble, then ask TurnLab to trace the moves back.</p></div>
+            <div id="solutionContent" class="solution-content hidden">
+              <p class="solution-summary"><span id="solutionMoveTotal">0</span> moves · <button id="copySolution" class="inline-copy" title="Copy solution">Copy</button></p>
+              <div class="move-list" id="moveList"></div>
+              <div class="stepper"><button id="prevMove" class="step-button" aria-label="Previous move">←</button><div><b id="stepMove">Ready</b><span id="stepDescription">Use the arrows to preview each move</span></div><button id="nextMove" class="step-button" aria-label="Next move">→</button></div>
+            </div>
+            <div id="solverMessage" class="solver-message hidden" role="alert"></div>
+          </section>
+        </div>
+        <div class="solver-note section-shell"><span>How it works</span><p>TurnLab keeps the cube's exact sticker state and move history. States created with its scramble and editor controls are validated; recovery moves are the precise inverse of the recorded legal turns.</p></div>
+      </section>
+
+      <section id="tutorials" class="page tutorials-page" data-page="tutorials">
+        <div class="page-intro section-shell"><p class="eyebrow"><span></span> learn &amp; reference</p><h1>Good solves start with<br /><em>clear</em> notation.</h1><p>Learn a reliable beginner method, then keep the cases you use most close at hand.</p></div>
+        <div class="tutorial-tabs section-shell" role="tablist" aria-label="Tutorial sections"><button class="selected" data-tutorial="notation" role="tab">Cube notation</button><button data-tutorial="beginner" role="tab">Beginner method</button><button data-tutorial="advanced" role="tab">Advanced algorithms</button></div>
+        <div id="notationPanel" class="tutorial-panel section-shell">
+          <div class="notation-lead"><div><p class="eyebrow"><span></span> foundation</p><h2>Read the language of the cube.</h2></div><p>Every algorithm is a sentence of turns. Start with a face, then add direction, width, slices, or rotations.</p></div>
+          <div class="notation-layout"><div class="notation-cube card-panel"><div id="notationCube" class="notation-cube-visual"></div><div class="notation-active"><b id="notationSymbol">R</b><span id="notationMeaning">Turn the right face clockwise</span></div></div><div class="notation-groups" id="notationGroups"></div></div>
+          <div class="notation-footnote"><b>Clockwise is always from the viewpoint of the face you are turning.</b> The apostrophe (′) reverses that direction; a 2 means a 180° turn.</div>
+        </div>
+        <div id="beginnerPanel" class="tutorial-panel section-shell hidden">
+          <div class="method-header"><div><p class="eyebrow"><span></span> beginner method</p><h2>Build the solve, one dependable piece at a time.</h2></div><div class="segmented method-size" role="group" aria-label="Tutorial cube size"><button class="selected" data-method-size="3">3×3</button><button data-method-size="2">2×2</button><button data-method-size="4">4×4</button></div></div>
+          <div id="methodSteps" class="method-card-list"></div>
+        </div>
+        <div id="advancedPanel" class="tutorial-panel section-shell hidden">
+          <div class="algorithm-header"><div><p class="eyebrow"><span></span> algorithm library</p><h2>Recognise. Execute. Repeat.</h2><p>Short, standard algorithms—organised for practice instead of memorisation overload.</p></div><div class="library-count" id="libraryCount">0 cases</div></div>
+          <div class="algorithm-filters"><label class="search-field"><span>⌕</span><input id="algorithmSearch" type="search" placeholder="Search a case or algorithm" aria-label="Search algorithms" /></label><div class="filter-pills" id="algorithmFilters"><button class="selected" data-filter="all">All</button><button data-filter="3">3×3</button><button data-filter="4">4×4</button><button data-filter="OLL">OLL</button><button data-filter="PLL">PLL</button><button data-filter="F2L">F2L</button></div></div>
+          <div class="algorithm-grid" id="algorithmGrid"></div>
+          <section class="advanced-notes"><h3>Advanced habits that matter</h3><div class="habit-grid"><article><b>Lookahead</b><p>Turn slightly slower until you can spot the next pair before finishing the current one.</p></article><article><b>Finger tricks</b><p>Choose algorithms that flow from the grip you already have—avoid regrips where a flick works.</p></article><article><b>Inspection</b><p>Plan your cross and your first pair before the timer begins. The first turns should feel inevitable.</p></article></div></section>
+        </div>
+      </section>
+
+      <section id="timer" class="page timer-page" data-page="timer">
+        <div class="timer-shell section-shell">
+          <div class="timer-topline"><div><p class="eyebrow"><span></span> speedcubing timer</p><h1>Make every solve<br /><em>count.</em></h1></div><button id="timerThemeLink" class="subtle-button">Focus mode <span>↗</span></button></div>
+          <div class="timer-app card-panel">
+            <div class="scramble-area"><div class="scramble-head"><span id="timerCubeLabel">3×3 scramble</span><button id="newTimerScramble" class="small-button" title="Generate new scramble">New scramble ↻</button></div><p id="timerScramble" class="scramble-text">R U2 F' L2 D B2 R' U F2 D'</p></div>
+            <div class="timer-main"><div class="timer-core"><div class="timer-options"><div class="segmented timer-size" id="timerSize" role="group" aria-label="Timer cube size"><button data-timer-size="2">2×2</button><button data-timer-size="3" class="selected">3×3</button><button data-timer-size="4">4×4</button></div><label class="toggle-option"><input id="inspectionToggle" type="checkbox" /><span></span>15s inspection</label></div><div class="timer-readout" id="timerReadout" aria-live="polite">0<span>:</span>00<small>.00</small></div><p id="timerPrompt" class="timer-prompt">Hold <kbd>Space</kbd>, release to start</p><div class="timer-actions"><button id="timerStart" class="button button-primary">Start timer</button><button id="timerReset" class="button button-ghost">Reset</button></div></div>
+            <aside class="timer-stats"><div class="stats-heading"><h2>Session</h2><button id="clearSession" class="small-button danger">Clear</button></div><div class="stat-grid"><div><span>Solves</span><b id="solveNumber">0</b></div><div><span>Best</span><b id="bestTime">—</b></div><div><span>Ao5</span><b id="averageFive">—</b></div><div><span>Ao12</span><b id="averageTwelve">—</b></div></div><div class="history-head"><span>Recent solves</span><span id="historyHint">No solves yet</span></div><div id="solveHistory" class="solve-history"><div class="history-empty">Your completed solves will appear here.</div></div></aside>
+          </div>
+          <div class="timer-help"><span class="keycap">Space</span><p><b>Speedcubing controls</b> Hold to prepare, release to start, then press once to stop. Your session stays on this device.</p></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><span>© 2026 TurnLab</span><span>Made for deliberate practice</span><a href="#home">Back to top ↑</a></footer>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
