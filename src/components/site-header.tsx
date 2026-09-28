@@ -36,12 +36,6 @@ export function SiteHeader() {
           <span className="hidden font-mono text-[10px] tracking-[0.15em] text-muted sm:inline">
             {site.build}
           </span>
-          <Link
-            to="/timer"
-            className="rounded-md bg-primary px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.1em] text-primary-foreground transition hover:brightness-95"
-          >
-            Train
-          </Link>
         </div>
       </div>
 

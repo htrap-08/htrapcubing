@@ -30,20 +30,20 @@ const sections = [
   {
     to: "/solver" as const,
     tag: "(a) Solver",
-    title: "Solve it, one quarter turn at a time.",
-    body: "Pick any cube from 2×2 to 10×10, plus Pyraminx, Megaminx and Skewb. Paint in your cube, read the walkthrough, follow the turns.",
+    title: "Solve it, one turn at a time.",
+    body: "Pick any cube from 2×2 to 10×10, plus a lot more. Paint in your scrambled cube, follow the turns.",
   },
   {
     to: "/algorithms" as const,
     tag: "(b) Algorithms",
     title: "Every turn, on record.",
-    body: "Two tracks: a beginner method with plain-language cues, and an advanced shelf covering F2L, OLL, PLL, commutators and big-cube parity.",
+    body: "Two tracks: a beginner method with basic algorithms, and an advanced shelf covering F2L, OLL, PLL, commutators and big-cube parity.",
   },
   {
     to: "/timer" as const,
     tag: "(c) Timer",
-    title: "Scramble, hold, solve.",
-    body: "Official-style scrambles for every puzzle, a hold-to-start timer, and a session log with best, Ao5 and Ao12.",
+    title: "Time your progress.",
+    body: "Official-style scrambles for every puzzle, a hold-to-start timer, and a session log.",
   },
 ];
 
@@ -61,14 +61,14 @@ function Home() {
         <div className="relative mx-auto max-w-[1440px] px-5 pb-16 pt-14 sm:px-8">
           <div className="rise max-w-2xl">
             <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-primary">
-              Twisty puzzle workshop
+              Cubing Website
             </p>
             <h1 className="mt-3 text-balance font-display text-5xl font-bold tracking-tight sm:text-6xl">
-              Learn it, solve it
+              learn it, solve it
             </h1>
             <p className="mt-4 max-w-[52ch] text-pretty text-[15px] text-muted">
-              Twelve puzzles, a visual algorithm library from first layer to commutators, and a
-              timer that keeps your session honest.
+              Various puzzles, a visual algorithm library from first layer to commutators, and a
+              timer that keeps your session honest
             </p>
             <div className="mt-7 flex flex-wrap gap-2 font-mono text-[11px] uppercase tracking-[0.1em]">
               <Link

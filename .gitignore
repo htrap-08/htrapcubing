@@ -34,3 +34,11 @@ dist-ssr
 # Local large-cube solver tables and binaries
 solver/.runtime/
 __pycache__/
+
+# Vercel local project configuration
+.vercel/
+.env
+.env.*
+!.env.example
+.vercel
+.env*

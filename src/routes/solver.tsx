@@ -109,10 +109,10 @@ function SolverPage() {
         <div className="relative mx-auto max-w-[1440px] px-5 pb-14 pt-14 sm:px-8">
           <div className="rise max-w-2xl">
             <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-primary">
-              (a) Solver · step-by-step
+              (a) Solver
             </p>
             <h1 className="mt-3 text-balance font-display text-5xl font-bold tracking-tight sm:text-6xl">
-              Solve it, one quarter turn at a time.
+              Solve it, one turn at a time
             </h1>
             <p className="mt-4 max-w-[52ch] text-pretty text-[15px] text-muted">{puzzle.blurb}</p>
           </div>
@@ -183,7 +183,7 @@ function SolverPage() {
               <div className="flex h-full flex-col rounded-xl border border-line bg-panel p-5">
                 <div className="flex items-center justify-between">
                   <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted">
-                    3D cube · {puzzle.short}
+                  {puzzle.short}
                   </p>
                   {canPaint ? (
                     <div className="flex rounded-md border border-line bg-panel-2 p-0.5 font-mono text-[10px] uppercase tracking-[0.08em]">
