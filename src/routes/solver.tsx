@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { CubeNet, solvedNet, type NetState } from "@/components/cube-net";
 import { TwistyCube, twistyPuzzleConfig } from "@/components/twisty-cube";
+import { ScanColourSolver } from "@/components/scan-colour-solver";
 import { SideColourSolver } from "@/components/side-colour-solver";
 import { Alg } from "cubing/alg";
 import { ColourSolver } from "@/components/colour-solver";
@@ -69,9 +70,13 @@ function SolverPage() {
   const [net, setNet] = useState<NetState>(() => solvedNet(n));
   const [brush, setBrush] = useState<StickerKey>("u");
   const [step, setStep] = useState(0);
-  const [mode, setMode] = useState<"practice" | "colours">("practice");
+  const [mode, setMode] = useState<"practice" | "colours" | "scan">("practice");
   const [custom, setCustom] = useState<string | null>(null);
   const canPaint = true;
+  const onScanSolved = useCallback((solution: string) => {
+    setCustom(solution);
+    setMode("practice");
+  }, []);
 
   const steps = useMemo(() => guideFor(puzzle.id), [puzzle.id]);
   const current = steps[Math.min(step, steps.length - 1)];
@@ -181,13 +186,16 @@ function SolverPage() {
             {/* Net */}
             <div className="rise lg:col-span-5" style={{ animationDelay: "120ms" }}>
               <div className="flex h-full flex-col rounded-xl border border-line bg-panel p-5">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-wrap items-center justify-between gap-2">
                   <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted">
-                  {puzzle.short}
+                    {puzzle.short}
                   </p>
                   {canPaint ? (
-                    <div className="flex rounded-md border border-line bg-panel-2 p-0.5 font-mono text-[10px] uppercase tracking-[0.08em]">
-                      {(["practice", "colours"] as const).map((m) => (
+                    <div className="flex flex-wrap rounded-md border border-line bg-panel-2 p-0.5 font-mono text-[10px] uppercase tracking-[0.08em]">
+                      {(puzzle.kind === "nxn"
+                        ? (["practice", "colours", "scan"] as const)
+                        : (["practice", "colours"] as const)
+                      ).map((m) => (
                         <button
                           key={m}
                           type="button"
@@ -199,14 +207,20 @@ function SolverPage() {
                               : "text-muted hover:text-foreground",
                           )}
                         >
-                          {m === "practice" ? "Practice" : "Enter my colours"}
+                          {m === "practice"
+                            ? "Practice"
+                            : m === "scan"
+                              ? "Scan my colors"
+                              : "Enter my colours"}
                         </button>
                       ))}
                     </div>
                   ) : null}
                 </div>
 
-                {canPaint && mode === "colours" ? (
+                {mode === "scan" && puzzle.kind === "nxn" ? (
+                  <ScanColourSolver key={puzzle.id} n={n} onSolved={onScanSolved} />
+                ) : canPaint && mode === "colours" ? (
                   puzzle.kind !== "nxn" ? (
                     <SideColourSolver
                       key={puzzle.id}

@@ -42,3 +42,6 @@ __pycache__/
 !.env.example
 .vercel
 .env*
+
+# Personal account screenshot
+godaddy pin.png

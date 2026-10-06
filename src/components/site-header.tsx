@@ -23,8 +23,9 @@ export function SiteHeader() {
             <Link
               key={item.to}
               to={item.to}
-              className="rounded-md px-2.5 py-1.5 text-muted transition-colors hover:text-foreground"
+              className="rounded-md px-2.5 py-1.5 transition-colors"
               activeOptions={{ exact: item.to === "/" }}
+              inactiveProps={{ className: "text-muted hover:text-foreground" }}
               activeProps={{ className: "bg-display text-background hover:text-background" }}
             >
               {item.label}
@@ -44,8 +45,9 @@ export function SiteHeader() {
           <Link
             key={item.to}
             to={item.to}
-            className="rounded-md px-2.5 py-1.5 text-muted"
+            className="rounded-md px-2.5 py-1.5"
             activeOptions={{ exact: item.to === "/" }}
+            inactiveProps={{ className: "text-muted hover:text-foreground" }}
             activeProps={{ className: "bg-display text-background" }}
           >
             {item.label}

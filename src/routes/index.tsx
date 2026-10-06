@@ -131,10 +131,7 @@ function Home() {
                   search={{ puzzle: p.id }}
                   className="flex items-start gap-4 rounded-xl border border-line bg-panel p-4 transition hover:border-primary/40"
                 >
-                  <FaceDiagram
-                    face={["u", "f", "u", "f", "d", "f", "u", "f", "u"]}
-                    size="size-3"
-                  />
+                  <FaceDiagram face={["u", "f", "u", "f", "d", "f", "u", "f", "u"]} size="size-3" />
                   <div className="min-w-0">
                     <h3 className="font-display text-base font-bold tracking-tight">{p.label}</h3>
                     <p className="mt-1 text-pretty text-[12px] text-muted">{p.blurb}</p>

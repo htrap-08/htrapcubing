@@ -39,10 +39,16 @@ export const blankFacelets = (n: number): Facelets =>
 
 /** Expand a 2×2 into 3×3 facelets, picking centres so the back-down-left corner is home. */
 function expand2x2(s: Facelets): Facelets {
-  const d = s.D[2]!, l = s.L[2]!, b = s.B[3]!;
+  const d = s.D[2]!,
+    l = s.L[2]!,
+    b = s.B[3]!;
   const centre: Record<Face, StickerKey> = {
-    D: d, L: l, B: b,
-    U: opposite[d]!, R: opposite[l]!, F: opposite[b]!,
+    D: d,
+    L: l,
+    B: b,
+    U: opposite[d]!,
+    R: opposite[l]!,
+    F: opposite[b]!,
   };
   const out = {} as Facelets;
   for (const f of FACES) {
@@ -96,8 +102,13 @@ const parity = (p: number[]) => {
   const seen = new Array(p.length).fill(false);
   for (let i = 0; i < p.length; i++) {
     if (seen[i]) continue;
-    let j = i, len = 0;
-    while (!seen[j]) { seen[j] = true; j = p[j]!; len++; }
+    let j = i,
+      len = 0;
+    while (!seen[j]) {
+      seen[j] = true;
+      j = p[j]!;
+      len++;
+    }
     swaps += len - 1;
   }
   return swaps % 2;
@@ -107,22 +118,46 @@ export type SolveResult = { ok: true; solution: string } | { ok: false; error: s
 
 export async function solveFacelets(n: 2 | 3, state: Facelets): Promise<SolveResult> {
   const all = FACES.flatMap((f) => state[f]);
-  if (all.includes("x")) return { ok: false, error: "Some stickers are still blank — colour every sticker first." };
+  if (all.includes("x"))
+    return { ok: false, error: "Some stickers are still blank — colour every sticker first." };
   for (const key of ["u", "d", "f", "b", "l", "r"] as StickerKey[]) {
     const count = all.filter((c) => c === key).length;
     if (count !== n * n)
-      return { ok: false, error: `Each colour should appear exactly ${n * n} times — one colour appears ${count} times.` };
+      return {
+        ok: false,
+        error: `Each colour should appear exactly ${n * n} times — one colour appears ${count} times.`,
+      };
   }
 
   const full = n === 2 ? expand2x2(state) : state;
   const letterOf = new Map<StickerKey, Face>();
   for (const f of FACES) letterOf.set(full[f][4]!, f);
-  if (letterOf.size !== 6) return { ok: false, error: "The centre stickers must all be different colours." };
+  if (letterOf.size !== 6)
+    return { ok: false, error: "The centre stickers must all be different colours." };
   if (n === 2 && new Set(FACES.map((f) => full[f][4])).size !== 6)
-    return { ok: false, error: "That corner combination isn't possible — double-check your colours." };
+    return {
+      ok: false,
+      error: "That corner combination isn't possible — double-check your colours.",
+    };
 
   const str = FACES.map((f) => full[f].map((c) => letterOf.get(c)).join("")).join("");
 
+  return solveCubeString(str);
+}
+
+/** Solve a standard 54-facelet URFDLB string using the existing Kociemba engine. */
+export async function solveCubeString(str: string): Promise<SolveResult> {
+  if (
+    !/^[URFDLB]{54}$/.test(str) ||
+    FACES.some(
+      (face, i) =>
+        str[i * 9 + 4] !== face || [...str].filter((value) => value === face).length !== 9,
+    )
+  )
+    return {
+      ok: false,
+      error: "Check all six faces: each colour must occur nine times with six different centres.",
+    };
   const Cube = await loadSolver();
   let cube: CubeInstance;
   try {
@@ -140,7 +175,8 @@ export async function solveFacelets(n: 2 | 3, state: Facelets): Promise<SolveRes
   if (!valid)
     return {
       ok: false,
-      error: "That colour pattern can't happen on a real cube — a piece may be twisted or two stickers swapped.",
+      error:
+        "That colour pattern can't happen on a real cube — a piece may be twisted or two stickers swapped.",
     };
   if (cube.isSolved()) return { ok: true, solution: "" };
   return { ok: true, solution: cube.solve().trim() };
