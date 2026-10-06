@@ -268,9 +268,12 @@ function SolverPage() {
                       puzzle={puzzle.id}
                       setup={custom ? new Alg(custom).invert().toString() : ""}
                       alg={custom ?? ""}
+                      playback={Boolean(custom)}
                     />
                     <p className="mt-2 text-center font-mono text-[10px] uppercase tracking-[0.12em] text-muted">
-                      Click a face or use the buttons to turn · drag to rotate
+                      {custom
+                        ? "Play or pause · step forward or back · drag to rotate"
+                        : "Click a face or use the buttons to turn · drag to rotate"}
                     </p>
                   </div>
                 ) : puzzle.kind === "nxn" ? (

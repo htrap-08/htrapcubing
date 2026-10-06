@@ -32,10 +32,12 @@ export function TwistyCube({
   puzzle,
   setup,
   alg,
+  playback = false,
 }: {
   puzzle: PuzzleId;
   setup: string;
   alg: string;
+  playback?: boolean;
 }) {
   const host = useRef<HTMLDivElement>(null);
   const player = useRef<HTMLElement & Record<string, unknown>>(null);
@@ -74,12 +76,18 @@ export function TwistyCube({
     const p = player.current;
     if (!ready || !p) return;
     try {
+      (p as unknown as { pause: () => void }).pause();
+      p["controlPanel"] = playback ? "bottom-row" : "none";
+      p["experimentalMovePressInput"] = playback ? "none" : "basic";
+      p["viewerLink"] = "none";
+      p.style.height = playback ? "400px" : "340px";
       p["experimentalSetupAlg"] = setup === "…" ? "" : clean(setup);
       p["alg"] = clean(alg);
+      p["timestamp"] = 0;
     } catch {
       p["alg"] = "";
     }
-  }, [ready, puzzle, setup, alg]);
+  }, [ready, puzzle, setup, alg, playback]);
 
   const addMove = (m: string) => {
     const p = player.current as unknown as { experimentalAddMove?: (m: string) => void } | null;
@@ -104,7 +112,7 @@ export function TwistyCube({
           Loading 3D model…
         </span>
       </div>
-      {ready ? (
+      {ready && !playback ? (
         <div className="mt-3 flex flex-col gap-1.5">
           {[bases, bases.map(inverse)].map((row, r) => (
             <div key={r} className="flex flex-wrap justify-center gap-1.5">
