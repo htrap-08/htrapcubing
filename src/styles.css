@@ -143,7 +143,7 @@
   background-size: 44px 44px;
 }
 
-/* Homepage layout from the edited Figma frame; other pages retain their layout. */
+/* Homepage matches the latest compact 1320 × 700 Figma frame. */
 .homepage {
   --background: #f8f2e5;
   --foreground: #221f19;
@@ -154,20 +154,39 @@
   flex-direction: column;
 }
 .home-container {
-  width: calc(100% - 112px);
-  max-width: 1154px;
-  margin-left: 56px;
+  width: calc(100% - 56px);
+  margin-inline: 28px;
 }
 .home-header > div {
-  height: 62px;
+  height: 56px;
   max-width: none;
   margin: 0;
-  padding: 0 56px;
-  gap: 28px;
+  padding: 0 28px;
+  gap: 36px;
+}
+.home-wordmark {
+  font-family: "Sour Gummy", var(--font-display-family);
+  color: #df5729;
+  font-size: 48px;
+  line-height: 1;
+  width: 380px;
+  white-space: nowrap;
+  letter-spacing: -0.3376px;
 }
 .home-header nav {
   margin-left: 0;
-  font-size: 11px;
+  font-family: "Jockey One", var(--font-display-family);
+  font-size: 15px;
+  letter-spacing: 1.1883px;
+  gap: 37px;
+}
+.home-header > div nav a {
+  padding: 5px 0;
+  line-height: 15px;
+}
+.home-header > div nav a:first-child {
+  text-align: center;
+  min-width: 71px;
 }
 .home-hero {
   position: relative;
@@ -182,10 +201,10 @@
 }
 .home-watermark {
   position: absolute;
-  left: 40%;
-  top: -155px;
+  left: 306px;
+  top: -129px;
   font-family: var(--font-display-family);
-  font-size: 296px;
+  font-size: 266.469px;
   font-weight: 700;
   line-height: 1;
   color: var(--display-soft);
@@ -194,37 +213,36 @@
 }
 .home-hero-content {
   position: relative;
-  padding-top: 17px;
-  padding-bottom: 28px;
+  padding-top: 5px;
+  padding-bottom: 16px;
 }
 .home-hero h1 {
   font-family: var(--font-display-family);
-  font-size: 49px;
-  line-height: 1.1;
+  font-size: 44.111px;
+  line-height: 48.523px;
   font-weight: 700;
-  letter-spacing: -1.05px;
+  letter-spacing: -0.9452px;
 }
 .home-intro {
-  max-width: 340px;
-  margin-top: 21px;
+  max-width: 301px;
+  margin-top: 22.5px;
   color: var(--muted);
-  font-size: 14px;
-  line-height: 16px;
+  font-size: 12.603px;
+  line-height: 14.404px;
 }
 .home-features {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  max-width: 967px;
-  margin-top: 35px;
+  gap: 18px;
+  margin-top: 19px;
 }
 .home-feature {
   min-width: 0;
-  min-height: 117px;
+  height: 109px;
   border: 1px solid var(--line);
-  border-radius: 11px;
+  border-radius: 10px;
   background: var(--panel);
-  padding: 14px;
+  padding: 12.6px;
   transition: border-color 150ms;
 }
 .home-feature:hover,
@@ -234,88 +252,79 @@
 .home-feature-tag {
   font-family: var(--font-mono-family);
   text-transform: uppercase;
-  letter-spacing: 1.05px;
-  font-size: 10px;
-  line-height: 11px;
+  letter-spacing: 0.9452px;
+  font-size: 9px;
+  line-height: 10px;
   color: var(--primary);
 }
 .home-feature h2 {
-  margin-top: 8px;
+  margin-top: 12px;
   font-family: var(--font-display-family);
-  font-size: 17px;
-  line-height: 22px;
+  font-size: 15.304px;
+  line-height: 20px;
   font-weight: 700;
-  letter-spacing: -0.42px;
+  letter-spacing: -0.3781px;
 }
 .home-feature-body {
-  margin-top: 14px;
+  margin-top: 9px;
   color: var(--muted);
-  font-size: 9px;
-  line-height: 14px;
+  font-size: 8.102px;
+  line-height: 12.603px;
+  max-width: 310px;
 }
 .home-puzzles {
-  padding: 46px 0 37px;
+  padding: 24px 0 23px;
 }
 .home-puzzle-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 11px 20px;
-  max-width: 1044px;
+  gap: 12px 16px;
 }
 .home-puzzle-grid > h2 {
   align-self: center;
   font-family: var(--font-display-family);
-  font-size: 34px;
-  line-height: 1.1;
+  font-size: 30px;
+  line-height: 33.669px;
   font-weight: 700;
-  letter-spacing: -0.525px;
+  letter-spacing: -0.4726px;
 }
 .home-puzzle-card {
   min-width: 0;
-  min-height: 56px;
+  height: 56px;
   display: flex;
   align-items: center;
-  gap: 11px;
-  padding: 11px;
+  gap: 10px;
+  padding: 9.9px;
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 11px;
+  border-radius: 10px;
   transition: border-color 150ms;
 }
-.home-puzzle-card > svg {
-  width: 31px;
-  height: 31px;
+.home-puzzle-card > svg,
+.home-cube-icon {
+  width: 27.907px;
+  height: 27.907px;
   flex-shrink: 0;
 }
 .home-puzzle-card > .grid {
-  transform: scale(0.7);
+  transform: scale(0.634);
   transform-origin: left center;
-  width: 31px;
+  width: 27.907px;
+  height: 27.907px;
   flex-shrink: 0;
 }
 .home-puzzle-card h3 {
   font-family: var(--font-display-family);
-  font-size: 11px;
-  line-height: 17px;
+  font-size: 9.903px;
+  line-height: 15.304px;
   font-weight: 700;
-  letter-spacing: -0.28px;
+  letter-spacing: -0.2521px;
 }
 .home-puzzle-card p {
   margin-top: 2px;
-  font-size: 8.4px;
-  line-height: 13px;
+  font-size: 7.562px;
+  line-height: 11.703px;
   color: var(--muted);
-}
-@media (min-width: 1100px) {
-  .home-puzzle-card:nth-child(4) {
-    grid-column: 1;
-  }
-  .home-puzzle-card:nth-child(7) {
-    grid-column: 1;
-  }
-  .home-puzzle-card:nth-child(10) {
-    grid-column: 1;
-  }
 }
 .home-footer {
   border-top: 1px solid var(--line);
@@ -324,26 +333,30 @@
 .home-footer > div {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
   min-height: 70px;
   font-family: var(--font-display-family);
-  font-size: 11px;
+  font-size: 9.903px;
 }
 .home-footer a {
   font-weight: 700;
 }
 .home-footer span {
   border-left: 1px solid var(--muted);
-  padding-left: 20px;
+  padding-left: 18px;
   color: #89857c;
 }
 @media (max-width: 1099px) {
-  .home-container {
-    width: calc(100% - 64px);
-    margin-left: 32px;
-  }
   .home-header > div {
-    padding: 0 32px;
+    gap: 20px;
+  }
+  .home-wordmark {
+    font-size: 38px;
+    width: auto;
+  }
+  .home-header nav {
+    gap: 20px;
+    font-size: 13px;
   }
   .home-puzzle-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -357,22 +370,44 @@
     font-size: 26vw;
     top: -10vw;
   }
+  .home-feature {
+    height: auto;
+    min-height: 109px;
+  }
+}
+@media (max-width: 767px) {
+  .home-header nav {
+    gap: 14px;
+  }
 }
 @media (max-width: 639px) {
   .home-container {
     width: calc(100% - 32px);
-    margin-left: 16px;
+    margin-inline: 16px;
   }
   .home-header > div {
     padding: 0 16px;
-    height: 52px;
+    height: 56px;
+  }
+  .home-wordmark {
+    font-size: 36px;
   }
   .home-header > nav {
     padding-left: 16px;
     flex-wrap: wrap;
+    overflow-x: visible;
+  }
+  .home-hero-content {
+    padding-top: 12px;
+    padding-bottom: 24px;
   }
   .home-hero h1 {
     font-size: 36px;
+    line-height: 1.1;
+  }
+  .home-intro {
+    font-size: 14px;
+    line-height: 20px;
   }
   .home-features {
     grid-template-columns: 1fr;
@@ -400,6 +435,14 @@
   .home-puzzle-card {
     padding: 9px;
     gap: 8px;
+    height: auto;
+    min-height: 64px;
+  }
+  .home-puzzle-card h3 {
+    font-size: 11px;
+  }
+  .home-puzzle-card p {
+    font-size: 10px;
   }
   .home-footer > div {
     gap: 12px;
@@ -413,21 +456,6 @@
   .home-puzzle-grid {
     grid-template-columns: 1fr;
   }
-}
-
-.home-header nav {
-  font-family: "Jockey One", var(--font-display-family);
-}
-.home-puzzle-card > .grid {
-  height: 31px;
-}
-.home-cube-icon {
-  width: 31px;
-  height: 31px;
-  flex-shrink: 0;
-}
-.home-feature-body {
-  margin-top: 8px;
 }
 
 @font-face {
@@ -473,19 +501,6 @@
   src: url(/fonts/home-5.ttf) format("truetype");
 }
 
-.home-hero-content {
-  padding-top: 10px;
-  padding-bottom: 24px;
-}
-.home-puzzles {
-  padding-top: 40px;
-  padding-bottom: 30px;
-}
-.home-watermark {
-  left: 310px;
-  top: -144px;
-}
-
 .square1-playbar button {
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -498,4 +513,12 @@
 }
 .square1-playbar button:hover:not(:disabled) {
   border-color: var(--primary);
+}
+
+@font-face {
+  font-family: "Sour Gummy";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/fonts/sour-gummy-bold.ttf) format("truetype");
 }

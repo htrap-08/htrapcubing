@@ -14,7 +14,9 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
             <span className="size-2.5 bg-foreground/80" />
             <span className="size-2.5 bg-panel" />
           </span>
-          <span className="font-display text-[15px] font-bold tracking-tight">
+          <span
+            className={`font-display text-[15px] font-bold tracking-tight ${compact ? "home-wordmark" : ""}`}
+          >
             {compact ? (
               "scrambled eggs"
             ) : (

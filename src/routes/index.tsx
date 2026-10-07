@@ -63,7 +63,7 @@ const homepagePuzzles = [
   ["Pyraminx The Toast Triangle", "Tetrahedron typa"],
   ["Megaminx The Fruit Salad", "Dodecahedron typa"],
   ["Skewb The French Toast", "Corner-turning cube"],
-  ["Square-1 The Layer Cake", "Shape-shifting puzzle"],
+  ["Square-1 The Layer Cake", "Shapeshifter"],
 ];
 
 function Home() {
