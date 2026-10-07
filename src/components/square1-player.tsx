@@ -1,7 +1,17 @@
 import { createElement, useEffect, useMemo, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { ExtrudeGeometry, Shape } from "three";
+import {
+  BoxGeometry,
+  BufferGeometry,
+  CylinderGeometry,
+  EdgesGeometry,
+  ExtrudeGeometry,
+  Quaternion,
+  Shape,
+  Vector3,
+} from "three";
+import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { applySquare1Move, parseSquare1, solvedSquare1, type Square1State } from "@/lib/square1";
 
 const colours = ["#fafafa", "#f1cb1c", "#df5729", "#27a865", "#d72e36", "#2878d0"];
@@ -35,9 +45,43 @@ function geometry(id: number) {
   }
   return g;
 }
+/** Solid black seams retain their thickness across WebGL platforms. */
+function borderGeometry(body: BufferGeometry) {
+  const edges = new EdgesGeometry(body);
+  const positions = edges.getAttribute("position");
+  const segments: BufferGeometry[] = [];
+  const up = new Vector3(0, 1, 0);
+  for (let i = 0; i < positions.count; i += 2) {
+    const a = new Vector3().fromBufferAttribute(positions, i);
+    const b = new Vector3().fromBufferAttribute(positions, i + 1);
+    const direction = b.clone().sub(a);
+    const cylinder = new CylinderGeometry(0.012, 0.012, direction.length(), 6);
+    cylinder.applyQuaternion(new Quaternion().setFromUnitVectors(up, direction.normalize()));
+    cylinder.translate(...a.add(b).multiplyScalar(0.5).toArray());
+    segments.push(cylinder);
+  }
+  const border = mergeGeometries(segments)!;
+  segments.forEach((segment) => segment.dispose());
+  edges.dispose();
+  return border;
+}
 function Pieces({ state }: { state: Square1State }) {
   const geometries = useMemo(() => Array.from({ length: 16 }, (_, id) => geometry(id)), []);
-  useEffect(() => () => geometries.forEach((g) => g.dispose()), [geometries]);
+  const borders = useMemo(() => geometries.map(borderGeometry), [geometries]);
+  const middleBorder = useMemo(() => {
+    const box = new BoxGeometry(0.98, 0.42, 1.98);
+    const border = borderGeometry(box);
+    box.dispose();
+    return border;
+  }, []);
+  useEffect(
+    () => () => {
+      geometries.forEach((g) => g.dispose());
+      borders.forEach((g) => g.dispose());
+      middleBorder.dispose();
+    },
+    [geometries, borders, middleBorder],
+  );
   const pieces = [state.top, state.bottom].flatMap((ring, layer) =>
     ring.flatMap((id, i) => {
       if (ring[(i + 11) % 12] === id) return [];
@@ -72,6 +116,11 @@ function Pieces({ state }: { state: Square1State }) {
             color: layer === 1 ? colours[id < 8 ? 0 : 1]! : "#221f19",
             roughness: 0.65,
           }),
+          createElement(
+            "mesh",
+            { geometry: borders[id]! },
+            createElement("meshBasicMaterial", { color: "#1c1a17" }),
+          ),
           ...["#df5729", "#27a865", "#d72e36", "#2878d0", "#221f19"].map((colour, index) =>
             createElement("meshStandardMaterial", {
               key: index,
@@ -87,6 +136,11 @@ function Pieces({ state }: { state: Square1State }) {
       "mesh",
       { position: [-0.5, 0, 0] },
       createElement("boxGeometry", { args: [0.98, 0.42, 1.98] }),
+      createElement(
+        "mesh",
+        { geometry: middleBorder },
+        createElement("meshBasicMaterial", { color: "#1c1a17" }),
+      ),
       ...["#df5729", "#d72e36", "#221f19", "#221f19", "#27a865", "#2878d0"].map((colour, i) =>
         createElement("meshStandardMaterial", { key: i, attach: `material-${i}`, color: colour }),
       ),
@@ -95,6 +149,11 @@ function Pieces({ state }: { state: Square1State }) {
       "mesh",
       { position: [0.5, 0, 0], rotation: [state.flipped ? Math.PI : 0, 0, 0] },
       createElement("boxGeometry", { args: [0.98, 0.42, 1.98] }),
+      createElement(
+        "mesh",
+        { geometry: middleBorder },
+        createElement("meshBasicMaterial", { color: "#1c1a17" }),
+      ),
       ...["#df5729", "#d72e36", "#221f19", "#221f19", "#27a865", "#2878d0"].map((colour, i) =>
         createElement("meshStandardMaterial", { key: i, attach: `material-${i}`, color: colour }),
       ),
