@@ -112,6 +112,8 @@ export function Square1Player({
   playback?: boolean;
   initialState?: Square1State;
 }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const [history, setHistory] = useState("");
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
@@ -151,12 +153,18 @@ export function Square1Player({
   return (
     <div className="mt-3">
       <div className="h-[340px] w-full" aria-label="Interactive 3D Square-1 model">
-        <Canvas camera={{ position: [4, 3, 4], fov: 40 }}>
-          {createElement("ambientLight", { intensity: 1.5 })}
-          {createElement("directionalLight", { position: [3, 5, 4], intensity: 2 })}
-          <Pieces state={state} />
-          <OrbitControls enablePan={false} minDistance={4} maxDistance={10} />
-        </Canvas>
+        {mounted ? (
+          <Canvas camera={{ position: [4, 3, 4], fov: 40 }}>
+            {createElement("ambientLight", { intensity: 1.5 })}
+            {createElement("directionalLight", { position: [3, 5, 4], intensity: 2 })}
+            <Pieces state={state} />
+            <OrbitControls enablePan={false} minDistance={4} maxDistance={10} />
+          </Canvas>
+        ) : (
+          <div className="flex h-full items-center justify-center text-xs text-muted">
+            Loading 3D model…
+          </div>
+        )}
       </div>
       <div className="square1-playbar mt-3 flex flex-wrap items-center justify-center gap-2">
         {playback ? (
