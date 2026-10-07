@@ -1,20 +1,28 @@
 import { Link } from "@tanstack/react-router";
 import { navItems, site } from "@/config/site";
 
-export function SiteHeader() {
+export function SiteHeader({ compact = false }: { compact?: boolean }) {
   return (
-    <header className="sticky top-0 z-30 border-b border-line bg-background/90 backdrop-blur-sm">
+    <header
+      className={`sticky top-0 z-30 border-b border-line bg-background/90 backdrop-blur-sm ${compact ? "home-header" : ""}`}
+    >
       <div className="mx-auto flex h-14 max-w-[1440px] items-center gap-6 px-5 sm:px-8">
         <Link to="/" className="flex items-center gap-2.5">
-          <span className="grid grid-cols-2 gap-[2px]">
+          <span className={`grid grid-cols-2 gap-[2px] ${compact ? "hidden" : ""}`}>
             <span className="size-2.5 bg-primary" />
             <span className="size-2.5 bg-foreground/80" />
             <span className="size-2.5 bg-foreground/80" />
             <span className="size-2.5 bg-panel" />
           </span>
           <span className="font-display text-[15px] font-bold tracking-tight">
-            {site.name}
-            <span className="text-muted">{site.nameSuffix}</span>
+            {compact ? (
+              "scrambled eggs"
+            ) : (
+              <>
+                {site.name}
+                <span className="text-muted">{site.nameSuffix}</span>
+              </>
+            )}
           </span>
         </Link>
 
@@ -33,7 +41,7 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="ml-auto flex items-center gap-3">
+        <div className={`ml-auto flex items-center gap-3 ${compact ? "hidden" : ""}`}>
           <span className="hidden font-mono text-[10px] tracking-[0.15em] text-muted sm:inline">
             {site.build}
           </span>

@@ -142,3 +142,346 @@
     linear-gradient(to bottom, var(--line) 1px, transparent 1px);
   background-size: 44px 44px;
 }
+
+/* Homepage layout from the edited Figma frame; other pages retain their layout. */
+.homepage {
+  --background: #f8f2e5;
+  --foreground: #221f19;
+  --panel: #fbf7ef;
+  min-height: 100svh;
+  overflow-x: clip;
+  display: flex;
+  flex-direction: column;
+}
+.home-container {
+  width: calc(100% - 112px);
+  max-width: 1154px;
+  margin-left: 56px;
+}
+.home-header > div {
+  height: 62px;
+  max-width: none;
+  margin: 0;
+  padding: 0 56px;
+  gap: 28px;
+}
+.home-header nav {
+  margin-left: 0;
+  font-size: 11px;
+}
+.home-hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+.home-gradient {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+.home-watermark {
+  position: absolute;
+  left: 40%;
+  top: -155px;
+  font-family: var(--font-display-family);
+  font-size: 296px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--display-soft);
+  pointer-events: none;
+  user-select: none;
+}
+.home-hero-content {
+  position: relative;
+  padding-top: 17px;
+  padding-bottom: 28px;
+}
+.home-hero h1 {
+  font-family: var(--font-display-family);
+  font-size: 49px;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -1.05px;
+}
+.home-intro {
+  max-width: 340px;
+  margin-top: 21px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 16px;
+}
+.home-features {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  max-width: 967px;
+  margin-top: 35px;
+}
+.home-feature {
+  min-width: 0;
+  min-height: 117px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--panel);
+  padding: 14px;
+  transition: border-color 150ms;
+}
+.home-feature:hover,
+.home-puzzle-card:hover {
+  border-color: var(--primary);
+}
+.home-feature-tag {
+  font-family: var(--font-mono-family);
+  text-transform: uppercase;
+  letter-spacing: 1.05px;
+  font-size: 10px;
+  line-height: 11px;
+  color: var(--primary);
+}
+.home-feature h2 {
+  margin-top: 8px;
+  font-family: var(--font-display-family);
+  font-size: 17px;
+  line-height: 22px;
+  font-weight: 700;
+  letter-spacing: -0.42px;
+}
+.home-feature-body {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 14px;
+}
+.home-puzzles {
+  padding: 46px 0 37px;
+}
+.home-puzzle-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 11px 20px;
+  max-width: 1044px;
+}
+.home-puzzle-grid > h2 {
+  align-self: center;
+  font-family: var(--font-display-family);
+  font-size: 34px;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.525px;
+}
+.home-puzzle-card {
+  min-width: 0;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 11px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  transition: border-color 150ms;
+}
+.home-puzzle-card > svg {
+  width: 31px;
+  height: 31px;
+  flex-shrink: 0;
+}
+.home-puzzle-card > .grid {
+  transform: scale(0.7);
+  transform-origin: left center;
+  width: 31px;
+  flex-shrink: 0;
+}
+.home-puzzle-card h3 {
+  font-family: var(--font-display-family);
+  font-size: 11px;
+  line-height: 17px;
+  font-weight: 700;
+  letter-spacing: -0.28px;
+}
+.home-puzzle-card p {
+  margin-top: 2px;
+  font-size: 8.4px;
+  line-height: 13px;
+  color: var(--muted);
+}
+@media (min-width: 1100px) {
+  .home-puzzle-card:nth-child(4) {
+    grid-column: 1;
+  }
+  .home-puzzle-card:nth-child(7) {
+    grid-column: 1;
+  }
+  .home-puzzle-card:nth-child(10) {
+    grid-column: 1;
+  }
+}
+.home-footer {
+  border-top: 1px solid var(--line);
+  margin-top: auto;
+}
+.home-footer > div {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-height: 70px;
+  font-family: var(--font-display-family);
+  font-size: 11px;
+}
+.home-footer a {
+  font-weight: 700;
+}
+.home-footer span {
+  border-left: 1px solid var(--muted);
+  padding-left: 20px;
+  color: #89857c;
+}
+@media (max-width: 1099px) {
+  .home-container {
+    width: calc(100% - 64px);
+    margin-left: 32px;
+  }
+  .home-header > div {
+    padding: 0 32px;
+  }
+  .home-puzzle-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .home-puzzle-grid > h2 {
+    grid-column: 1 / -1;
+    margin-bottom: 10px;
+  }
+  .home-watermark {
+    left: 35%;
+    font-size: 26vw;
+    top: -10vw;
+  }
+}
+@media (max-width: 639px) {
+  .home-container {
+    width: calc(100% - 32px);
+    margin-left: 16px;
+  }
+  .home-header > div {
+    padding: 0 16px;
+    height: 52px;
+  }
+  .home-header > nav {
+    padding-left: 16px;
+    flex-wrap: wrap;
+  }
+  .home-hero h1 {
+    font-size: 36px;
+  }
+  .home-features {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .home-feature {
+    min-height: 0;
+  }
+  .home-feature-body {
+    font-size: 12px;
+    line-height: 18px;
+    margin-top: 8px;
+  }
+  .home-puzzles {
+    padding: 28px 0;
+  }
+  .home-puzzle-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .home-puzzle-grid > h2 {
+    font-size: 28px;
+  }
+  .home-puzzle-card {
+    padding: 9px;
+    gap: 8px;
+  }
+  .home-footer > div {
+    gap: 12px;
+    font-size: 10px;
+  }
+  .home-footer span {
+    padding-left: 12px;
+  }
+}
+@media (max-width: 359px) {
+  .home-puzzle-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.home-header nav {
+  font-family: "Jockey One", var(--font-display-family);
+}
+.home-puzzle-card > .grid {
+  height: 31px;
+}
+.home-cube-icon {
+  width: 31px;
+  height: 31px;
+  flex-shrink: 0;
+}
+.home-feature-body {
+  margin-top: 8px;
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/home-0.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/fonts/home-1.ttf) format("truetype");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/home-2.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Jockey One";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/home-3.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/home-4.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/fonts/home-5.ttf) format("truetype");
+}
+
+.home-hero-content {
+  padding-top: 10px;
+  padding-bottom: 24px;
+}
+.home-puzzles {
+  padding-top: 40px;
+  padding-bottom: 30px;
+}
+.home-watermark {
+  left: 310px;
+  top: -144px;
+}
