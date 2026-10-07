@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
+import { Square1Icon } from "@/components/square1-icon";
 import { FaceDiagram } from "@/components/sticker";
 import { puzzles } from "@/lib/puzzles";
 
@@ -62,6 +63,7 @@ const homepagePuzzles = [
   ["Pyraminx The Toast Triangle", "Tetrahedron typa"],
   ["Megaminx The Fruit Salad", "Dodecahedron typa"],
   ["Skewb The French Toast", "Corner-turning cube"],
+  ["Square-1 The Layer Cake", "Shape-shifting puzzle"],
 ];
 
 function Home() {
@@ -93,7 +95,7 @@ function Home() {
         </section>
         <section className="home-puzzles">
           <div className="home-container home-puzzle-grid">
-            <h2>Twelve Puzzles</h2>
+            <h2>Thirteen Puzzles</h2>
             {puzzles.map((puzzle, index) => (
               <Link
                 key={puzzle.id}
@@ -101,7 +103,9 @@ function Home() {
                 search={{ puzzle: puzzle.id }}
                 className="home-puzzle-card"
               >
-                {puzzle.kind === "nxn" && puzzle.n ? (
+                {puzzle.kind === "square1" ? (
+                  <Square1Icon />
+                ) : puzzle.kind === "nxn" && puzzle.n ? (
                   <img
                     src={`/images/home-cube-${puzzle.n}.svg`}
                     alt={`${puzzle.n} by ${puzzle.n} cube grid`}

@@ -5,6 +5,8 @@ import { SiteFooter } from "@/components/site-footer";
 import { CubeNet, solvedNet, type NetState } from "@/components/cube-net";
 import { TwistyCube, twistyPuzzleConfig } from "@/components/twisty-cube";
 import { ScanColourSolver } from "@/components/scan-colour-solver";
+import { Square1Icon } from "@/components/square1-icon";
+import { Square1Solver } from "@/components/square1-solver";
 import { SideColourSolver } from "@/components/side-colour-solver";
 import { Alg } from "cubing/alg";
 import { ColourSolver } from "@/components/colour-solver";
@@ -34,7 +36,7 @@ export const Route = createFileRoute("/solver")({
       {
         name: "description",
         content:
-          "Step-by-step solve walkthroughs for 2×2 through 10×10 cubes plus Pyraminx, Megaminx and Skewb, with a paintable cube net and fresh scrambles.",
+          "Step-by-step solve walkthroughs for 2×2 through 10×10 cubes plus Pyraminx, Megaminx, Skewb and Square-1, with a paintable cube net and fresh scrambles.",
       },
       { property: "og:title", content: "Solver — AXIOM/CUBE" },
       {
@@ -72,7 +74,7 @@ function SolverPage() {
   const [step, setStep] = useState(0);
   const [mode, setMode] = useState<"practice" | "colours" | "scan">("practice");
   const [custom, setCustom] = useState<string | null>(null);
-  const canPaint = true;
+  const canPaint = puzzle.kind !== "square1";
   const onScanSolved = useCallback((solution: string) => {
     setCustom(solution);
     setMode("practice");
@@ -218,7 +220,9 @@ function SolverPage() {
                   ) : null}
                 </div>
 
-                {mode === "scan" && puzzle.kind === "nxn" ? (
+                {puzzle.kind === "square1" ? (
+                  <Square1Solver key={puzzle.id} scramble={scramble} />
+                ) : mode === "scan" && puzzle.kind === "nxn" ? (
                   <ScanColourSolver key={puzzle.id} n={n} onSolved={onScanSolved} />
                 ) : canPaint && mode === "colours" ? (
                   puzzle.kind !== "nxn" ? (
@@ -347,7 +351,11 @@ function SolverPage() {
                       {current.title}
                     </h2>
                     <div className="mt-3 flex items-start gap-4">
-                      <FaceDiagram face={current.face} />
+                      {puzzle.kind === "square1" ? (
+                        <Square1Icon />
+                      ) : (
+                        <FaceDiagram face={current.face} />
+                      )}
                       <p className="font-mono text-[14px] font-medium leading-relaxed">
                         {current.moves}
                       </p>

@@ -20,6 +20,7 @@ export type Algorithm = {
   face: StickerKey[];
   description: string;
   puzzle?: string;
+  source?: string;
 };
 
 export const groupsByTrack: Record<Track, string[]> = {
@@ -30,13 +31,69 @@ export const groupsByTrack: Record<Track, string[]> = {
     "Top cross",
     "Last layer",
     "Other puzzles",
+    "Square-1",
   ],
-  advanced: ["CFOP · F2L", "CFOP · OLL", "CFOP · PLL", "Commutators", "Big cube parity"],
+  advanced: [
+    "CFOP · F2L",
+    "CFOP · OLL",
+    "CFOP · PLL",
+    "Commutators",
+    "Big cube parity",
+    "Square-1",
+  ],
 };
 
 const g = (k: StickerKey, n: number): StickerKey[] => Array.from({ length: n }, () => k);
 
 export const algorithms: Algorithm[] = [
+  {
+    id: "sq1-notation",
+    track: "beginner",
+    group: "Square-1",
+    puzzle: "Square-1",
+    name: "Layer and slice notation",
+    moves: "(1,0) / (-1,0)",
+    face: g("u", 9),
+    description:
+      "Pairs count 30° top and bottom turns. Slash is a 180° right-half turn. Align seams first.",
+    source: "https://www.worldcubeassociation.org/regulations/#12c",
+  },
+  {
+    id: "sq1-middle",
+    track: "beginner",
+    group: "Square-1",
+    puzzle: "Square-1",
+    name: "Restore the middle layer",
+    moves: "/ (6,0) / (6,0) / (6,0)",
+    face: g("u", 9),
+    description: "Use when only the middle layer is flipped, with both layers sliceable.",
+    source: "https://www.jaapsch.net/puzzles/square1.htm",
+  },
+  {
+    id: "sq1-edge-swap",
+    track: "advanced",
+    group: "Square-1",
+    puzzle: "Square-1",
+    name: "Exchange opposite edges",
+    moves: "(1,0) / (-1,-1) / (6,0) / (1,1) / (-1,0)",
+    face: ["u", "p", "u", "u", "u", "u", "u", "p", "u"],
+    description:
+      "In cube shape, exchanges front/back edges in both layers. Check the source orientation before applying.",
+    source: "https://www.jaapsch.net/puzzles/square1.htm",
+  },
+  {
+    id: "sq1-parity",
+    track: "advanced",
+    group: "Square-1",
+    puzzle: "Square-1",
+    name: "Odd edge permutation",
+    moves:
+      "/ (3,3) / (1,0) / (-2,-2) / (2,0) / (2,2) / (-1,0) / (-3,-3) / (-2,0) / (3,3) / (3,0) / (-1,-1) / (-3,0) / (1,1) / (-4,-3)",
+    face: ["u", "p", "u", "u", "u", "u", "u", "p", "u"],
+    description:
+      "Parity correction for the source's front/back edge case. Match its starting alignment; never force a blocked slice.",
+    source: "https://www.jaapsch.net/puzzles/square1.htm",
+  },
   // ---------- BEGINNER ----------
   {
     id: "b-cross-flip",
@@ -45,7 +102,8 @@ export const algorithms: Algorithm[] = [
     name: "Flip a cross edge",
     moves: "F R U R' U' F'",
     face: ["x", "u", "x", "u", "u", "u", "x", "u", "x"],
-    description: "The edge is in the right slot but showing the wrong colour. This flips it in place.",
+    description:
+      "The edge is in the right slot but showing the wrong colour. This flips it in place.",
   },
   {
     id: "b-cross-insert",
@@ -54,7 +112,8 @@ export const algorithms: Algorithm[] = [
     name: "Drop an edge in",
     moves: "F2",
     face: ["x", "x", "x", "x", "u", "x", "x", "u", "x"],
-    description: "Line the edge above its matching centre, then turn that face twice to drop it home.",
+    description:
+      "Line the edge above its matching centre, then turn that face twice to drop it home.",
   },
   {
     id: "b-corner-right",
@@ -266,7 +325,8 @@ export const algorithms: Algorithm[] = [
     name: "Corner 3-cycle [R, U]",
     moves: "R U R' · U · R U' R' · U'",
     face: ["p", "x", "p", "x", "d", "x", "p", "x", "x"],
-    description: "The A B A' B' skeleton: insert, interchange, undo, undo. Cycles three corners, touches nothing else.",
+    description:
+      "The A B A' B' skeleton: insert, interchange, undo, undo. Cycles three corners, touches nothing else.",
   },
   {
     id: "a-comm-edge",

@@ -1,3 +1,4 @@
+import { square1Scramble } from "./square1";
 /**
  * Puzzle registry + scramble generators.
  * Add a puzzle here and it appears in the solver, the timer and the
@@ -18,9 +19,10 @@ export type PuzzleId =
   | "10x10"
   | "pyraminx"
   | "megaminx"
-  | "skewb";
+  | "skewb"
+  | "square1";
 
-export type PuzzleKind = "nxn" | "pyraminx" | "megaminx" | "skewb";
+export type PuzzleKind = "nxn" | "pyraminx" | "megaminx" | "skewb" | "square1" | "square1";
 
 export type Puzzle = {
   id: PuzzleId;
@@ -35,25 +37,125 @@ export type Puzzle = {
 };
 
 export const puzzles: Puzzle[] = [
-  { id: "2x2", label: "2×2 Pocket Cube", short: "2×2", kind: "nxn", n: 2, scrambleLength: 11, blurb: "Corners only — the fastest way to learn layer thinking." },
-  { id: "3x3", label: "3×3 Rubik's Cube", short: "3×3", kind: "nxn", n: 3, scrambleLength: 20, blurb: "The original. Beginner layer-by-layer, then CFOP." },
-  { id: "4x4", label: "4×4 Revenge", short: "4×4", kind: "nxn", n: 4, scrambleLength: 44, blurb: "Centers, edge pairing, then 3×3 with parity fixes." },
-  { id: "5x5", label: "5×5 Professor", short: "5×5", kind: "nxn", n: 5, scrambleLength: 60, blurb: "Odd big cube — fixed centers, no OLL parity." },
-  { id: "6x6", label: "6×6 Cube", short: "6×6", kind: "nxn", n: 6, scrambleLength: 80, blurb: "Wide-layer reduction with inner-slice parity." },
-  { id: "7x7", label: "7×7 Cube", short: "7×7", kind: "nxn", n: 7, scrambleLength: 100, blurb: "Reduction at scale — patience beats speed." },
-  { id: "8x8", label: "8×8 Cube", short: "8×8", kind: "nxn", n: 8, scrambleLength: 120, blurb: "Even cube, two inner slice groups per face." },
-  { id: "9x9", label: "9×9 Cube", short: "9×9", kind: "nxn", n: 9, scrambleLength: 140, blurb: "Odd cube — centers anchor to fixed middles." },
-  { id: "10x10", label: "10×10 Cube", short: "10×10", kind: "nxn", n: 10, scrambleLength: 160, blurb: "The big one. Same reduction, more of everything." },
-  { id: "pyraminx", label: "Pyraminx", short: "Pyraminx", kind: "pyraminx", scrambleLength: 11, blurb: "Tetrahedron: tips, centres, then the last layer." },
-  { id: "megaminx", label: "Megaminx", short: "Megaminx", kind: "megaminx", scrambleLength: 70, blurb: "Dodecahedron: twelve faces, 3×3 logic throughout." },
-  { id: "skewb", label: "Skewb", short: "Skewb", kind: "skewb", scrambleLength: 11, blurb: "Corner-turning cube solved in two intuitive stages." },
+  {
+    id: "2x2",
+    label: "2×2 Pocket Cube",
+    short: "2×2",
+    kind: "nxn",
+    n: 2,
+    scrambleLength: 11,
+    blurb: "Corners only — the fastest way to learn layer thinking.",
+  },
+  {
+    id: "3x3",
+    label: "3×3 Rubik's Cube",
+    short: "3×3",
+    kind: "nxn",
+    n: 3,
+    scrambleLength: 20,
+    blurb: "The original. Beginner layer-by-layer, then CFOP.",
+  },
+  {
+    id: "4x4",
+    label: "4×4 Revenge",
+    short: "4×4",
+    kind: "nxn",
+    n: 4,
+    scrambleLength: 44,
+    blurb: "Centers, edge pairing, then 3×3 with parity fixes.",
+  },
+  {
+    id: "5x5",
+    label: "5×5 Professor",
+    short: "5×5",
+    kind: "nxn",
+    n: 5,
+    scrambleLength: 60,
+    blurb: "Odd big cube — fixed centers, no OLL parity.",
+  },
+  {
+    id: "6x6",
+    label: "6×6 Cube",
+    short: "6×6",
+    kind: "nxn",
+    n: 6,
+    scrambleLength: 80,
+    blurb: "Wide-layer reduction with inner-slice parity.",
+  },
+  {
+    id: "7x7",
+    label: "7×7 Cube",
+    short: "7×7",
+    kind: "nxn",
+    n: 7,
+    scrambleLength: 100,
+    blurb: "Reduction at scale — patience beats speed.",
+  },
+  {
+    id: "8x8",
+    label: "8×8 Cube",
+    short: "8×8",
+    kind: "nxn",
+    n: 8,
+    scrambleLength: 120,
+    blurb: "Even cube, two inner slice groups per face.",
+  },
+  {
+    id: "9x9",
+    label: "9×9 Cube",
+    short: "9×9",
+    kind: "nxn",
+    n: 9,
+    scrambleLength: 140,
+    blurb: "Odd cube — centers anchor to fixed middles.",
+  },
+  {
+    id: "10x10",
+    label: "10×10 Cube",
+    short: "10×10",
+    kind: "nxn",
+    n: 10,
+    scrambleLength: 160,
+    blurb: "The big one. Same reduction, more of everything.",
+  },
+  {
+    id: "pyraminx",
+    label: "Pyraminx",
+    short: "Pyraminx",
+    kind: "pyraminx",
+    scrambleLength: 11,
+    blurb: "Tetrahedron: tips, centres, then the last layer.",
+  },
+  {
+    id: "megaminx",
+    label: "Megaminx",
+    short: "Megaminx",
+    kind: "megaminx",
+    scrambleLength: 70,
+    blurb: "Dodecahedron: twelve faces, 3×3 logic throughout.",
+  },
+  {
+    id: "skewb",
+    label: "Skewb",
+    short: "Skewb",
+    kind: "skewb",
+    scrambleLength: 11,
+    blurb: "Corner-turning cube solved in two intuitive stages.",
+  },
+  {
+    id: "square1",
+    label: "Square-1",
+    short: "Square-1",
+    kind: "square1",
+    scrambleLength: 15,
+    blurb: "Shape-shifting layers: restore cube shape, then solve corners, edges and parity.",
+  },
 ];
 
 export const puzzleById = (id: PuzzleId): Puzzle =>
   puzzles.find((p) => p.id === id) ?? (puzzles[1] as Puzzle);
 
-const pick = <T,>(arr: readonly T[]): T =>
-  arr[Math.floor(Math.random() * arr.length)] as T;
+const pick = <T>(arr: readonly T[]): T => arr[Math.floor(Math.random() * arr.length)] as T;
 
 const SUFFIX = ["", "'", "2"] as const;
 
@@ -71,8 +173,7 @@ function nxnScramble(n: number, length: number): string {
     if (face === last) continue;
     if (last && face === opposite[last] && face === beforeLast) continue;
     const depth = n <= 3 ? 1 : 1 + Math.floor(Math.random() * maxDepth);
-    const token =
-      depth === 1 ? face : depth === 2 ? `${face}w` : `${depth}${face}w`;
+    const token = depth === 1 ? face : depth === 2 ? `${face}w` : `${depth}${face}w`;
     moves.push(`${token}${pick(SUFFIX)}`);
     beforeLast = last;
     last = face;
@@ -127,6 +228,8 @@ function megaminxScramble(): string {
 
 export function generateScramble(puzzle: Puzzle): string {
   switch (puzzle.kind) {
+    case "square1":
+      return square1Scramble(puzzle.scrambleLength);
     case "nxn":
       return nxnScramble(puzzle.n ?? 3, puzzle.scrambleLength);
     case "pyraminx":

@@ -485,3 +485,17 @@
   left: 310px;
   top: -144px;
 }
+
+.square1-playbar button {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 6px 10px;
+  background: var(--panel);
+  font-size: 12px;
+}
+.square1-playbar button:disabled {
+  opacity: 0.4;
+}
+.square1-playbar button:hover:not(:disabled) {
+  border-color: var(--primary);
+}

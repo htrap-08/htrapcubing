@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { generateScramble, puzzleById, puzzles, type PuzzleId } from "@/lib/puzzles";
+import { generateScramble, puzzleById, puzzles, type PuzzleId, type Puzzle } from "@/lib/puzzles";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/timer")({
@@ -35,9 +35,7 @@ const fmt = (ms: number) => {
   const total = ms / 1000;
   const m = Math.floor(total / 60);
   const s = total - m * 60;
-  return m > 0
-    ? `${m}:${s.toFixed(2).padStart(5, "0")}`
-    : s.toFixed(2);
+  return m > 0 ? `${m}:${s.toFixed(2).padStart(5, "0")}` : s.toFixed(2);
 };
 
 const average = (list: Solve[], count: number) => {
@@ -54,8 +52,35 @@ function TimerPage() {
   const [puzzleId, setPuzzleId] = useState<PuzzleId>("3x3");
   const puzzle = puzzleById(puzzleId);
   const [scramble, setScramble] = useState("…");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => setScramble(generateScramble(puzzle)), []);
+  const [scrambleLoading, setScrambleLoading] = useState(false);
+  const [scrambleError, setScrambleError] = useState("");
+  const scrambleRequest = useRef(0);
+  const refreshScramble = useCallback(async (next: Puzzle) => {
+    const request = ++scrambleRequest.current;
+    setScrambleLoading(true);
+    setScrambleError("");
+    setScramble("…");
+    try {
+      const text =
+        next.kind === "square1"
+          ? (await (await import("cubing/scramble")).randomScrambleForEvent("sq1")).toString()
+          : generateScramble(next);
+      if (request === scrambleRequest.current) setScramble(text);
+    } catch {
+      if (request === scrambleRequest.current)
+        setScrambleError("Couldn't generate a scramble. Try again.");
+    } finally {
+      if (request === scrambleRequest.current) setScrambleLoading(false);
+    }
+  }, []);
+  useEffect(() => {
+    void refreshScramble(puzzleById("3x3"));
+    return () => {
+      // This is a request counter, not a DOM ref. Invalidate pending results on unmount.
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      ++scrambleRequest.current;
+    };
+  }, [refreshScramble]);
   const [solves, setSolves] = useState<Solve[]>([]);
   const [elapsed, setElapsed] = useState(0);
   const [running, setRunning] = useState(false);
@@ -87,22 +112,20 @@ function TimerPage() {
   }, []);
 
   const start = useCallback(() => {
+    if (scrambleLoading || scrambleError || scramble === "…") return;
     startRef.current = performance.now();
     setRunning(true);
     rafRef.current = requestAnimationFrame(tick);
-  }, [tick]);
+  }, [tick, scrambleLoading, scrambleError, scramble]);
 
   const stop = useCallback(() => {
     cancelAnimationFrame(rafRef.current);
     setRunning(false);
     const ms = performance.now() - startRef.current;
     setElapsed(ms);
-    setSolves((prev) => [
-      { id: Date.now(), ms, puzzle: puzzleId, dnf: false, scramble },
-      ...prev,
-    ]);
-    setScramble(generateScramble(puzzle));
-  }, [puzzle, puzzleId, scramble]);
+    setSolves((prev) => [{ id: Date.now(), ms, puzzle: puzzleId, dnf: false, scramble }, ...prev]);
+    void refreshScramble(puzzle);
+  }, [puzzle, puzzleId, scramble, refreshScramble]);
 
   // space bar control
   useEffect(() => {
@@ -148,7 +171,7 @@ function TimerPage() {
 
   const changePuzzle = (id: PuzzleId) => {
     setPuzzleId(id);
-    setScramble(generateScramble(puzzleById(id)));
+    void refreshScramble(puzzleById(id));
     setElapsed(0);
   };
 
@@ -169,6 +192,7 @@ function TimerPage() {
                   <button
                     key={p.id}
                     onClick={() => changePuzzle(p.id)}
+                    disabled={running}
                     className={cn(
                       "rounded-md border px-2.5 py-1.5 transition",
                       p.id === puzzleId
@@ -183,11 +207,22 @@ function TimerPage() {
 
               <div className="mt-6 rounded-2xl border border-background/10 bg-background/[0.03] p-8 text-center">
                 <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-background/50">
-                  Scramble · {puzzle.short}
+                  {puzzle.kind === "square1" ? "Random-state scramble" : "Scramble"} ·{" "}
+                  {puzzle.short}
                 </p>
                 <p className="mt-3 whitespace-pre-line text-balance font-mono text-xl font-medium tracking-tight sm:text-2xl">
-                  {scramble}
+                  {scrambleLoading ? "Generating scramble…" : scramble}
                 </p>
+                {scrambleError && (
+                  <p role="alert" className="mt-2 text-sm text-primary">
+                    {scrambleError}
+                  </p>
+                )}
+                {puzzle.kind === "square1" && (
+                  <p className="mt-3 text-xs text-background/60">
+                    (a,b): top/bottom turns in 30° steps. /: 180° slice. Align seams before slicing.
+                  </p>
+                )}
 
                 <div className="mt-8">
                   <p
@@ -210,13 +245,15 @@ function TimerPage() {
 
                 <div className="mt-6 flex flex-wrap justify-center gap-2">
                   <button
-                    onClick={() => setScramble(generateScramble(puzzle))}
+                    onClick={() => void refreshScramble(puzzle)}
+                    disabled={running || scrambleLoading}
                     className="rounded-lg bg-primary px-8 py-3 font-mono text-[12px] uppercase tracking-[0.12em] text-primary-foreground transition hover:brightness-95"
                   >
                     New scramble
                   </button>
                   <button
                     onClick={() => (running ? stop() : (setElapsed(0), start()))}
+                    disabled={!running && (scrambleLoading || Boolean(scrambleError))}
                     className="rounded-lg border border-background/20 px-8 py-3 font-mono text-[12px] uppercase tracking-[0.12em] transition hover:bg-background/10"
                   >
                     {running ? "Stop" : "Start"}

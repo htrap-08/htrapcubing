@@ -23,6 +23,7 @@ export const twistyPuzzleConfig: Record<
   pyraminx: { puzzle: "pyraminx" },
   megaminx: { puzzle: "megaminx" },
   skewb: { puzzle: "skewb" },
+  square1: { puzzle: "square1" },
 };
 
 const clean = (alg: string) => alg.replace(/[·\n]/g, " ").replace(/\s+/g, " ").trim();

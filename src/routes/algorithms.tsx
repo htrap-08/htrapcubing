@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { Square1Icon } from "@/components/square1-icon";
 import { FaceDiagram } from "@/components/sticker";
 import { algorithms, groupsByTrack, type Track } from "@/lib/algorithms";
 import { cn } from "@/lib/utils";
@@ -73,7 +74,9 @@ function AlgorithmsPage() {
                     onClick={() => switchTrack(t)}
                     className={cn(
                       "rounded-md px-3 py-1.5 transition",
-                      track === t ? "bg-display text-background" : "text-muted hover:text-foreground",
+                      track === t
+                        ? "bg-display text-background"
+                        : "text-muted hover:text-foreground",
                     )}
                   >
                     {t}
@@ -93,7 +96,9 @@ function AlgorithmsPage() {
                   onClick={() => setGroup(null)}
                   className={cn(
                     "w-full rounded-md px-2 py-1.5 text-left transition",
-                    group === null ? "bg-panel-2 text-foreground" : "text-muted hover:text-foreground",
+                    group === null
+                      ? "bg-panel-2 text-foreground"
+                      : "text-muted hover:text-foreground",
                   )}
                 >
                   All ({algorithms.filter((a) => a.track === track).length})
@@ -104,7 +109,9 @@ function AlgorithmsPage() {
                     onClick={() => setGroup(gr)}
                     className={cn(
                       "w-full rounded-md px-2 py-1.5 text-left transition",
-                      group === gr ? "bg-panel-2 text-foreground" : "text-muted hover:text-foreground",
+                      group === gr
+                        ? "bg-panel-2 text-foreground"
+                        : "text-muted hover:text-foreground",
                     )}
                   >
                     {gr}
@@ -126,17 +133,25 @@ function AlgorithmsPage() {
                   </p>
                   <h2 className="mt-1 font-display text-lg font-bold tracking-tight">{a.name}</h2>
                   <div className="mt-3 flex items-center gap-4">
-                    <FaceDiagram face={a.face} />
+                    {a.puzzle === "Square-1" ? <Square1Icon /> : <FaceDiagram face={a.face} />}
                     <p className="font-mono text-[13px] font-medium leading-relaxed">{a.moves}</p>
                   </div>
                   <p className="mt-3 text-pretty text-[12px] text-muted">{a.description}</p>
+                  {a.source ? (
+                    <a
+                      href={a.source}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-2 inline-block text-xs text-primary underline"
+                    >
+                      Notation and setup reference
+                    </a>
+                  ) : null}
                 </article>
               ))}
 
               {visible.length === 0 ? (
-                <p className="font-mono text-[12px] text-muted">
-                  Nothing matches that search yet.
-                </p>
+                <p className="font-mono text-[12px] text-muted">Nothing matches that search yet.</p>
               ) : null}
             </div>
           </div>
