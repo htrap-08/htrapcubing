@@ -105,10 +105,12 @@ export function Square1Player({
   setup = "",
   alg = "",
   playback = false,
+  initialState,
 }: {
   setup?: string;
   alg?: string;
   playback?: boolean;
+  initialState?: Square1State;
 }) {
   const [history, setHistory] = useState("");
   const [index, setIndex] = useState(0);
@@ -120,14 +122,14 @@ export function Square1Player({
     setIndex(0);
     setPlaying(false);
     setError("");
-  }, [setup, alg]);
+  }, [setup, alg, initialState]);
   const state = useMemo(() => {
-    const start = parseSquare1(setup).reduce(applySquare1Move, solvedSquare1());
+    const start = parseSquare1(setup).reduce(applySquare1Move, initialState ?? solvedSquare1());
     return (playback ? moves.slice(0, index) : parseSquare1(history)).reduce(
       applySquare1Move,
       start,
     );
-  }, [setup, playback, moves, index, history]);
+  }, [setup, initialState, playback, moves, index, history]);
   useEffect(() => {
     if (!playing) return;
     if (index >= moves.length) {

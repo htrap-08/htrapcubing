@@ -81,3 +81,84 @@ export function square1Scramble(length = 15): string {
   }
   return formatSquare1(moves);
 }
+
+export const square1PieceNames = [
+  "White–orange–green corner",
+  "White–green edge",
+  "White–green–red corner",
+  "White–red edge",
+  "White–red–blue corner",
+  "White–blue edge",
+  "White–blue–orange corner",
+  "White–orange edge",
+  "Yellow–orange edge",
+  "Yellow–orange–green corner",
+  "Yellow–green edge",
+  "Yellow–green–red corner",
+  "Yellow–red edge",
+  "Yellow–red–blue corner",
+  "Yellow–blue edge",
+  "Yellow–blue–orange corner",
+];
+export const square1PieceWidth = (id: number) => ((id < 8 ? id % 2 === 0 : id % 2 === 1) ? 2 : 1);
+export function square1StateFromPieces(
+  top: number[],
+  bottom: number[],
+  flipped: boolean,
+): Square1State {
+  if (
+    top.length + bottom.length !== 16 ||
+    new Set([...top, ...bottom]).size !== 16 ||
+    [...top, ...bottom].some((n) => !Number.isInteger(n) || n < 0 || n > 15)
+  )
+    throw new Error("Use each of the 16 pieces exactly once.");
+  const expand = (ring: number[]) =>
+    ring.flatMap((id) => Array(square1PieceWidth(id)).fill(id) as number[]);
+  const state = { top: expand(top), bottom: expand(bottom), flipped };
+  validateSquare1State(state);
+  return state;
+}
+export function validateSquare1State(state: Square1State) {
+  const all = [...state.top, ...state.bottom];
+  if (state.top.length !== 12 || state.bottom.length !== 12 || typeof state.flipped !== "boolean")
+    throw new Error("Each layer must total twelve 30° slots. A corner uses two; an edge uses one.");
+  if (all.some((id) => !Number.isInteger(id) || id < 0 || id > 15))
+    throw new Error("Invalid piece.");
+  for (let id = 0; id < 16; id++) {
+    if (all.filter((n) => n === id).length !== square1PieceWidth(id))
+      throw new Error("Use every piece exactly once, keeping corners intact.");
+    if (
+      square1PieceWidth(id) === 2 &&
+      ![state.top, state.bottom].some((r) => r.some((n, i) => n === id && r[(i + 1) % 12] === id))
+    )
+      throw new Error("A corner cannot be split.");
+  }
+}
+const pieceWedges = [
+  [0, 1],
+  [2],
+  [3, 4],
+  [5],
+  [6, 7],
+  [8],
+  [9, 10],
+  [11],
+  [12],
+  [13, 14],
+  [15],
+  [16, 17],
+  [18],
+  [19, 20],
+  [21],
+  [22, 23],
+];
+export function square1PatternData(state: Square1State) {
+  validateSquare1State(state);
+  const pieces = [state.top, state.bottom].flatMap((r) =>
+    r.map((id, i) => pieceWedges[id]![r[(i + 11) % 12] === id ? 1 : 0]!),
+  );
+  return {
+    WEDGES: { pieces, orientation: Array(24).fill(0) },
+    EQUATOR: { pieces: [0, 1], orientation: [0, state.flipped ? 3 : 0] },
+  };
+}

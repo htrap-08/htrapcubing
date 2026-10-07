@@ -1,0 +1,6 @@
+Square-1 solver powered by Twips, compiled to WebAssembly.
+Twips copyright its respective contributors; distributed under MPL-2.0.
+Upstream source: https://github.com/cubing/twips/tree/a9d702a2a3edfea7ddec001c8e1d037214705903
+Modified source and build instructions: https://github.com/htrap-08/htrapcubing/tree/main/solver/square1
+License: /square1/LICENSE-MPL.md
+Dependency notices: /square1/THIRD_PARTY_NOTICES.txt

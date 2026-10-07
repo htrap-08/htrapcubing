@@ -38,7 +38,9 @@ test("official random-state sq1 scramble is accepted and replay solves it", asyn
   for (let i = 0; i < 5; i++) {
     const scramble = (await randomScrambleForEvent("sq1")).toString();
     const solution = solveSquare1Scramble(scramble);
-    assert(k.defaultPattern().applyAlg(scramble).applyAlg(solution).isIdentical(k.defaultPattern()));
+    assert(
+      k.defaultPattern().applyAlg(scramble).applyAlg(solution).isIdentical(k.defaultPattern()),
+    );
   }
 });
 
@@ -56,5 +58,48 @@ test("Square-1 library sequences have legal slices and inverse playback", async 
     assert.doesNotThrow(() => square1StateAfter(a.moves), a.id);
     const solution = solveSquare1Scramble(a.moves);
     assert.deepEqual(square1StateAfter(solution, square1StateAfter(a.moves)), solvedSquare1());
+  }
+});
+
+test("physical piece validation and state mapping preserve every wedge", async () => {
+  const { square1PatternData, square1StateFromPieces, validateSquare1State } = await import(url);
+  assert.deepEqual(
+    square1StateFromPieces([0, 1, 2, 3, 4, 5, 6, 7], [8, 9, 10, 11, 12, 13, 14, 15], false),
+    solvedSquare1(),
+  );
+  assert.throws(
+    () => square1StateFromPieces([0, 0, 2, 3, 4, 5, 6, 7], [8, 9, 10, 11, 12, 13, 14, 15], false),
+    /exactly once/,
+  );
+  const k = await puzzles.square1.kpuzzle();
+  for (let i = 0; i < 25; i++) {
+    const scramble = square1Scramble();
+    const state = square1StateAfter(scramble);
+    validateSquare1State(state);
+    assert.deepEqual(square1PatternData(state), k.defaultPattern().applyAlg(scramble).patternData);
+  }
+});
+
+test("compiled Twips solves physical states including shape changes and flipped equator", async () => {
+  const { square1PatternData } = await import(url);
+  const { default: init, wasmSolveSquare1 } = await import("../public/square1/square1.js");
+  await init({
+    module_or_path: await readFile(new URL("../public/square1/square1_bg.wasm", import.meta.url)),
+  });
+  const k = await puzzles.square1.kpuzzle();
+  for (const scramble of [
+    "",
+    "(1,0) /",
+    "/ (6,0) / (6,0) / (6,0)",
+    ...Array.from({ length: 15 }, () => square1Scramble()),
+  ]) {
+    const state = square1StateAfter(scramble);
+    const pattern = square1PatternData(state);
+    pattern.EQUATOR.orientation = [0, state.flipped ? 1 : 0];
+    const solution = wasmSolveSquare1(JSON.stringify(pattern));
+    assert.deepEqual(square1StateAfter(solution, state), solvedSquare1());
+    assert(
+      k.defaultPattern().applyAlg(scramble).applyAlg(solution).isIdentical(k.defaultPattern()),
+    );
   }
 });
