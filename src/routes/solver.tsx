@@ -20,13 +20,13 @@ export const Route = createFileRoute("/solver")({
   },
   head: () => ({
     meta: [
-      { title: "Solver — AXIOM/CUBE" },
+      { title: "Solver — scrambled eggs" },
       {
         name: "description",
         content:
           "Enter or scan your puzzle colours and follow an animated solution for 2×2 through 10×10, Pyraminx, Megaminx, Skewb and Square-1.",
       },
-      { property: "og:title", content: "Solver — AXIOM/CUBE" },
+      { property: "og:title", content: "Solver — scrambled eggs" },
       {
         property: "og:description",
         content: "Pick a puzzle, enter its colours, and follow the solution moves.",

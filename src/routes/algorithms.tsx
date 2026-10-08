@@ -10,13 +10,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/algorithms")({
   head: () => ({
     meta: [
-      { title: "Algorithms — AXIOM/CUBE" },
+      { title: "Algorithms — scrambled eggs" },
       {
         name: "description",
         content:
           "A visual algorithm library in two tracks: a plain-language beginner method, and advanced CFOP F2L, OLL, PLL, commutators and big cube parity.",
       },
-      { property: "og:title", content: "Algorithms — AXIOM/CUBE" },
+      { property: "og:title", content: "Algorithms — scrambled eggs" },
       {
         property: "og:description",
         content:

@@ -8,13 +8,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/timer")({
   head: () => ({
     meta: [
-      { title: "Timer — AXIOM/CUBE" },
+      { title: "Timer — scrambled eggs" },
       {
         name: "description",
         content:
           "Competition-style scrambles and a hold-to-start speedcubing timer with a saved session log, best time, Ao5 and Ao12.",
       },
-      { property: "og:title", content: "Timer — AXIOM/CUBE" },
+      { property: "og:title", content: "Timer — scrambled eggs" },
       {
         property: "og:description",
         content:
