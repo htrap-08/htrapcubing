@@ -39,7 +39,7 @@ const sections = [
   {
     to: "/algorithms" as const,
     tag: "Algorithms",
-    title: "Solve it yourself",
+    title: "We solve it for you",
     body: "Two tracks: a beginner method with basic algorithms, and an advanced shelf covering F2L, OLL, PLL, commutators and big-cube parity.",
   },
   {
@@ -96,37 +96,43 @@ function Home() {
         <section className="home-puzzles">
           <div className="home-container home-puzzle-grid">
             <h2>Thirteen Puzzles</h2>
-            {puzzles.map((puzzle, index) => (
-              <Link
-                key={puzzle.id}
-                to="/solver"
-                search={{ puzzle: puzzle.id }}
-                className="home-puzzle-card"
-              >
-                {puzzle.kind === "square1" ? (
-                  <Square1Icon />
-                ) : puzzle.kind === "nxn" && puzzle.n ? (
-                  <img
-                    src={`/images/home-cube-${puzzle.n}.svg`}
-                    alt={`${puzzle.n} by ${puzzle.n} cube grid`}
-                    className="home-cube-icon"
-                  />
-                ) : (
-                  <FaceDiagram face={["u", "f", "u", "f", "d", "f", "u", "f", "u"]} size="size-3" />
-                )}
-                <div className="min-w-0">
-                  <h3>{homepagePuzzles[index]?.[0] ?? puzzle.label}</h3>
-                  <p>{homepagePuzzles[index]?.[1] ?? puzzle.blurb}</p>
-                </div>
-              </Link>
-            ))}
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 10, 9].map((index) => {
+              const puzzle = puzzles[index];
+              if (!puzzle) return null;
+              return (
+                <Link
+                  key={puzzle.id}
+                  to="/solver"
+                  search={{ puzzle: puzzle.id }}
+                  className="home-puzzle-card"
+                >
+                  {puzzle.kind === "square1" ? (
+                    <Square1Icon />
+                  ) : puzzle.kind === "nxn" && puzzle.n ? (
+                    <img
+                      src={`/images/home-cube-${puzzle.n}.svg`}
+                      alt={`${puzzle.n} by ${puzzle.n} cube grid`}
+                      className="home-cube-icon"
+                    />
+                  ) : (
+                    <FaceDiagram
+                      face={["u", "f", "u", "f", "d", "f", "u", "f", "u"]}
+                      size="size-3"
+                    />
+                  )}
+                  <div className="min-w-0">
+                    <h3>{homepagePuzzles[index]?.[0] ?? puzzle.label}</h3>
+                    <p>{homepagePuzzles[index]?.[1] ?? puzzle.blurb}</p>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </section>
       </main>
       <footer className="home-footer">
         <div className="home-container">
           <Link to="/">scrambled eggs</Link>
-          <span>A Passion Project by Parth Gupta</span>
         </div>
       </footer>
     </div>

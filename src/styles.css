@@ -638,27 +638,46 @@
   }
 }
 
-/* Match solver typography without adding vertical page length. */
-.homepage .home-hero h1 {
-  font-size: 48px;
+/* Latest Figma homepage, with responsive layouts for smaller screens. */
+@font-face {
+  font-family: "Krona One";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/krona-one.ttf) format("truetype");
 }
-.homepage .home-intro {
-  font-size: 15px;
+.homepage .home-header nav {
+  font-family: var(--font-display-family);
+  font-weight: 700;
 }
 .homepage .home-feature-tag {
-  font-size: 20px;
-  line-height: 20px;
+  font-family: "Krona One", sans-serif;
+  font-size: clamp(20px, 1.56vw, 32px);
+  line-height: 40px;
 }
 .homepage .home-feature h2 {
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 32px;
+  line-height: 39px;
+  margin-top: 6px;
 }
 .homepage .home-feature-body {
-  font-size: 15px;
+  font-size: 20px;
   line-height: 22.5px;
+  max-width: 525px;
+  margin-top: 16px;
+}
+.homepage .home-feature {
+  height: 226px;
+  padding: 20px;
 }
 .homepage .home-puzzle-grid > h2 {
-  font-size: 40px;
+  font-size: 48px;
+  line-height: 1;
+}
+.homepage .home-puzzle-card {
+  height: 112px;
+  padding: 20px;
+  gap: 16px;
 }
 .homepage .home-puzzle-card h3 {
   font-size: 20px;
@@ -668,75 +687,104 @@
   font-size: 15px;
   line-height: 22.5px;
 }
+.homepage .home-puzzle-card > svg,
+.homepage .home-cube-icon,
+.homepage .home-puzzle-card > .grid {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  transform: none;
+}
+.homepage .home-footer > div {
+  min-height: 69px;
+  font-size: 24px;
+}
 @media (min-width: 1100px) {
   .homepage {
-    min-width: 2000px;
-    overflow-x: visible;
+    max-width: 2050px;
+    min-height: 1368px;
+    margin-inline: auto;
+  }
+  .homepage .home-header > div {
+    padding-inline: 91px;
+    gap: 38px;
+  }
+  .homepage .home-wordmark {
+    font-size: 36px;
+    width: 255px;
+  }
+  .homepage .home-header nav {
+    gap: 32px;
   }
   .homepage .home-hero {
-    height: 264px;
+    height: 637px;
+  }
+  .homepage .home-hero-content {
+    padding-top: 39px;
+  }
+  .homepage .home-hero h1 {
+    font-size: 80px;
+    line-height: 108px;
   }
   .homepage .home-intro {
-    max-width: 600px;
+    font-size: 32px;
+    line-height: 50px;
+    max-width: 1134px;
+    margin-top: 0;
   }
-  .homepage .home-feature {
-    padding: 8px 12.6px;
-  }
-  .homepage .home-feature h2 {
-    margin-top: 2px;
-  }
-  .homepage .home-feature-body {
-    margin-top: 2px;
-    max-width: none;
-  }
-  .homepage .home-puzzle-card {
-    padding-block: 3px;
-  }
-  .homepage .home-puzzle-card h3,
-  .homepage .home-puzzle-card p {
-    white-space: nowrap;
-  }
-}
-
-/* Give the enlarged homepage type its original generous card proportions. */
-.homepage .home-feature {
-  height: 160px;
-  padding: 20px;
-}
-.homepage .home-feature h2 {
-  margin-top: 12px;
-}
-.homepage .home-feature-body {
-  margin-top: 9px;
-}
-.homepage .home-puzzle-card {
-  height: 112px;
-  padding: 20px;
-  gap: 16px;
-}
-.homepage .home-puzzle-card > svg,
-.homepage .home-cube-icon {
-  width: 44px;
-  height: 44px;
-  flex-shrink: 0;
-}
-.homepage .home-puzzle-card > .grid {
-  transform: none;
-  width: 44px;
-  height: 44px;
-  flex-shrink: 0;
-}
-@media (min-width: 1100px) {
-  .homepage {
-    min-width: 3500px;
-  }
-  .homepage .home-hero {
-    height: 288px;
+  .homepage .home-watermark {
+    left: 1083px;
+    top: -106px;
   }
   .homepage .home-features {
-    margin-top: 7px;
+    margin-top: 116px;
+    gap: 48px;
+    grid-template-columns: 566fr 626fr 615fr;
+    max-width: 1903px;
+  }
+  .homepage .home-puzzles {
+    padding-top: 49px;
   }
   .homepage .home-puzzle-grid {
-    grid-template-columns: repeat(7, minmax(0, 1fr));
+    margin-inline: 35px;
+    width: calc(100% - 70px);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 9px 7px;
+  }
+}
+@media (max-width: 1099px) {
+  .homepage .home-feature {
+    height: auto;
+  }
+  .homepage .home-feature-tag {
+    font-size: 20px;
+    line-height: 28px;
+  }
+  .homepage .home-feature h2 {
+    font-size: 24px;
+    line-height: 30px;
+  }
+  .homepage .home-feature-body {
+    font-size: 15px;
+    line-height: 22.5px;
+  }
+  .homepage .home-puzzle-card h3 {
+    font-size: 16px;
+    line-height: 22px;
+  }
+  .homepage .home-puzzle-grid > h2 {
+    font-size: 36px;
+  }
+}
+@media (max-width: 639px) {
+  .homepage .home-puzzle-card {
+    height: auto;
+    min-height: 112px;
+    padding: 12px;
+    gap: 10px;
+  }
+  .homepage .home-puzzle-card p {
+    font-size: 12px;
+    line-height: 18px;
   }
 }
