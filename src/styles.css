@@ -637,3 +637,63 @@
     padding-block: 4px;
   }
 }
+
+/* Match solver typography without adding vertical page length. */
+.homepage .home-hero h1 {
+  font-size: 48px;
+}
+.homepage .home-intro {
+  font-size: 15px;
+}
+.homepage .home-feature-tag {
+  font-size: 20px;
+  line-height: 20px;
+}
+.homepage .home-feature h2 {
+  font-size: 20px;
+  line-height: 24px;
+}
+.homepage .home-feature-body {
+  font-size: 15px;
+  line-height: 22.5px;
+}
+.homepage .home-puzzle-grid > h2 {
+  font-size: 40px;
+}
+.homepage .home-puzzle-card h3 {
+  font-size: 20px;
+  line-height: 24px;
+}
+.homepage .home-puzzle-card p {
+  font-size: 15px;
+  line-height: 22.5px;
+}
+@media (min-width: 1100px) {
+  .homepage {
+    min-width: 2000px;
+    overflow-x: visible;
+  }
+  .homepage .home-hero {
+    height: 264px;
+  }
+  .homepage .home-intro {
+    max-width: 600px;
+  }
+  .homepage .home-feature {
+    padding: 8px 12.6px;
+  }
+  .homepage .home-feature h2 {
+    margin-top: 2px;
+  }
+  .homepage .home-feature-body {
+    margin-top: 2px;
+    max-width: none;
+  }
+  .homepage .home-puzzle-card {
+    padding-block: 3px;
+  }
+  .homepage .home-puzzle-card h3,
+  .homepage .home-puzzle-card p {
+    white-space: nowrap;
+  }
+}
