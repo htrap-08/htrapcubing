@@ -700,56 +700,139 @@
   font-size: 24px;
 }
 @media (min-width: 1100px) {
+  /* Scale the 2050px Figma frame to the page width, including typography. */
   .homepage {
     max-width: 2050px;
-    min-height: 1368px;
+    min-height: 0;
     margin-inline: auto;
+    container-type: inline-size;
+  }
+  .homepage > main {
+    min-height: calc(1308 / 20.5 * 1cqw);
+  }
+  .homepage .home-container {
+    margin-inline: calc(28 / 20.5 * 1cqw);
+    width: calc(100% - 56 / 20.5 * 1cqw);
   }
   .homepage .home-header > div {
-    padding-inline: 91px;
-    gap: 38px;
+    height: calc(60 / 20.5 * 1cqw);
+    padding-inline: calc(91 / 20.5 * 1cqw);
+    gap: calc(38 / 20.5 * 1cqw);
   }
   .homepage .home-wordmark {
-    font-size: 36px;
-    width: 255px;
+    font-size: calc(36 / 20.5 * 1cqw);
+    width: calc(255 / 20.5 * 1cqw);
   }
   .homepage .home-header nav {
-    gap: 32px;
+    gap: calc(32 / 20.5 * 1cqw);
+    font-size: calc(15 / 20.5 * 1cqw);
+    letter-spacing: calc(1.1883 / 20.5 * 1cqw);
+  }
+  .homepage .home-header > div nav a {
+    padding: calc(5 / 20.5 * 1cqw) 0;
+    line-height: calc(15 / 20.5 * 1cqw);
+    border-radius: calc(6 / 20.5 * 1cqw);
+  }
+  .homepage .home-header > div nav a:first-child {
+    min-width: calc(77 / 20.5 * 1cqw);
   }
   .homepage .home-hero {
-    height: 637px;
+    height: calc(637 / 20.5 * 1cqw);
   }
   .homepage .home-hero-content {
-    padding-top: 39px;
+    padding-top: calc(39 / 20.5 * 1cqw);
+    padding-bottom: 0;
   }
   .homepage .home-hero h1 {
-    font-size: 80px;
-    line-height: 108px;
+    font-size: calc(80 / 20.5 * 1cqw);
+    line-height: calc(108 / 20.5 * 1cqw);
+    letter-spacing: calc(-0.9452 / 20.5 * 1cqw);
   }
   .homepage .home-intro {
-    font-size: 32px;
-    line-height: 50px;
-    max-width: 1134px;
+    font-size: calc(32 / 20.5 * 1cqw);
+    line-height: calc(50 / 20.5 * 1cqw);
+    max-width: calc(1134 / 20.5 * 1cqw);
     margin-top: 0;
   }
   .homepage .home-watermark {
-    left: 1083px;
-    top: -106px;
+    left: calc(1083 / 20.5 * 1cqw);
+    top: calc(-68 / 20.5 * 1cqw);
+    font-size: calc(266.469 / 20.5 * 1cqw);
   }
   .homepage .home-features {
-    margin-top: 116px;
-    gap: 48px;
+    margin-top: calc(116 / 20.5 * 1cqw);
+    gap: calc(48 / 20.5 * 1cqw);
     grid-template-columns: 566fr 626fr 615fr;
-    max-width: 1903px;
+    max-width: calc(1903 / 20.5 * 1cqw);
+  }
+  .homepage .home-feature {
+    height: calc(226 / 20.5 * 1cqw);
+    padding: calc(20 / 20.5 * 1cqw);
+    border-radius: calc(10 / 20.5 * 1cqw);
+  }
+  .homepage .home-feature-tag {
+    font-size: calc(32 / 20.5 * 1cqw);
+    line-height: calc(40 / 20.5 * 1cqw);
+    letter-spacing: calc(0.9452 / 20.5 * 1cqw);
+  }
+  .homepage .home-feature h2 {
+    font-size: calc(32 / 20.5 * 1cqw);
+    line-height: calc(39 / 20.5 * 1cqw);
+    margin-top: calc(6 / 20.5 * 1cqw);
+    letter-spacing: calc(-0.3781 / 20.5 * 1cqw);
+  }
+  .homepage .home-feature-body {
+    font-size: calc(20 / 20.5 * 1cqw);
+    line-height: calc(22.5 / 20.5 * 1cqw);
+    max-width: calc(525 / 20.5 * 1cqw);
+    margin-top: calc(16 / 20.5 * 1cqw);
   }
   .homepage .home-puzzles {
-    padding-top: 49px;
+    padding-block: calc(49 / 20.5 * 1cqw) calc(23 / 20.5 * 1cqw);
   }
   .homepage .home-puzzle-grid {
-    margin-inline: 35px;
-    width: calc(100% - 70px);
+    margin-inline: calc(35 / 20.5 * 1cqw);
+    width: calc(100% - 70 / 20.5 * 1cqw);
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 9px 7px;
+    gap: calc(9 / 20.5 * 1cqw) calc(7 / 20.5 * 1cqw);
+  }
+  .homepage .home-puzzle-grid > h2 {
+    font-size: calc(48 / 20.5 * 1cqw);
+    letter-spacing: calc(-0.4726 / 20.5 * 1cqw);
+  }
+  .homepage .home-puzzle-card {
+    height: calc(112 / 20.5 * 1cqw);
+    padding: calc(20 / 20.5 * 1cqw);
+    gap: calc(16 / 20.5 * 1cqw);
+    border-radius: calc(10 / 20.5 * 1cqw);
+  }
+  .homepage .home-puzzle-card h3 {
+    font-size: calc(20 / 20.5 * 1cqw);
+    line-height: calc(24 / 20.5 * 1cqw);
+    letter-spacing: calc(-0.2521 / 20.5 * 1cqw);
+  }
+  .homepage .home-puzzle-card p {
+    font-size: calc(15 / 20.5 * 1cqw);
+    line-height: calc(22.5 / 20.5 * 1cqw);
+    margin-top: calc(2 / 20.5 * 1cqw);
+  }
+  .homepage .home-puzzle-card > svg,
+  .homepage .home-cube-icon,
+  .homepage .home-puzzle-card > .grid {
+    width: calc(44 / 20.5 * 1cqw);
+    height: calc(44 / 20.5 * 1cqw);
+  }
+  .homepage .home-puzzle-card > .grid {
+    gap: calc(4 / 20.5 * 1cqw);
+  }
+  .homepage .home-puzzle-card > .grid > span {
+    width: calc(12 / 20.5 * 1cqw);
+    height: calc(12 / 20.5 * 1cqw);
+    border-radius: calc(3 / 20.5 * 1cqw);
+  }
+  .homepage .home-footer > div {
+    min-height: calc(69 / 20.5 * 1cqw);
+    font-size: calc(24 / 20.5 * 1cqw);
   }
 }
 @media (max-width: 1099px) {
