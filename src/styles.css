@@ -560,3 +560,80 @@
     font-size: 12px;
   }
 }
+
+.solver-background {
+  background:
+    linear-gradient(90deg, rgba(34, 31, 25, 0.12) 2.2727%, transparent 2.2727%),
+    linear-gradient(180deg, rgba(34, 31, 25, 0.12) 2.2727%, transparent 2.2727%);
+}
+.solver-puzzles button,
+.solver-palette button,
+.solver-actions button,
+.solver-panel-heading > div,
+.solver-panel-heading button {
+  border-radius: 10px;
+}
+.solver-puzzles > p {
+  line-height: 15px;
+}
+.solver-puzzles > div:first-of-type button {
+  height: 32px;
+}
+.solver-puzzles > div:last-of-type button {
+  height: 30.5px;
+}
+@media (min-width: 1024px) {
+  .solver-container {
+    padding-top: 6px;
+  }
+  .solver-container > h1 {
+    line-height: 60px;
+    letter-spacing: -1.5px;
+  }
+  .solver-container > p {
+    line-height: 22.5px;
+  }
+  .solver-layout {
+    margin-top: 25.5px;
+  }
+  .solver-panel-heading {
+    min-height: 60px;
+  }
+  .solver-panel-heading > h2 {
+    line-height: 56px;
+  }
+  .solver-panel-heading > div {
+    min-height: 60px;
+    padding: 4px;
+  }
+  .solver-panel-heading button {
+    line-height: 16px;
+    min-height: 52px;
+  }
+  .solver-panel > .colour-solver {
+    margin-top: -22px;
+  }
+  .solver-panel > .colour-solver > div:first-child {
+    height: 352px;
+  }
+  .solver-paint-hint {
+    margin-top: 28px;
+    line-height: 15px;
+  }
+  .solver-palette {
+    margin-top: 20px;
+    min-height: 26.5px;
+  }
+  .solver-palette button {
+    height: 26.5px;
+    padding-block: 4px;
+  }
+  .solver-actions {
+    margin-top: 16px;
+  }
+  .solver-actions button {
+    height: 34.5px;
+    line-height: 24px;
+    padding-block: 4px;
+  }
+}

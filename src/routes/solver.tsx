@@ -56,7 +56,7 @@ function SolverPage() {
     <div className="solver-page min-h-screen bg-background text-foreground">
       <SiteHeader compact />
       <section className="relative overflow-hidden border-b border-line">
-        <div className="pointer-events-none absolute inset-0 grid-paper opacity-40" />
+        <div className="solver-background pointer-events-none absolute inset-0 opacity-40" />
         <div className="solver-container relative mx-auto px-5 pb-4 pt-6 sm:px-8">
           <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
             Solve it, one move at a time
@@ -105,7 +105,7 @@ function SolverPage() {
               </div>
             </aside>
             <div className="rounded-xl border border-line bg-panel p-5 solver-panel">
-              <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="solver-panel-heading flex flex-wrap items-center justify-between gap-2">
                 <h2 className="font-display text-[40px] font-bold">{puzzle.short}</h2>
                 {puzzle.kind === "nxn" && (
                   <div className="flex rounded-md border border-line bg-panel-2 p-0.5 font-mono text-base">

@@ -84,14 +84,17 @@ export function ColourSolver({ n, onSolved }: { n: number; onSolved: (solution: 
       ) : (
         <Loading />
       )}
-      <p className="mt-1 text-center font-mono text-[10px] uppercase tracking-[0.12em] text-muted">
+      <p className="solver-paint-hint mt-1 text-center font-mono text-[10px] uppercase tracking-[0.12em] text-muted">
         Pick a colour · paint the cube
       </p>
 
-      <p className="mt-2 text-center text-[12px] text-muted">
+      <p className="sr-only">
         Hold white on top and green at the front. Enter each face as viewed from outside.
       </p>
-      <fieldset disabled={busy} className="mt-4 flex flex-wrap justify-center gap-1.5">
+      <fieldset
+        disabled={busy}
+        className="solver-palette mt-4 flex flex-wrap justify-center gap-1.5"
+      >
         {brushes.map((b) => (
           <button
             key={b.key}
@@ -151,7 +154,7 @@ export function ColourSolver({ n, onSolved }: { n: number; onSolved: (solution: 
         </button>
       </fieldset>
       {busy ? (
-        <div className="mt-2 text-center text-[12px] text-muted" role="status">
+        <div className="sr-only" role="status">
           <p>
             {n <= 3
               ? "Working out the moves — the first solve takes a few seconds."
