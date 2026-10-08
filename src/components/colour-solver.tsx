@@ -76,7 +76,7 @@ export function ColourSolver({ n, onSolved }: { n: number; onSolved: (solution: 
   };
 
   return (
-    <div className="mt-3 flex flex-1 flex-col">
+    <div className="colour-solver mt-3 flex flex-1 flex-col">
       {mounted ? (
         <Suspense fallback={<Loading />}>
           <PaintCube3D n={n} state={state} onPaint={paint} />
@@ -85,7 +85,7 @@ export function ColourSolver({ n, onSolved }: { n: number; onSolved: (solution: 
         <Loading />
       )}
       <p className="mt-1 text-center font-mono text-[10px] uppercase tracking-[0.12em] text-muted">
-        Pick a colour · click stickers to paint · drag to look around
+        Pick a colour · paint the cube
       </p>
 
       <p className="mt-2 text-center text-[12px] text-muted">
@@ -117,7 +117,7 @@ export function ColourSolver({ n, onSolved }: { n: number; onSolved: (solution: 
         ))}
       </fieldset>
 
-      <fieldset disabled={busy} className="mt-4 grid grid-cols-3 gap-2">
+      <fieldset disabled={busy} className="solver-actions mt-4 grid grid-cols-3 gap-3">
         <button
           type="button"
           onClick={() => {
@@ -130,16 +130,6 @@ export function ColourSolver({ n, onSolved }: { n: number; onSolved: (solution: 
         </button>
         <button
           type="button"
-          onClick={() => {
-            setState(solvedFacelets(n));
-            setError(null);
-          }}
-          className="rounded-md border border-line bg-panel-2 py-2 font-mono text-[11px] uppercase tracking-[0.08em] transition hover:bg-background"
-        >
-          Fill solved
-        </button>
-        <button
-          type="button"
           disabled={busy}
           onMouseEnter={() => {
             if (n <= 3) void loadSolver();
@@ -148,6 +138,16 @@ export function ColourSolver({ n, onSolved }: { n: number; onSolved: (solution: 
           className="rounded-md bg-primary py-2 font-mono text-[11px] uppercase tracking-[0.08em] text-primary-foreground transition hover:brightness-110 disabled:opacity-60"
         >
           {busy ? "Solving…" : "Solve it"}
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setState(solvedFacelets(n));
+            setError(null);
+          }}
+          className="rounded-md border border-line bg-panel-2 py-2 font-mono text-[11px] uppercase tracking-[0.08em] transition hover:bg-background"
+        >
+          Fill solved
         </button>
       </fieldset>
       {busy ? (

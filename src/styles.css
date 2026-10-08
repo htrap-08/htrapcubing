@@ -158,11 +158,11 @@
   margin-inline: 28px;
 }
 .home-header > div {
-  height: 56px;
+  height: 72px;
   max-width: none;
   margin: 0;
-  padding: 0 28px;
-  gap: 36px;
+  padding: 0 38px;
+  gap: 32px;
 }
 .home-wordmark {
   font-family: "Sour Gummy", var(--font-display-family);
@@ -522,4 +522,41 @@
   font-weight: 700;
   font-display: swap;
   src: url(/fonts/sour-gummy-bold.ttf) format("truetype");
+}
+
+/* Figma solver layout: trim margins while preserving the live 3D viewport. */
+.solver-page {
+  overflow-x: clip;
+}
+.solver-container {
+  max-width: 1452px;
+}
+.solver-layout {
+  grid-template-columns: minmax(0, 1fr);
+}
+.solver-panel {
+  min-width: 0;
+  border-radius: 16px;
+}
+.solver-actions button {
+  font-size: 20px;
+  line-height: 24px;
+  padding-block: 5px;
+}
+@media (min-width: 1024px) {
+  .solver-container {
+    padding-inline: 42px 33px;
+  }
+  .solver-layout {
+    grid-template-columns: 329px minmax(0, 1fr);
+  }
+  .solver-puzzles {
+    min-height: 353px;
+    border-radius: 16px;
+  }
+}
+@media (max-width: 639px) {
+  .solver-actions button {
+    font-size: 12px;
+  }
 }

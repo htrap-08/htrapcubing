@@ -53,20 +53,20 @@ function SolverPage() {
   const cubeButtons = puzzles.filter((p) => p.kind === "nxn");
   const otherButtons = puzzles.filter((p) => p.kind !== "nxn");
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="solver-page min-h-screen bg-background text-foreground">
       <SiteHeader compact />
       <section className="relative overflow-hidden border-b border-line">
         <div className="pointer-events-none absolute inset-0 grid-paper opacity-40" />
-        <div className="relative mx-auto max-w-[1440px] px-5 pb-14 pt-14 sm:px-8">
-          <h1 className="font-display text-5xl font-bold tracking-tight sm:text-6xl">
-            Solve it, one turn at a time
+        <div className="solver-container relative mx-auto px-5 pb-4 pt-6 sm:px-8">
+          <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
+            Solve it, one move at a time
           </h1>
           <p className="mt-4 max-w-[52ch] text-[15px] text-muted">
-            Enter your puzzle’s colours or scan a cube to get its solution.
+            Enter your puzzle’s colors or scan it to get its solution.
           </p>
-          <div className="mt-10 grid items-start gap-5 lg:grid-cols-12">
-            <aside className="rounded-xl border border-line bg-panel p-4 lg:col-span-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted">Puzzle</p>
+          <div className="solver-layout mt-10 grid items-start gap-5">
+            <aside className="rounded-xl border border-line bg-panel p-4 solver-puzzles">
+              <p className="font-mono text-[20px] uppercase tracking-[0.075em] text-muted">Cubes</p>
               <div className="mt-3 grid grid-cols-3 gap-1.5 font-mono text-[12px]">
                 {cubeButtons.map((p) => (
                   <button
@@ -84,7 +84,7 @@ function SolverPage() {
                 ))}
               </div>
 
-              <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.15em] text-muted">
+              <p className="mt-4 font-mono text-[20px] uppercase tracking-[0.075em] text-muted">
                 Other puzzles
               </p>
               <div className="mt-3 flex flex-wrap gap-1.5 font-mono text-[11px]">
@@ -104,11 +104,11 @@ function SolverPage() {
                 ))}
               </div>
             </aside>
-            <div className="rounded-xl border border-line bg-panel p-5 lg:col-span-9">
+            <div className="rounded-xl border border-line bg-panel p-5 solver-panel">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <h2 className="font-display text-lg font-bold">{puzzle.short}</h2>
+                <h2 className="font-display text-[40px] font-bold">{puzzle.short}</h2>
                 {puzzle.kind === "nxn" && (
-                  <div className="flex rounded-md border border-line bg-panel-2 p-0.5 font-mono text-xs">
+                  <div className="flex rounded-md border border-line bg-panel-2 p-0.5 font-mono text-base">
                     {(["colours", "scan"] as const).map((m) => (
                       <button
                         key={m}
@@ -118,7 +118,7 @@ function SolverPage() {
                           setCustom(null);
                         }}
                         className={cn(
-                          "rounded px-3 py-2",
+                          "rounded px-2 py-4",
                           mode === m ? "bg-display text-background" : "text-muted",
                         )}
                       >
