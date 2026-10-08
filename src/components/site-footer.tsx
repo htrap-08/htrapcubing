@@ -1,7 +1,17 @@
 import { Link } from "@tanstack/react-router";
 import { navItems, site } from "@/config/site";
 
-export function SiteFooter() {
+export function SiteFooter({ compact = false }: { compact?: boolean }) {
+  if (compact) {
+    return (
+      <footer className="home-footer bg-background">
+        <div className="home-container">
+          <Link to="/">scrambled eggs</Link>
+          <span>A Passion Project by Parth Gupta</span>
+        </div>
+      </footer>
+    );
+  }
   return (
     <footer className="border-t border-line bg-background">
       <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-4 px-5 py-8 sm:flex-row sm:gap-6 sm:px-8">

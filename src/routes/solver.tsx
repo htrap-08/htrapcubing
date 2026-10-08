@@ -54,7 +54,7 @@ function SolverPage() {
   const otherButtons = puzzles.filter((p) => p.kind !== "nxn");
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <SiteHeader />
+      <SiteHeader compact />
       <section className="relative overflow-hidden border-b border-line">
         <div className="pointer-events-none absolute inset-0 grid-paper opacity-40" />
         <div className="relative mx-auto max-w-[1440px] px-5 pb-14 pt-14 sm:px-8">
@@ -164,7 +164,7 @@ function SolverPage() {
           </div>
         </div>
       </section>
-      <SiteFooter />
+      <SiteFooter compact />
     </div>
   );
 }

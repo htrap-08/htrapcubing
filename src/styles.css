@@ -184,7 +184,8 @@
   padding: 5px 0;
   line-height: 15px;
 }
-.home-header > div nav a:first-child {
+.home-header > div nav a:first-child,
+.home-header > div nav a[aria-current="page"] {
   text-align: center;
   min-width: 71px;
 }
