@@ -61,8 +61,10 @@ function Stickers({
         new THREE.Vector3(...nv),
       );
       for (let i = 0; i < n * n; i++) {
-        const row = Math.floor(i / n), col = i % n;
-        const a = col - (n - 1) / 2, b = row - (n - 1) / 2;
+        const row = Math.floor(i / n),
+          col = i % n;
+        const a = col - (n - 1) / 2,
+          b = row - (n - 1) / 2;
         list.push({
           face,
           i,

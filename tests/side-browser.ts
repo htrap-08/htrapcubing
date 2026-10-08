@@ -12,14 +12,29 @@ document.querySelector<HTMLButtonElement>("#run")!.onclick = async () => {
       const data = await loadPaintPuzzle(puzzle);
       const colours = patternColours(data, data.kpuzzle.defaultPattern().applyAlg(scramble));
       const result = await new Promise<{ solution?: string; error?: string }>((resolve, reject) => {
-        const job = new Worker(new URL("../src/lib/side-puzzle.worker.ts", import.meta.url), { type: "module" });
-        const timeout = setTimeout(() => { job.terminate(); reject(new Error("Timed out")); }, 60000);
-        job.onmessage = (event) => { clearTimeout(timeout); job.terminate(); resolve(event.data); };
-        job.onerror = (event) => { clearTimeout(timeout); job.terminate(); reject(new Error(event.message)); };
+        const job = new Worker(new URL("../src/lib/side-puzzle.worker.ts", import.meta.url), {
+          type: "module",
+        });
+        const timeout = setTimeout(() => {
+          job.terminate();
+          reject(new Error("Timed out"));
+        }, 60000);
+        job.onmessage = (event) => {
+          clearTimeout(timeout);
+          job.terminate();
+          resolve(event.data);
+        };
+        job.onerror = (event) => {
+          clearTimeout(timeout);
+          job.terminate();
+          reject(new Error(event.message));
+        };
         job.postMessage({ puzzle, colours });
       });
       if (result.error || !result.solution) throw new Error(result.error ?? "No solution returned");
       results.textContent += `${puzzle}: PASS — verified solution returned\n`;
-    } catch (error) { results.textContent += `${puzzle}: FAIL — ${String(error)}\n`; }
+    } catch (error) {
+      results.textContent += `${puzzle}: FAIL — ${String(error)}\n`;
+    }
   }
 };

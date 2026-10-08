@@ -21,9 +21,8 @@ const { solveCubeString } = await import(cubeURL);
 const scanSource = (
   await readFile(new URL("../src/lib/cube-scan-state.ts", import.meta.url), "utf8")
 ).replace("./cube-state", cubeURL);
-const { initialScanState, cubeScanReducer, scannedFacesToCubeString, scannedFacesToFacelets } = await import(
-  encode(scanSource)
-);
+const { initialScanState, cubeScanReducer, scannedFacesToCubeString, scannedFacesToFacelets } =
+  await import(encode(scanSource));
 const order = ["U", "R", "F", "D", "L", "B"];
 const names = ["white", "red", "green", "yellow", "orange", "blue"];
 
@@ -69,20 +68,22 @@ test("scanned scrambled facelets pass through the existing Kociemba solver and s
   assert.equal((await solveCubeString("invalid")).ok, false);
 });
 
-
-test('all cube sizes capture six correctly sized faces and preserve solver colour mapping', () => {
+test("all cube sizes capture six correctly sized faces and preserve solver colour mapping", () => {
   for (let n = 2; n <= 10; n++) {
     let state = initialScanState(n);
     for (let i = 0; i < 6; i++) {
       assert.equal(state.index, i);
-      state = cubeScanReducer(state, { type: 'capture', colours: Array(n * n).fill(names[i]) });
-      state = cubeScanReducer(state, { type: 'confirm' });
+      state = cubeScanReducer(state, { type: "capture", colours: Array(n * n).fill(names[i]) });
+      state = cubeScanReducer(state, { type: "confirm" });
     }
-    assert.equal(scannedFacesToCubeString(state.faces, n), order.map(f => f.repeat(n * n)).join(''));
+    assert.equal(
+      scannedFacesToCubeString(state.faces, n),
+      order.map((f) => f.repeat(n * n)).join(""),
+    );
     const facelets = scannedFacesToFacelets(state.faces, n);
     assert.equal(Object.values(facelets).flat().length, 6 * n * n);
-    assert.deepEqual(facelets.F, Array(n * n).fill('l'));
-    assert.deepEqual(facelets.L, Array(n * n).fill('f'));
-    assert.equal(cubeScanReducer(state, { type: 'reset' }).n, n);
+    assert.deepEqual(facelets.F, Array(n * n).fill("l"));
+    assert.deepEqual(facelets.L, Array(n * n).fill("f"));
+    assert.equal(cubeScanReducer(state, { type: "reset" }).n, n);
   }
 });

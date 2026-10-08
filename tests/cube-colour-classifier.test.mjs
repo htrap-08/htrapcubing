@@ -78,9 +78,11 @@ test("rejects wrong length, sparse arrays and invalid channels", () => {
   }
 });
 
-
-test('classifies a full face for every supported cube size', () => {
+test("classifies a full face for every supported cube size", () => {
   for (let n = 2; n <= 10; n++) {
-    assert.deepEqual(classifyCubeColours(Array(n * n).fill(CUBE_PALETTE.green), n * n), Array(n * n).fill('green'));
+    assert.deepEqual(
+      classifyCubeColours(Array(n * n).fill(CUBE_PALETTE.green), n * n),
+      Array(n * n).fill("green"),
+    );
   }
 });

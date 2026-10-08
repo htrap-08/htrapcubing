@@ -36,10 +36,7 @@ function Face({
   onPaint?: ((face: FaceKey, index: number) => void) | undefined;
 }) {
   return (
-    <div
-      className="grid gap-[2px]"
-      style={{ gridTemplateColumns: `repeat(${n}, minmax(0, 1fr))` }}
-    >
+    <div className="grid gap-[2px]" style={{ gridTemplateColumns: `repeat(${n}, minmax(0, 1fr))` }}>
       {cells.map((value, i) => (
         <Sticker
           key={i}

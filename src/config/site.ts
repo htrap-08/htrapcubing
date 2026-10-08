@@ -4,8 +4,8 @@
  */
 
 export const site = {
-  name: "AXIOM",
-  nameSuffix: "/CUBE",
+  name: "scrambled eggs",
+  nameSuffix: "",
   build: "v0.9 · BUILD 0921",
   tagline: "Built to be extended",
 } as const;

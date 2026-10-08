@@ -1,1 +1,2 @@
-declare const Cube: unknown; export default Cube;
+declare const Cube: unknown;
+export default Cube;

@@ -7,7 +7,7 @@ import { puzzles } from "@/lib/puzzles";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "scrambled eggs — Twisty puzzle solver, algorithms and timer" },
+      { title: "scrambled eggs" },
       {
         name: "description",
         content:
@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
       },
       {
         property: "og:title",
-        content: "scrambled eggs — Twisty puzzle solver, algorithms and timer",
+        content: "scrambled eggs",
       },
       {
         property: "og:description",
