@@ -7,7 +7,6 @@ export function SiteFooter({ compact = false }: { compact?: boolean }) {
       <footer className="home-footer bg-background">
         <div className="home-container">
           <Link to="/">scrambled eggs</Link>
-          <span>A Passion Project by Parth Gupta</span>
         </div>
       </footer>
     );

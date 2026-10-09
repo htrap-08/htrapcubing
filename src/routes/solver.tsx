@@ -110,7 +110,6 @@ function SolverPage() {
     <div className="solver-page min-h-screen bg-background text-foreground">
       <SiteHeader compact />
       <section className="relative overflow-hidden border-b border-line">
-        <div className="solver-background pointer-events-none absolute inset-0 opacity-40" />
         <div className="solver-container relative mx-auto px-5 pb-4 pt-6 sm:px-8">
           <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
             Solve it, one move at a time

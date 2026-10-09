@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
 import { Square1Icon } from "@/components/square1-icon";
 import { FaceDiagram } from "@/components/sticker";
 import { puzzles } from "@/lib/puzzles";
@@ -130,11 +131,7 @@ function Home() {
           </div>
         </section>
       </main>
-      <footer className="home-footer">
-        <div className="home-container">
-          <Link to="/">scrambled eggs</Link>
-        </div>
-      </footer>
+      <SiteFooter compact />
     </div>
   );
 }

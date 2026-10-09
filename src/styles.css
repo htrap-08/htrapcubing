@@ -143,11 +143,24 @@
   background-size: 44px 44px;
 }
 
-/* Homepage matches the latest compact 1320 × 700 Figma frame. */
-.homepage {
+/* Homepage colours are the shared foundation for home and solver. */
+:is(.homepage, .solver-page) {
   --background: #f8f2e5;
   --foreground: #221f19;
   --panel: #fbf7ef;
+  --primary: #df5729;
+  --muted: rgba(34, 31, 25, 0.55);
+  --line: rgba(34, 31, 25, 0.12);
+  --display: #17130c;
+  --display-soft: rgba(23, 19, 12, 0.07);
+  --page-title-size: clamp(32px, 5vw, 48px);
+  --section-title-size: 36px;
+  --section-label-size: 20px;
+  --intro-size: 16px;
+  --body-size: 15px;
+  --shared-card-radius: 10px;
+}
+.homepage {
   min-height: 100svh;
   overflow-x: clip;
   display: flex;
@@ -561,11 +574,6 @@
   }
 }
 
-.solver-background {
-  background:
-    linear-gradient(90deg, rgba(34, 31, 25, 0.12) 2.2727%, transparent 2.2727%),
-    linear-gradient(180deg, rgba(34, 31, 25, 0.12) 2.2727%, transparent 2.2727%);
-}
 .solver-puzzles button,
 .solver-palette button,
 .solver-actions button,
@@ -695,7 +703,7 @@
   flex-shrink: 0;
   transform: none;
 }
-.homepage .home-footer > div {
+:is(.homepage, .solver-page) .home-footer > div {
   min-height: 69px;
   font-size: 24px;
 }
@@ -830,7 +838,7 @@
     height: calc(12 / 20.5 * 1cqw);
     border-radius: calc(3 / 20.5 * 1cqw);
   }
-  .homepage .home-footer > div {
+  :is(.homepage, .solver-page) .home-footer > div {
     min-height: calc(69 / 20.5 * 1cqw);
     font-size: calc(24 / 20.5 * 1cqw);
   }
@@ -1193,4 +1201,76 @@
 .site-wordmark {
   font-family: "Sour Gummy", ui-sans-serif, sans-serif;
   font-weight: 700;
+}
+
+/* Equivalent home and solver elements consume the same type and surface tokens. */
+body:has(.homepage, .solver-page) {
+  background-color: #f8f2e5;
+}
+:is(.homepage, .solver-page) :is(.home-hero h1, .solver-container > h1) {
+  font-family: var(--font-display-family);
+  font-size: var(--page-title-size);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+:is(.homepage, .solver-page) :is(.home-intro, .solver-container > p) {
+  font-family: var(--font-body-family);
+  font-size: var(--intro-size);
+  line-height: 1.5;
+  color: var(--muted);
+}
+:is(.homepage, .solver-page) :is(.home-puzzle-grid > h2, .solver-panel-heading > h2) {
+  font-family: var(--font-display-family);
+  font-size: var(--section-title-size);
+  font-weight: 700;
+  line-height: 1;
+}
+:is(.homepage, .solver-page) :is(.home-feature-tag, .solver-puzzles > p) {
+  font-family: "Krona One", sans-serif;
+  font-size: var(--section-label-size);
+  line-height: 1.25;
+  color: var(--primary);
+  letter-spacing: 0.9452px;
+}
+:is(.homepage, .solver-page) :is(.home-feature, .home-puzzle-card, .solver-panel, .solver-puzzles) {
+  border-color: var(--line);
+  border-radius: var(--shared-card-radius);
+  background-color: var(--panel);
+}
+.solver-page :is(button, input, select) {
+  font-family: var(--font-body-family);
+}
+.solver-panel p:not(.font-mono) {
+  font-family: var(--font-body-family);
+  font-size: var(--body-size);
+  line-height: 1.5;
+}
+@media (min-width: 1100px) {
+  :is(.homepage, .solver-page) {
+    --page-title-size: calc(80 / 20.5 * 1cqw);
+    --section-title-size: calc(48 / 20.5 * 1cqw);
+    --section-label-size: calc(32 / 20.5 * 1cqw);
+    --intro-size: calc(32 / 20.5 * 1cqw);
+    --body-size: calc(20 / 20.5 * 1cqw);
+    --shared-card-radius: calc(10 / 20.5 * 1cqw);
+  }
+  :is(.homepage, .solver-page) :is(.home-hero h1, .solver-container > h1) {
+    line-height: calc(108 / 20.5 * 1cqw);
+    letter-spacing: calc(-0.9452 / 20.5 * 1cqw);
+  }
+  :is(.homepage, .solver-page) :is(.home-intro, .solver-container > p) {
+    line-height: calc(50 / 20.5 * 1cqw);
+    margin-top: 0;
+  }
+  .solver-container {
+    padding-inline: calc(28 / 20.5 * 1cqw);
+  }
+  .solver-page .home-container {
+    margin-inline: calc(28 / 20.5 * 1cqw);
+    width: calc(100% - 56 / 20.5 * 1cqw);
+  }
+  .solver-page :is(.solver-puzzles button, .solver-palette button, .solver-actions button) {
+    font-size: max(12px, var(--body-size));
+  }
 }
