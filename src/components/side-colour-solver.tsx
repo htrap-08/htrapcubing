@@ -21,7 +21,6 @@ export function SideColourSolver({
   const [data, setData] = useState<PaintPuzzle | null>(null);
   const [colours, setColours] = useState<number[]>([]);
   const [brush, setBrush] = useState(0);
-  const [reference, setReference] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const worker = useRef<Worker | null>(null);
@@ -63,7 +62,6 @@ export function SideColourSolver({
       setError("That puzzle is already solved!");
       return;
     }
-    setReference(false);
     setBusy(true);
     try {
       const job = new Worker(new URL("../lib/side-puzzle.worker.ts", import.meta.url), {
@@ -115,14 +113,9 @@ export function SideColourSolver({
       >
         <PaintPuzzle3D
           data={data}
-          colours={reference ? data.stickers.map((s) => s.face) : colours}
+          colours={colours}
           onPaint={(i) => {
-            if (
-              busy ||
-              reference ||
-              (puzzle === "megaminx" && data.stickers[i]!.orbit === "CENTERS")
-            )
-              return;
+            if (busy || (puzzle === "megaminx" && data.stickers[i]!.orbit === "CENTERS")) return;
             setError(null);
             setColours((previous) => previous.map((c, index) => (index === i ? brush : c)));
           }}
@@ -132,15 +125,7 @@ export function SideColourSolver({
         Pick a colour and click stickers. Drag to see every face; scroll to zoom.{" "}
         {puzzle === "megaminx" ? "Centres stay fixed." : "Match the solved reference orientation."}
       </p>
-      <button
-        type="button"
-        className="mx-auto text-xs underline"
-        disabled={busy}
-        onClick={() => setReference((r) => !r)}
-      >
-        {reference ? "Back to my colours" : "Show solved colour reference"}
-      </button>
-      <fieldset disabled={busy || reference} className="flex flex-wrap justify-center gap-2">
+      <fieldset disabled={busy} className="flex flex-wrap justify-center gap-2">
         {data.colours.map((colour, i) => (
           <button
             key={i}
@@ -167,7 +152,6 @@ export function SideColourSolver({
           onClick={() => {
             setColours(blankPaint(data));
             setError(null);
-            setReference(false);
           }}
         >
           Clear
@@ -178,7 +162,6 @@ export function SideColourSolver({
           onClick={() => {
             setColours(data.stickers.map((s) => s.face));
             setError(null);
-            setReference(false);
           }}
         >
           Fill solved
