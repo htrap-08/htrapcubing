@@ -144,7 +144,7 @@
 }
 
 /* Homepage colours are the shared foundation for home and solver. */
-:is(.homepage, .solver-page) {
+:is(.homepage, .solver-page, .algorithms-page, .timer-page) {
   --background: #f8f2e5;
   --foreground: #221f19;
   --panel: #fbf7ef;
@@ -654,7 +654,7 @@
   font-display: optional;
   src: url(/fonts/krona-one.woff2) format("woff2");
 }
-:is(.homepage, .solver-page) .home-header nav {
+:is(.homepage, .solver-page, .algorithms-page, .timer-page) .home-header nav {
   font-family: var(--font-display-family);
   font-weight: 700;
 }
@@ -703,7 +703,7 @@
   flex-shrink: 0;
   transform: none;
 }
-:is(.homepage, .solver-page) .home-footer > div {
+:is(.homepage, .solver-page, .algorithms-page, .timer-page) .home-footer > div {
   min-height: 69px;
   font-size: 24px;
 }
@@ -722,26 +722,30 @@
     margin-inline: calc(28 / 20.5 * 1cqw);
     width: calc(100% - 56 / 20.5 * 1cqw);
   }
-  :is(.homepage, .solver-page) .home-header > div {
+  :is(.homepage, .solver-page, .algorithms-page, .timer-page) .home-header > div {
     height: calc(60 / 20.5 * 1cqw);
     padding-inline: calc(91 / 20.5 * 1cqw);
     gap: calc(38 / 20.5 * 1cqw);
   }
-  :is(.homepage, .solver-page) .home-wordmark {
+  :is(.homepage, .solver-page, .algorithms-page, .timer-page) .home-wordmark {
     font-size: calc(36 / 20.5 * 1cqw);
     width: calc(255 / 20.5 * 1cqw);
   }
-  :is(.homepage, .solver-page) .home-header nav {
+  :is(.homepage, .solver-page, .algorithms-page, .timer-page) .home-header nav {
     gap: calc(32 / 20.5 * 1cqw);
     font-size: calc(15 / 20.5 * 1cqw);
     letter-spacing: calc(1.1883 / 20.5 * 1cqw);
   }
-  :is(.homepage, .solver-page) .home-header > div nav a {
+  :is(.homepage, .solver-page, .algorithms-page, .timer-page) .home-header > div nav a {
     padding: calc(5 / 20.5 * 1cqw) 0;
     line-height: calc(15 / 20.5 * 1cqw);
     border-radius: calc(6 / 20.5 * 1cqw);
   }
-  :is(.homepage, .solver-page) .home-header > div nav a:is(:first-child, [aria-current="page"]) {
+  :is(.homepage, .solver-page, .algorithms-page, .timer-page)
+    .home-header
+    > div
+    nav
+    a:is(:first-child, [aria-current="page"]) {
     min-width: calc(77 / 20.5 * 1cqw);
   }
   .homepage .home-hero {
@@ -838,7 +842,7 @@
     height: calc(12 / 20.5 * 1cqw);
     border-radius: calc(3 / 20.5 * 1cqw);
   }
-  :is(.homepage, .solver-page) .home-footer > div {
+  :is(.homepage, .solver-page, .algorithms-page, .timer-page) .home-footer > div {
     min-height: calc(69 / 20.5 * 1cqw);
     font-size: calc(24 / 20.5 * 1cqw);
   }
@@ -1204,36 +1208,41 @@
 }
 
 /* Equivalent home and solver elements consume the same type and surface tokens. */
-body:has(.homepage, .solver-page) {
+body:has(.homepage, .solver-page, .algorithms-page, .timer-page) {
   background-color: #f8f2e5;
 }
-:is(.homepage, .solver-page) :is(.home-hero h1, .solver-container > h1) {
+:is(.homepage, .solver-page, .algorithms-page, .timer-page)
+  :is(.home-hero h1, .solver-container > h1) {
   font-family: var(--font-display-family);
   font-size: var(--page-title-size);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.02em;
 }
-:is(.homepage, .solver-page) :is(.home-intro, .solver-container > p) {
+:is(.homepage, .solver-page, .algorithms-page, .timer-page)
+  :is(.home-intro, .solver-container > p) {
   font-family: var(--font-body-family);
   font-size: var(--intro-size);
   line-height: 1.5;
   color: var(--muted);
 }
-:is(.homepage, .solver-page) :is(.home-puzzle-grid > h2, .solver-panel-heading > h2) {
+:is(.homepage, .solver-page, .algorithms-page, .timer-page)
+  :is(.home-puzzle-grid > h2, .solver-panel-heading > h2) {
   font-family: var(--font-display-family);
   font-size: var(--section-title-size);
   font-weight: 700;
   line-height: 1;
 }
-:is(.homepage, .solver-page) :is(.home-feature-tag, .solver-puzzles > p) {
+:is(.homepage, .solver-page, .algorithms-page, .timer-page)
+  :is(.home-feature-tag, .solver-puzzles > p) {
   font-family: "Krona One", sans-serif;
   font-size: var(--section-label-size);
   line-height: 1.25;
   color: var(--primary);
   letter-spacing: 0.9452px;
 }
-:is(.homepage, .solver-page) :is(.home-feature, .home-puzzle-card, .solver-panel, .solver-puzzles) {
+:is(.homepage, .solver-page, .algorithms-page, .timer-page)
+  :is(.home-feature, .home-puzzle-card, .solver-panel, .solver-puzzles) {
   border-color: var(--line);
   border-radius: var(--shared-card-radius);
   background-color: var(--panel);
@@ -1247,7 +1256,7 @@ body:has(.homepage, .solver-page) {
   line-height: 1.5;
 }
 @media (min-width: 1100px) {
-  :is(.homepage, .solver-page) {
+  :is(.homepage, .solver-page, .algorithms-page, .timer-page) {
     --page-title-size: calc(80 / 20.5 * 1cqw);
     --section-title-size: calc(48 / 20.5 * 1cqw);
     --section-label-size: calc(32 / 20.5 * 1cqw);
@@ -1255,11 +1264,13 @@ body:has(.homepage, .solver-page) {
     --body-size: calc(20 / 20.5 * 1cqw);
     --shared-card-radius: calc(10 / 20.5 * 1cqw);
   }
-  :is(.homepage, .solver-page) :is(.home-hero h1, .solver-container > h1) {
+  :is(.homepage, .solver-page, .algorithms-page, .timer-page)
+    :is(.home-hero h1, .solver-container > h1) {
     line-height: calc(108 / 20.5 * 1cqw);
     letter-spacing: calc(-0.9452 / 20.5 * 1cqw);
   }
-  :is(.homepage, .solver-page) :is(.home-intro, .solver-container > p) {
+  :is(.homepage, .solver-page, .algorithms-page, .timer-page)
+    :is(.home-intro, .solver-container > p) {
     line-height: calc(50 / 20.5 * 1cqw);
     margin-top: 0;
   }
@@ -1273,4 +1284,78 @@ body:has(.homepage, .solver-page) {
   .solver-page :is(.solver-puzzles button, .solver-palette button, .solver-actions button) {
     font-size: max(12px, var(--body-size));
   }
+}
+
+/* All tools share the homepage theme; notation retains its monospace font. */
+:is(.algorithms-page, .timer-page) {
+  overflow-x: clip;
+}
+:is(.algorithms-page, .timer-page) h1 {
+  font-family: "Space Grotesk", ui-sans-serif, sans-serif;
+  font-size: var(--page-title-size);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+.algorithms-page article,
+.timer-page .timer-card,
+.timer-page aside .grid > div {
+  background: var(--panel);
+  border-color: var(--line);
+  border-radius: var(--shared-card-radius);
+}
+.algorithms-page article h2 {
+  font-family: "Space Grotesk", ui-sans-serif, sans-serif;
+  font-size: var(--section-label-size);
+  line-height: 1.25;
+}
+.algorithms-page article > p:not(:first-child) {
+  font-family: Inter, ui-sans-serif, sans-serif;
+  font-size: var(--body-size);
+  line-height: 1.5;
+}
+:is(.algorithms-page, .timer-page) :is(button, input) {
+  font-family: Inter, ui-sans-serif, sans-serif;
+  font-size: max(14px, var(--body-size));
+}
+.timer-page section {
+  background: var(--background);
+  color: var(--foreground);
+}
+.timer-page [class*="text-background/"] {
+  color: var(--muted);
+}
+.timer-page [class*="border-background/"] {
+  border-color: var(--line);
+}
+.timer-page [class*="divide-background/"] > :not(:last-child) {
+  border-color: var(--line);
+}
+.timer-page button:hover {
+  color: var(--foreground);
+}
+.timer-page button.bg-primary:hover {
+  color: var(--primary-foreground);
+}
+@media (min-width: 1100px) {
+  :is(.algorithms-page, .timer-page) {
+    max-width: 2050px;
+    margin-inline: auto;
+    container-type: inline-size;
+  }
+  :is(.algorithms-page, .timer-page) section > div {
+    max-width: none;
+    padding-inline: calc(28 / 20.5 * 1cqw);
+  }
+  :is(.algorithms-page, .timer-page) .home-container {
+    margin-inline: calc(28 / 20.5 * 1cqw);
+    width: calc(100% - 56 / 20.5 * 1cqw);
+  }
+}
+.timer-page .timer-actions {
+  background: var(--panel);
+}
+.timer-page h1 {
+  color: var(--foreground);
 }

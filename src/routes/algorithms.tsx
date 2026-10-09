@@ -54,7 +54,7 @@ function AlgorithmsPage() {
 
   return (
     <div className="algorithms-page min-h-screen bg-background text-foreground">
-      <SiteHeader />
+      <SiteHeader compact />
 
       <section className="border-b border-line">
         <div className="mx-auto max-w-[1440px] px-5 py-14 sm:px-8">
@@ -161,7 +161,7 @@ function AlgorithmsPage() {
         </div>
       </section>
 
-      <SiteFooter />
+      <SiteFooter compact />
     </div>
   );
 }

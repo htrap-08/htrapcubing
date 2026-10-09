@@ -177,7 +177,7 @@ function TimerPage() {
 
   return (
     <div className="timer-page min-h-screen bg-background text-foreground">
-      <SiteHeader />
+      <SiteHeader compact />
 
       <section className="bg-display text-background">
         <div className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8">
@@ -336,7 +336,7 @@ function TimerPage() {
         </div>
       </section>
 
-      <SiteFooter />
+      <SiteFooter compact />
     </div>
   );
 }
