@@ -157,7 +157,7 @@ export function ScanColourSolver({
                 confirming.
               </p>
               <div
-                className="mx-auto grid w-full gap-1"
+                className={`scan-review mx-auto grid w-full gap-1 ${n >= 6 ? "scan-review-large" : ""}`}
                 style={{ gridTemplateColumns: `repeat(${n}, minmax(0, 1fr))` }}
                 aria-label={`${face} scanned colour review`}
               >
@@ -172,7 +172,7 @@ export function ScanColourSolver({
                         className="block aspect-square"
                         style={{ backgroundColor: `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})` }}
                       />
-                      <span className="sr-only">
+                      <span className="scan-sticker-label sr-only">
                         {face} row {Math.floor(index / n) + 1} column {(index % n) + 1}
                       </span>
                       <select

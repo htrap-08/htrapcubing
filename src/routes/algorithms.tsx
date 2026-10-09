@@ -53,7 +53,7 @@ function AlgorithmsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="algorithms-page min-h-screen bg-background text-foreground">
       <SiteHeader />
 
       <section className="border-b border-line">
@@ -87,6 +87,9 @@ function AlgorithmsPage() {
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
+                type="search"
+                aria-label="Search algorithms by moves or name"
+                autoComplete="off"
                 placeholder="Search moves or names"
                 className="mt-4 w-full rounded-md border border-line bg-panel px-3 py-2 font-mono text-[12px] outline-none placeholder:text-muted focus:border-primary"
               />

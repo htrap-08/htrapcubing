@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import { Square1Player } from "./square1-player";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
+const Square1Player = lazy(() =>
+  import("./square1-player").then((module) => ({ default: module.Square1Player })),
+);
 import { solveSquare1State } from "@/lib/square1-engine";
 import {
   square1StateFromPieces,
@@ -164,7 +166,15 @@ export function Square1Solver() {
           <p className="mt-2 break-words font-mono text-sm">
             {result.solution || "Already solved"}
           </p>
-          <Square1Player initialState={result.state} alg={result.solution} playback />
+          <Suspense
+            fallback={
+              <div className="flex h-[340px] items-center justify-center" role="status">
+                Loading solution model…
+              </div>
+            }
+          >
+            <Square1Player initialState={result.state} alg={result.solution} playback />
+          </Suspense>
         </>
       )}
       <p className="mt-3 text-xs text-muted">

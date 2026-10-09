@@ -176,16 +176,16 @@ function TimerPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="timer-page min-h-screen bg-background text-foreground">
       <SiteHeader />
 
       <section className="bg-display text-background">
         <div className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8">
           <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
             <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-primary">
+              <h1 className="font-mono text-[11px] uppercase tracking-[0.2em] text-primary">
                 (c) Timer · session
-              </p>
+              </h1>
 
               <div className="mt-6 flex flex-wrap gap-1.5 font-mono text-[11px]">
                 {puzzles.map((p) => (
@@ -205,12 +205,12 @@ function TimerPage() {
                 ))}
               </div>
 
-              <div className="mt-6 rounded-2xl border border-background/10 bg-background/[0.03] p-8 text-center">
+              <div className="timer-card mt-6 rounded-2xl border border-background/10 bg-background/[0.03] p-8 text-center">
                 <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-background/50">
                   {puzzle.kind === "square1" ? "Random-state scramble" : "Scramble"} ·{" "}
                   {puzzle.short}
                 </p>
-                <p className="mt-3 whitespace-pre-line text-balance font-mono text-xl font-medium tracking-tight sm:text-2xl">
+                <p className="timer-scramble mt-3 whitespace-pre-line text-balance font-mono text-xl font-medium tracking-tight sm:text-2xl">
                   {scrambleLoading ? "Generating scramble…" : scramble}
                 </p>
                 {scrambleError && (
@@ -227,7 +227,7 @@ function TimerPage() {
                 <div className="mt-8">
                   <p
                     className={cn(
-                      "settle font-mono text-[76px] font-bold leading-none tracking-tighter tabular-nums sm:text-[124px]",
+                      "timer-digits font-mono text-[76px] font-bold leading-none tracking-tighter tabular-nums sm:text-[124px]",
                       armed && "text-primary",
                     )}
                   >
@@ -237,13 +237,13 @@ function TimerPage() {
 
                 <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.15em] text-background/40">
                   {running
-                    ? "Solving · press space to stop"
+                    ? "Solving · tap Stop or press space"
                     : armed
                       ? "Release space to start"
-                      : "Hold space to start · press space to stop"}
+                      : "Tap Start / Stop · or hold space to start"}
                 </p>
 
-                <div className="mt-6 flex flex-wrap justify-center gap-2">
+                <div className="timer-actions mt-6 flex flex-wrap justify-center gap-2">
                   <button
                     onClick={() => void refreshScramble(puzzle)}
                     disabled={running || scrambleLoading}

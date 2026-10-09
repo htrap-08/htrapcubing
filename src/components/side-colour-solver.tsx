@@ -100,7 +100,10 @@ export function SideColourSolver({
   };
   if (!data)
     return (
-      <p className="py-12 text-center text-sm text-muted" role="status">
+      <p
+        className="flex h-[340px] items-center justify-center text-center text-sm text-muted"
+        role="status"
+      >
         {error ?? "Loading colour editor…"}
       </p>
     );

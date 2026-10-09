@@ -463,43 +463,43 @@
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
-  src: url(/fonts/home-0.ttf) format("truetype");
+  font-display: optional;
+  src: url(/fonts/home-0.woff2) format("woff2");
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
-  font-display: swap;
-  src: url(/fonts/home-1.ttf) format("truetype");
+  font-display: optional;
+  src: url(/fonts/home-1.woff2) format("woff2");
 }
 @font-face {
   font-family: "JetBrains Mono";
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
-  src: url(/fonts/home-2.ttf) format("truetype");
+  font-display: optional;
+  src: url(/fonts/home-2.woff2) format("woff2");
 }
 @font-face {
   font-family: "Jockey One";
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
-  src: url(/fonts/home-3.ttf) format("truetype");
+  font-display: optional;
+  src: url(/fonts/home-3.woff2) format("woff2");
 }
 @font-face {
   font-family: "Space Grotesk";
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
-  src: url(/fonts/home-4.ttf) format("truetype");
+  font-display: optional;
+  src: url(/fonts/home-4.woff2) format("woff2");
 }
 @font-face {
   font-family: "Space Grotesk";
   font-style: normal;
   font-weight: 700;
-  font-display: swap;
-  src: url(/fonts/home-5.ttf) format("truetype");
+  font-display: optional;
+  src: url(/fonts/home-5.woff2) format("woff2");
 }
 
 .square1-playbar button {
@@ -520,8 +520,8 @@
   font-family: "Sour Gummy";
   font-style: normal;
   font-weight: 700;
-  font-display: swap;
-  src: url(/fonts/sour-gummy-bold.ttf) format("truetype");
+  font-display: optional;
+  src: url(/fonts/sour-gummy-bold.woff2) format("woff2");
 }
 
 /* Figma solver layout: trim margins while preserving the live 3D viewport. */
@@ -643,8 +643,8 @@
   font-family: "Krona One";
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
-  src: url(/fonts/krona-one.ttf) format("truetype");
+  font-display: optional;
+  src: url(/fonts/krona-one.woff2) format("woff2");
 }
 :is(.homepage, .solver-page) .home-header nav {
   font-family: var(--font-display-family);
@@ -929,5 +929,263 @@
   }
   .solver-panel > .colour-solver {
     margin-top: 16px;
+  }
+}
+
+/* Mobile reflow and touch interaction. */
+:where(main, section, article, aside, fieldset) {
+  min-width: 0;
+}
+:where(p, h1, h2, h3, label, button, a) {
+  overflow-wrap: anywhere;
+}
+:where(button, a, input, select, textarea):focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+@media (max-width: 1099px) {
+  button,
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+  }
+  button {
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+    max-width: 100%;
+  }
+  .home-header > div {
+    flex-wrap: nowrap;
+  }
+  .home-wordmark {
+    font-size: clamp(24px, 4vw, 34px);
+  }
+  .homepage .home-hero h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    line-height: 1.15;
+  }
+  .homepage .home-intro {
+    max-width: 52ch;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .homepage .home-features {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .homepage .home-feature {
+    height: auto;
+    padding: 20px;
+  }
+  .homepage .home-feature-body {
+    max-width: none;
+  }
+  .homepage .home-puzzle-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .homepage .home-puzzle-grid > h2 {
+    grid-column: 1 / -1;
+  }
+  .homepage .home-puzzle-card {
+    height: auto;
+    min-height: 100px;
+  }
+  .solver-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .solver-puzzles {
+    min-height: 0;
+  }
+  .solver-panel-heading > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+  .solver-panel-heading button {
+    font-size: 14px;
+    padding: 10px;
+  }
+  .solver-panel > .colour-solver {
+    margin-top: 16px;
+  }
+  .solver-panel > .colour-solver > div:first-child {
+    height: 340px;
+  }
+  .solver-palette button,
+  .solver-actions button,
+  .solver-puzzles button {
+    height: auto !important;
+    min-height: 44px;
+  }
+  .solver-actions {
+    gap: 8px;
+  }
+  .solver-actions button {
+    font-size: 12px;
+    padding: 8px 4px;
+  }
+  .algorithms-page article > .flex > p {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .algorithms-page article a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .timer-card {
+    padding: 20px;
+  }
+  .timer-scramble {
+    min-height: 96px;
+    font-size: 18px;
+    overflow-wrap: anywhere;
+  }
+  .timer-digits {
+    font-size: clamp(38px, 12vw, 90px);
+    white-space: nowrap;
+  }
+  .timer-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .timer-actions button {
+    padding-inline: 10px;
+  }
+  [role="dialog"],
+  [data-radix-popper-content-wrapper] {
+    max-width: calc(100vw - 32px);
+    max-height: 80dvh;
+    overflow-y: auto;
+  }
+}
+@media (max-width: 767px) {
+  body {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  }
+  .site-header {
+    position: relative;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .mobile-navigation,
+  .home-header > .mobile-navigation {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 50;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4px;
+    padding: 8px max(8px, env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom))
+      max(8px, env(safe-area-inset-left));
+    background: var(--background);
+    overflow: visible;
+    font-family: var(--font-display-family);
+    font-size: 11px;
+    letter-spacing: 0;
+    box-shadow: 0 -4px 16px #221f1910;
+  }
+  .mobile-navigation a,
+  .home-header > .mobile-navigation a {
+    min-height: 44px;
+    min-width: 0;
+    padding: 8px 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  body:has(input:focus, textarea:focus, select:focus) .mobile-navigation {
+    display: none;
+  }
+  .solver-container {
+    padding: 20px 16px;
+  }
+  .solver-layout {
+    margin-top: 24px;
+  }
+  .solver-panel,
+  .solver-puzzles {
+    padding: 14px;
+  }
+  .solver-paint-hint {
+    margin-top: 8px;
+  }
+  .solver-palette {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .solver-actions {
+    position: relative;
+    padding: 8px 0;
+    background: var(--panel);
+  }
+  .scan-review-large {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .scan-review-large label > span:first-child {
+    aspect-ratio: auto;
+    height: 16px;
+  }
+  .scan-review-large .scan-sticker-label {
+    position: static;
+    display: block;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 4px;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    font-size: 12px;
+  }
+  .scan-review select {
+    font-size: 16px;
+    min-height: 44px;
+  }
+  .timer-page section > div,
+  .algorithms-page section > div {
+    padding: 24px 16px;
+  }
+  .timer-actions {
+    position: relative;
+    padding-block: 8px;
+    background: var(--display);
+  }
+  footer nav a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+@media (max-width: 479px) {
+  .homepage .home-puzzle-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .homepage .home-puzzle-card {
+    min-height: 88px;
+  }
+  .homepage .home-puzzle-card h3 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .homepage .home-puzzle-card p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 }

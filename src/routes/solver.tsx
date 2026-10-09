@@ -1,15 +1,69 @@
-import { useCallback, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { TwistyCube } from "@/components/twisty-cube";
 import { ScanColourSolver } from "@/components/scan-colour-solver";
 import { Square1Solver } from "@/components/square1-solver";
-import { SideColourSolver } from "@/components/side-colour-solver";
+const LazySideColourSolver = lazy(() =>
+  import("@/components/side-colour-solver").then((module) => ({
+    default: module.SideColourSolver,
+  })),
+);
+function SideColourSolver(props: {
+  puzzle: "pyraminx" | "megaminx" | "skewb";
+  onSolved: (solution: string) => void;
+}) {
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
+  const fallback = (
+    <div className="flex h-[340px] items-center justify-center" role="status">
+      Loading colour editor…
+    </div>
+  );
+  return ready ? (
+    <Suspense fallback={fallback}>
+      <LazySideColourSolver {...props} />
+    </Suspense>
+  ) : (
+    fallback
+  );
+}
 import { ColourSolver } from "@/components/colour-solver";
-import { Alg } from "cubing/alg";
+
 import { puzzleById, puzzles, type PuzzleId } from "@/lib/puzzles";
 import { cn } from "@/lib/utils";
+
+function SolutionPlayer({ solution, puzzle }: { solution: string; puzzle: PuzzleId }) {
+  const [setup, setSetup] = useState<string | null>(solution ? null : "");
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    let cancelled = false;
+    if (!solution) {
+      setSetup("");
+      return;
+    }
+    import("cubing/alg")
+      .then(({ Alg }) => {
+        if (!cancelled) setSetup(new Alg(solution).invert().toString());
+      })
+      .catch(() => {
+        if (!cancelled) setError(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [solution]);
+  return setup === null ? (
+    <div className="flex h-[400px] items-center justify-center" role="status">
+      {error
+        ? "Animation could not load. Refresh to retry; the moves above are still available."
+        : "Loading solution animation…"}
+    </div>
+  ) : (
+    <TwistyCube puzzle={puzzle} setup={setup} alg={solution} playback />
+  );
+}
 
 type SolverSearch = { puzzle: PuzzleId };
 
@@ -136,12 +190,10 @@ function SolverPage() {
                   <p className="mt-2 max-h-48 overflow-y-auto break-words font-mono text-sm">
                     {custom || "Already solved"}
                   </p>
-                  <TwistyCube
-                    key={puzzle.id}
+                  <SolutionPlayer
+                    key={`${puzzle.id}:${custom}`}
                     puzzle={puzzle.id}
-                    setup={custom ? new Alg(custom).invert().toString() : ""}
-                    alg={custom}
-                    playback
+                    solution={custom}
                   />
                   <button
                     type="button"
