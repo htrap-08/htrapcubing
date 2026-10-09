@@ -1,0 +1,9 @@
+{
+  "count": 1000,
+  "passed": 1000,
+  "failed": 0,
+  "elapsedMs": 1148,
+  "maxMoves": 915,
+  "meanMoves": 729.606,
+  "failures": []
+}

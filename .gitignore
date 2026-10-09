@@ -45,3 +45,6 @@ __pycache__/
 
 # Personal account screenshot
 godaddy pin.png
+
+# Generated 4x4 verification replay corpus
+solver/layer-by-layer/geometric-replays.json

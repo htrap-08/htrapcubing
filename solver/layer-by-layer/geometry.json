@@ -1,0 +1,1250 @@
+{
+  "moves": [
+    "U",
+    "D",
+    "R",
+    "L",
+    "F",
+    "B",
+    "u",
+    "d",
+    "r",
+    "l",
+    "f",
+    "b"
+  ],
+  "positions": [
+    {
+      "position": [
+        -3,
+        -3,
+        -3
+      ],
+      "orbit": "CORNERS",
+      "signature": [
+        false,
+        true,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        -3,
+        -3,
+        -1
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "position": [
+        -3,
+        -3,
+        1
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "position": [
+        -3,
+        -3,
+        3
+      ],
+      "orbit": "CORNERS",
+      "signature": [
+        false,
+        true,
+        false,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        -3,
+        -1,
+        -3
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        -3,
+        -1,
+        -1
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "position": [
+        -3,
+        -1,
+        1
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "position": [
+        -3,
+        -1,
+        3
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        false,
+        false,
+        false,
+        true,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        -3,
+        1,
+        -3
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        -3,
+        1,
+        -1
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "position": [
+        -3,
+        1,
+        1
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "position": [
+        -3,
+        1,
+        3
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        false,
+        false,
+        false,
+        true,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        -3,
+        3,
+        -3
+      ],
+      "orbit": "CORNERS",
+      "signature": [
+        true,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        -3,
+        3,
+        -1
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "position": [
+        -3,
+        3,
+        1
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "position": [
+        -3,
+        3,
+        3
+      ],
+      "orbit": "CORNERS",
+      "signature": [
+        true,
+        false,
+        false,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        -1,
+        -3,
+        -3
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        -1,
+        -3,
+        -1
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true
+      ]
+    },
+    {
+      "position": [
+        -1,
+        -3,
+        1
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        false
+      ]
+    },
+    {
+      "position": [
+        -1,
+        -3,
+        3
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        -1,
+        -1,
+        -3
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        -1,
+        -1,
+        3
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        -1,
+        1,
+        -3
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        -1,
+        1,
+        3
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        -1,
+        3,
+        -3
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        -1,
+        3,
+        -1
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true
+      ]
+    },
+    {
+      "position": [
+        -1,
+        3,
+        1
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        false
+      ]
+    },
+    {
+      "position": [
+        -1,
+        3,
+        3
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        1,
+        -3,
+        -3
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        1,
+        -3,
+        -1
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "position": [
+        1,
+        -3,
+        1
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "position": [
+        1,
+        -3,
+        3
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        1,
+        -1,
+        -3
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        1,
+        -1,
+        3
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        1,
+        1,
+        -3
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        1,
+        1,
+        3
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        1,
+        3,
+        -3
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        1,
+        3,
+        -1
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "position": [
+        1,
+        3,
+        1
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "position": [
+        1,
+        3,
+        3
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        3,
+        -3,
+        -3
+      ],
+      "orbit": "CORNERS",
+      "signature": [
+        false,
+        true,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        3,
+        -3,
+        -1
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        false,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "position": [
+        3,
+        -3,
+        1
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        false,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "position": [
+        3,
+        -3,
+        3
+      ],
+      "orbit": "CORNERS",
+      "signature": [
+        false,
+        true,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        3,
+        -1,
+        -3
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        3,
+        -1,
+        -1
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "position": [
+        3,
+        -1,
+        1
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "position": [
+        3,
+        -1,
+        3
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        3,
+        1,
+        -3
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        3,
+        1,
+        -1
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "position": [
+        3,
+        1,
+        1
+      ],
+      "orbit": "CENTERS",
+      "signature": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "position": [
+        3,
+        1,
+        3
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        3,
+        3,
+        -3
+      ],
+      "orbit": "CORNERS",
+      "signature": [
+        true,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "position": [
+        3,
+        3,
+        -1
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "position": [
+        3,
+        3,
+        1
+      ],
+      "orbit": "EDGES",
+      "signature": [
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "position": [
+        3,
+        3,
+        3
+      ],
+      "orbit": "CORNERS",
+      "signature": [
+        true,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    }
+  ]
+}

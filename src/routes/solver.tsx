@@ -1,3 +1,4 @@
+import type { SolutionStage } from "@/lib/cube-state";
 import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
@@ -98,7 +99,11 @@ function SolverPage() {
   const puzzle = puzzleById(puzzleId);
   const [mode, setMode] = useState<"colours" | "scan">("colours");
   const [custom, setCustom] = useState<string | null>(null);
-  const onSolved = useCallback((solution: string) => setCustom(solution), []);
+  const [solutionStages, setSolutionStages] = useState<SolutionStage[]>([]);
+  const onSolved = useCallback((solution: string, stages?: SolutionStage[]) => {
+    setCustom(solution);
+    setSolutionStages(stages ?? []);
+  }, []);
   const selectPuzzle = (id: PuzzleId) => {
     navigate({ search: { puzzle: id }, resetScroll: false });
     setCustom(null);
@@ -189,6 +194,23 @@ function SolverPage() {
                   <p className="mt-2 max-h-48 overflow-y-auto break-words font-mono text-sm">
                     {custom || "Already solved"}
                   </p>
+                  {solutionStages.length > 0 && (
+                    <details className="mt-4 rounded-lg border border-line bg-panel p-3">
+                      <summary className="cursor-pointer min-h-11 content-center text-sm text-primary">
+                        Layer-by-layer steps
+                      </summary>
+                      <ol className="mt-3 space-y-3">
+                        {solutionStages.map((stage) => (
+                          <li key={stage.name}>
+                            <h3 className="font-display font-bold">{stage.name}</h3>
+                            <p className="mt-1 break-words font-mono text-xs text-muted">
+                              {stage.moves || "Already complete"}
+                            </p>
+                          </li>
+                        ))}
+                      </ol>
+                    </details>
+                  )}
                   <SolutionPlayer
                     key={`${puzzle.id}:${custom}`}
                     puzzle={puzzle.id}

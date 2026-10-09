@@ -49,6 +49,11 @@ export async function solveLargeCube(
     return { ok: true, solution: "" };
   }
 
+  if (n === 4) {
+    const { solveFourLayers } = await import("./four-layer-solver");
+    return solveFourLayers(state, signal);
+  }
+
   let id: string | undefined;
   const cancelJob = () => {
     if (id)

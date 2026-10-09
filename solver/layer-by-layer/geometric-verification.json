@@ -1,0 +1,8 @@
+{
+  "independent_model": "integer coordinate sticker rotations; no cubing.js",
+  "stage_boundary_checks": 8540,
+  "cases": 1000,
+  "passed": 1000,
+  "failures": [],
+  "elapsed_seconds": 0.74
+}

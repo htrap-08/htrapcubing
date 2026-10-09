@@ -114,7 +114,9 @@ const parity = (p: number[]) => {
   return swaps % 2;
 };
 
-export type SolveResult = { ok: true; solution: string } | { ok: false; error: string };
+export type SolutionStage = { name: string; moves: string };
+export type SolveResult =
+  { ok: true; solution: string; stages?: SolutionStage[] } | { ok: false; error: string };
 
 export async function solveFacelets(n: 2 | 3, state: Facelets): Promise<SolveResult> {
   const all = FACES.flatMap((f) => state[f]);

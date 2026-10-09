@@ -40,7 +40,7 @@ test("all sizes detect solved and blank facelets without a network request", asy
 });
 
 test("serializes physical colours in URFDLB order and returns service solution", async () => {
-  const state = solvedFacelets(4);
+  const state = solvedFacelets(6);
   [state.U[0], state.R[0]] = [state.R[0], state.U[0]];
   const original = globalThis.fetch;
   const calls = [];
@@ -53,19 +53,19 @@ test("serializes physical colours in URFDLB order and returns service solution",
     );
   };
   try {
-    assert.equal((await solveLargeCube(4, state, new AbortController().signal)).solution, "R U R'");
+    assert.equal((await solveLargeCube(6, state, new AbortController().signal)).solution, "R U R'");
     const submitted = JSON.parse(calls[0][1].body);
-    assert.equal(submitted.n, 4);
+    assert.equal(submitted.n, 6);
     assert.equal(
       submitted.state,
       "R" +
-        "U".repeat(15) +
+        "U".repeat(35) +
         "U" +
-        "R".repeat(15) +
-        "F".repeat(16) +
-        "D".repeat(16) +
-        "L".repeat(16) +
-        "B".repeat(16),
+        "R".repeat(35) +
+        "F".repeat(36) +
+        "D".repeat(36) +
+        "L".repeat(36) +
+        "B".repeat(36),
     );
   } finally {
     globalThis.fetch = original;
@@ -73,7 +73,7 @@ test("serializes physical colours in URFDLB order and returns service solution",
 });
 
 test("cancellation during submission stops the server job", async () => {
-  const state = solvedFacelets(4);
+  const state = solvedFacelets(6);
   [state.U[0], state.R[0]] = [state.R[0], state.U[0]];
   const controller = new AbortController();
   const original = globalThis.fetch;
@@ -87,7 +87,7 @@ test("cancellation during submission stops the server job", async () => {
     return Response.json({ id: "cancel-me" });
   };
   try {
-    await assert.rejects(solveLargeCube(4, state, controller.signal));
+    await assert.rejects(solveLargeCube(6, state, controller.signal));
     assert.equal(stopped, true);
   } finally {
     globalThis.fetch = original;

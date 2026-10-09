@@ -1,3 +1,4 @@
+import type { SolutionStage } from "@/lib/cube-state";
 import { useEffect, useMemo, useReducer, useState } from "react";
 import { CubeCamera } from "./cube-camera";
 import {
@@ -30,7 +31,7 @@ export function ScanColourSolver({
   onSolved,
 }: {
   n?: number;
-  onSolved: (solution: string) => void;
+  onSolved: (solution: string, stages?: SolutionStage[]) => void;
 }) {
   const [state, dispatch] = useReducer(cubeScanReducer, n, initialScanState);
   const [result, setResult] = useState<{ busy: boolean; message: string; error: boolean }>({
@@ -79,7 +80,7 @@ export function ScanColourSolver({
           setResult({ busy: false, message: "Your cube is already solved!", error: false });
         else {
           setResult({ busy: false, message: "Solution found.", error: false });
-          onSolved(answer.solution);
+          onSolved(answer.solution, answer.stages);
         }
       })
       .catch(() => {
