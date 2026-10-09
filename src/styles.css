@@ -1402,6 +1402,6 @@ html[data-theme="dark"] body {
   outline: 2px solid var(--primary);
   outline-offset: 3px;
 }
-.home-header:has(.theme-toggle) > div {
+.home-header > div {
   min-height: 52px;
 }
