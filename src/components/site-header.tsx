@@ -1,7 +1,23 @@
-import { Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "@tanstack/react-router";
 import { navItems, site } from "@/config/site";
 
 export function SiteHeader({ compact = false }: { compact?: boolean }) {
+  const isHome = useLocation({ select: (location) => location.pathname === "/" });
+  const [dark, setDark] = useState(false);
+  useEffect(() => {
+    setDark(document.documentElement.dataset["theme"] === "dark");
+  }, []);
+  function toggleTheme() {
+    const next = !dark;
+    document.documentElement.dataset["theme"] = next ? "dark" : "light";
+    setDark(next);
+    try {
+      localStorage.setItem("scrambled-eggs-theme", next ? "dark" : "light");
+    } catch {
+      /* Theme still works when storage is unavailable. */
+    }
+  }
   return (
     <header
       className={`site-header sticky top-0 z-30 border-b border-line bg-background/90 md:backdrop-blur-sm ${compact ? "home-header" : ""}`}
@@ -46,6 +62,18 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
           ))}
         </nav>
 
+        {isHome && (
+          <button
+            type="button"
+            className="theme-toggle ml-auto"
+            onClick={toggleTheme}
+            aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+            aria-pressed={dark}
+          >
+            <span aria-hidden="true">{dark ? "☀" : "☾"}</span>
+            <span className="hidden sm:inline">{dark ? "Light mode" : "Dark mode"}</span>
+          </button>
+        )}
         <div className={`ml-auto flex items-center gap-3 ${compact ? "hidden" : ""}`}>
           <span className="hidden font-mono text-[10px] tracking-[0.15em] text-muted sm:inline">
             {site.build}

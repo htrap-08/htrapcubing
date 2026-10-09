@@ -1359,3 +1359,49 @@ body:has(.homepage, .solver-page, .algorithms-page, .timer-page) {
 .timer-page h1 {
   color: var(--foreground);
 }
+
+/* Black and orange theme inspired by the original timer. Sticker colours stay unchanged. */
+html[data-theme="dark"],
+html[data-theme="dark"] :is(.homepage, .solver-page, .algorithms-page, .timer-page) {
+  color-scheme: dark;
+  --background: #17130c;
+  --foreground: #f8f2e5;
+  --panel: #211d16;
+  --panel-2: #302a20;
+  --primary: #f06a36;
+  --primary-foreground: #17130c;
+  --muted: rgba(248, 242, 229, 0.65);
+  --line: rgba(248, 242, 229, 0.16);
+  --display: #f06a36;
+  --display-soft: rgba(240, 106, 54, 0.1);
+}
+html[data-theme="dark"] body {
+  background-color: #17130c;
+}
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  gap: 8px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  color: var(--foreground);
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
+.theme-toggle:hover {
+  border-color: var(--primary);
+}
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+.home-header:has(.theme-toggle) > div {
+  min-height: 52px;
+}
