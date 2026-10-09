@@ -40,7 +40,7 @@ const sections = [
   {
     to: "/algorithms" as const,
     tag: "Algorithms",
-    title: "We solve it for you",
+    title: "Solve it yourself",
     body: "Two tracks: a beginner method with basic algorithms, and an advanced shelf covering F2L, OLL, PLL, commutators and big-cube parity.",
   },
   {
