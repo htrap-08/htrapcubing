@@ -1,3 +1,5 @@
+> Saved prototype only: this solver is not connected to the website. The live 4×4 uses the previous backend solver. Browser integration templates are saved under `integration/` with their original source paths noted below.
+
 # Browser 4×4 physical layer-by-layer solver
 
 This deterministic solver requires no lookup tables or server. It builds white-first physical layers with pure three-piece cycles, solves top corners, then top wings with three-cycles and a parity-changing two-cycle. It follows the layer milestones of the researched method; it replaces intuitive centre-bar construction with generated centre cycles. It does not reproduce every human technique from the video.
@@ -28,3 +30,7 @@ Physical camera accuracy and physical cube execution are not covered by syntheti
 ## Sources
 
 The stage order was researched from J Perm's layer-by-layer demonstration and the transcript/screenshots supplied by the user. The pure wing cycles and two-wing parity operation are adapted from Thom Barlow's K4 algorithms, as reproduced in Andy Klise's guide: https://www.kungfoomanchu.com/guides/k4.pdf . The implementation derives explicit setup paths and checks the actual transformation rather than interpreting informal slice placeholders.
+
+## Future integration templates
+
+`integration/four-layer-solver.ts.txt` and `integration/four-layer.worker.ts.txt` were originally `src/lib/four-layer-solver.ts` and `src/lib/four-layer.worker.ts`. Their relative imports assume those original paths. They are archived as text to avoid accidental bundling. Future integration also needs Vite worker format `es`, routing the 4×4 call to the worker, and optional stage metadata in the solution UI. None of these hooks are enabled on the current site.

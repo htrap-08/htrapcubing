@@ -1,4 +1,3 @@
-import type { SolutionStage } from "@/lib/cube-state";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Sticker } from "@/components/sticker";
 import type { StickerKey } from "@/lib/algorithms";
@@ -27,13 +26,7 @@ const brushes: { key: StickerKey; label: string }[] = [
 ];
 
 /** Paint your real cube's colours onto a 3D cube, then solve it automatically. */
-export function ColourSolver({
-  n,
-  onSolved,
-}: {
-  n: number;
-  onSolved: (solution: string, stages?: SolutionStage[]) => void;
-}) {
+export function ColourSolver({ n, onSolved }: { n: number; onSolved: (solution: string) => void }) {
   const [state, setState] = useState<Facelets>(() => blankFacelets(n));
   const [brush, setBrush] = useState<StickerKey>("u");
   const [mounted, setMounted] = useState(false);
@@ -70,7 +63,7 @@ export function ColourSolver({
       if (controller.signal.aborted) return;
       if (!res.ok) setError(res.error);
       else if (!res.solution) setError("That cube is already solved!");
-      else onSolved(res.solution, res.stages);
+      else onSolved(res.solution);
     } catch {
       if (!controller.signal.aborted)
         setError("Something went wrong while solving — please try again.");
@@ -165,9 +158,7 @@ export function ColourSolver({
           <p>
             {n <= 3
               ? "Working out the moves — the first solve takes a few seconds."
-              : n === 4
-                ? "Solving layer by layer in your browser and checking every move."
-                : "Solving centres, pairing edges, and checking the solution. Larger cubes can take several minutes."}
+              : "Solving centres, pairing edges, and checking the solution. Larger cubes can take several minutes."}
           </p>
           {n >= 4 ? (
             <button
