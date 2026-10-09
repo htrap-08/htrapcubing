@@ -520,7 +520,7 @@
   font-family: "Sour Gummy";
   font-style: normal;
   font-weight: 700;
-  font-display: optional;
+  font-display: swap;
   src: url(/fonts/sour-gummy-bold.woff2) format("woff2");
 }
 
@@ -1188,4 +1188,9 @@
     transition: none !important;
     scroll-behavior: auto !important;
   }
+}
+
+.site-wordmark {
+  font-family: "Sour Gummy", ui-sans-serif, sans-serif;
+  font-weight: 700;
 }
