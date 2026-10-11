@@ -1405,3 +1405,113 @@ html[data-theme="dark"] body {
 .home-header > div {
   min-height: 52px;
 }
+
+/* Latest editable Figma pages: shared decorative titles and Algorithms heading. */
+.themed-section {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+.themed-section > div:not(.page-watermark) {
+  position: relative;
+  z-index: 1;
+}
+.page-watermark {
+  position: absolute;
+  z-index: 0;
+  right: 14.140625%;
+  top: -42.453px;
+  font-family: var(--font-display-family);
+  font-size: 166.381px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--display-soft);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+.page-watermark-algorithms {
+  font-size: 125.521px;
+}
+.page-watermark-timer {
+  top: -32.45px;
+}
+.algorithms-page .algorithms-container {
+  padding-top: 24px;
+}
+.algorithms-page .algorithms-title {
+  line-height: 1.35;
+}
+.home-footer > div {
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.footer-credit {
+  display: inline-flex;
+  gap: 16px;
+}
+@media (min-width: 1100px) {
+  .page-watermark {
+    font-size: calc(266.469 / 20.5 * 1cqw);
+    top: calc(-42.453 / 12.8 * 1cqw);
+  }
+  .page-watermark-algorithms {
+    font-size: calc(125.521 / 12.8 * 1cqw);
+  }
+  .page-watermark-timer {
+    top: calc(-32.45 / 12.8 * 1cqw);
+  }
+  .algorithms-page .algorithms-container {
+    padding-top: calc(39 / 20.5 * 1cqw);
+  }
+  .algorithms-page .algorithms-title {
+    line-height: calc(108 / 20.5 * 1cqw);
+    letter-spacing: calc(-0.9452 / 20.5 * 1cqw);
+  }
+}
+@media (max-width: 1099px) {
+  .page-watermark {
+    font-size: clamp(64px, 16vw, 140px);
+    top: -16px;
+    right: 4%;
+  }
+  .page-watermark-algorithms {
+    font-size: clamp(44px, 10vw, 110px);
+  }
+}
+@media (max-width: 479px) {
+  .home-footer > div {
+    gap: 4px;
+    padding-block: 14px;
+  }
+  .footer-credit {
+    font-size: 12px;
+    gap: 10px;
+  }
+}
+@media (min-width: 1100px) {
+  .timer-page aside {
+    align-self: end;
+    min-height: 441px;
+  }
+}
+/* Match the latest shared Figma header and credit without legacy separators. */
+.home-header nav {
+  font-family: var(--font-display-family);
+  font-weight: 700;
+}
+.home-footer .footer-credit,
+.home-footer .footer-credit span {
+  border: 0;
+  padding: 0;
+  color: var(--foreground);
+  font-weight: 700;
+}
+@media (min-width: 1100px) {
+  .home-header nav {
+    letter-spacing: calc(0.741964 / 12.8 * 1cqw);
+  }
+  .home-header > div nav a[href="/algorithms"][aria-current="page"] {
+    padding-inline: 6px;
+  }
+}

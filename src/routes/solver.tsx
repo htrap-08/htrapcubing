@@ -1,3 +1,4 @@
+import { PageWatermark } from "@/components/page-watermark";
 import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
@@ -109,10 +110,11 @@ function SolverPage() {
   return (
     <div className="solver-page min-h-screen bg-background text-foreground">
       <SiteHeader compact />
-      <section className="relative overflow-hidden border-b border-line">
+      <section className="themed-section relative overflow-hidden border-b border-line">
+        <PageWatermark title="SOLVER" />
         <div className="solver-container relative mx-auto px-5 pb-4 pt-6 sm:px-8">
           <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
-            Solve it, one move at a time
+            solve it, one move at a time
           </h1>
           <p className="mt-4 max-w-[52ch] text-[15px] text-muted">
             Enter your puzzle’s colors or scan it to get its solution.

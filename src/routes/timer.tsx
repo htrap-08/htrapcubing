@@ -1,3 +1,4 @@
+import { PageWatermark } from "@/components/page-watermark";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
@@ -179,12 +180,13 @@ function TimerPage() {
     <div className="timer-page min-h-screen bg-background text-foreground">
       <SiteHeader compact />
 
-      <section className="bg-display text-background">
+      <section className="themed-section bg-display text-background">
+        <PageWatermark title="TIMER" />
         <div className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8">
           <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
             <div>
               <h1 className="font-mono text-[11px] uppercase tracking-[0.2em] text-primary">
-                (c) Timer · session
+                timer
               </h1>
 
               <div className="mt-6 flex flex-wrap gap-1.5 font-mono text-[11px]">

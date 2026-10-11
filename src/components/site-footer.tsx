@@ -7,6 +7,9 @@ export function SiteFooter({ compact = false }: { compact?: boolean }) {
       <footer className="home-footer bg-background">
         <div className="home-container">
           <Link to="/">scrambled eggs</Link>
+          <span className="footer-credit">
+            <span aria-hidden="true">|</span> a passion project by Parth
+          </span>
         </div>
       </footer>
     );

@@ -1,3 +1,4 @@
+import { PageWatermark } from "@/components/page-watermark";
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
@@ -56,17 +57,12 @@ function AlgorithmsPage() {
     <div className="algorithms-page min-h-screen bg-background text-foreground">
       <SiteHeader compact />
 
-      <section className="border-b border-line">
-        <div className="mx-auto max-w-[1440px] px-5 py-14 sm:px-8">
+      <section className="themed-section border-b border-line">
+        <PageWatermark title="ALGORITHMS" />
+        <div className="algorithms-container mx-auto max-w-[1440px] px-5 py-14 sm:px-8">
+          <h1 className="algorithms-title mb-10 font-display font-bold">algorithms</h1>
           <div className="grid gap-8 lg:grid-cols-[240px_1fr]">
             <aside className="self-start lg:sticky lg:top-20">
-              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-primary">
-                (b) Algorithms
-              </p>
-              <h1 className="mt-2 text-balance font-display text-3xl font-bold tracking-tight">
-                Every turn, on record.
-              </h1>
-
               <div className="mt-6 inline-flex rounded-lg border border-line bg-panel p-1 font-mono text-[11px] uppercase tracking-[0.08em]">
                 {(["beginner", "advanced"] as Track[]).map((t) => (
                   <button
