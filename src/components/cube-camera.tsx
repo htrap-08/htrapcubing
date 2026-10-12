@@ -206,7 +206,9 @@ export function CubeCamera({
         {samples ? `Captured ${samples.length} RGB samples, from top-left to bottom-right.` : ""}
       </p>
       <p className="mt-3 text-sm text-muted">
-        Align one face of your cube with the {n * n} squares. The preview stays on your device.
+        Align one face of your cube with the {n * n} squares. Camera frames are processed on your
+        device and are not uploaded. Only the detected cube colours are used for solving; large-cube
+        colours are sent to the configured solver service.
       </p>
     </section>
   );

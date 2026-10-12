@@ -1,6 +1,15 @@
 import { Link } from "@tanstack/react-router";
 import { navItems, site } from "@/config/site";
 
+function LegalLinks() {
+  return (
+    <nav aria-label="Site information" className="legal-footer-links">
+      <Link to="/privacy">Privacy</Link>
+      <Link to="/legal">Licences & information</Link>
+    </nav>
+  );
+}
+
 export function SiteFooter({ compact = false }: { compact?: boolean }) {
   if (compact) {
     return (
@@ -10,6 +19,7 @@ export function SiteFooter({ compact = false }: { compact?: boolean }) {
           <span className="footer-credit">
             <span aria-hidden="true">|</span> a passion project by Parth
           </span>
+          <LegalLinks />
         </div>
       </footer>
     );
@@ -34,6 +44,7 @@ export function SiteFooter({ compact = false }: { compact?: boolean }) {
         <p className="font-mono text-[10px] tracking-[0.1em] text-muted sm:ml-auto">
           {site.tagline} · © 2026 {site.name}
         </p>
+        <LegalLinks />
       </div>
     </footer>
   );

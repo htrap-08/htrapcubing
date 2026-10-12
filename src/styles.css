@@ -1613,11 +1613,11 @@ html[data-theme="dark"] body {
   display: none;
 }
 .graph-ring {
-  stroke: #a7a79d;
+  stroke: #b3a18e;
   stroke-width: 2.1;
 }
 .graph-ring.active {
-  stroke: #373c36;
+  stroke: #e85522;
   stroke-width: 2.9;
 }
 @media (max-width: 767px) {
@@ -1635,4 +1635,46 @@ html[data-theme="dark"] body {
   .cool-visuals-placeholder {
     min-height: 260px;
   }
+}
+
+.legal-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-left: auto;
+  font-size: 12px;
+}
+.legal-footer-links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.legal-copy {
+  max-width: 850px;
+  padding: 40px 24px 60px;
+  margin: auto;
+  overflow-wrap: anywhere;
+}
+.legal-copy h1 {
+  font-size: clamp(32px, 5vw, 48px);
+  margin-bottom: 20px;
+}
+.legal-copy h2 {
+  font-size: 23px;
+  margin: 28px 0 12px;
+}
+.legal-copy p,
+.legal-copy ul {
+  margin: 12px 0;
+  line-height: 1.7;
+}
+.legal-copy ul {
+  padding-left: 24px;
+  list-style: disc;
+}
+.legal-copy a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }

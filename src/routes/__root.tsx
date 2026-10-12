@@ -84,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         name: "description",
         content: "Cube solvers, algorithms, camera scanning, and a speedcubing timer.",
       },
-      { name: "author", content: "Lovable" },
+      { name: "author", content: "Parth" },
       { property: "og:title", content: "scrambled eggs" },
       {
         property: "og:description",
@@ -144,7 +144,13 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
-      <Analytics route={pathname} />
+      <Analytics
+        route={pathname}
+        beforeSend={(event) => ({
+          ...event,
+          url: event.url.split(/[?#]/)[0]!,
+        })}
+      />
     </QueryClientProvider>
   );
 }

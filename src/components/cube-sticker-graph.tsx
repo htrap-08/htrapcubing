@@ -23,37 +23,41 @@ export function CubeStickerGraph({
       role="img"
       aria-label="54 sticker vertices on nine circular slice loops, moving in sync with the cube"
     >
-      <title>Sticker graph: 54 vertices, 108 edges, nine slice loops</title>
-      {GRAPH_RINGS.map((r) => (
-        <circle
-          key={`${r.axis}-${r.slice}`}
-          cx={r.cx}
-          cy={r.cy}
-          r={r.r}
-          fill="none"
-          className={
-            active >= 0 && r.axis === axes[active] && r.slice === sides[active]
-              ? "graph-ring active"
-              : "graph-ring"
-          }
-        />
-      ))}
-      {GRAPH_POINTS.map((p, i) => {
-        const at = graphPositionDuringMove(i, move, progress);
-        return (
+      <title>scrambled eggs sticker atlas: 54 vertices, 108 edges, nine slice loops</title>
+      <g transform="rotate(30 270 260)">
+        {GRAPH_RINGS.map((r) => (
           <circle
-            key={i}
-            cx={at.x}
-            cy={at.y}
-            r={8}
-            fill={GRAPH_COLOURS[state[i]!]}
-            stroke="#363b36"
-            strokeWidth={1.8}
-          >
-            <title>{`${p.face} sticker ${p.index + 1}`}</title>
-          </circle>
-        );
-      })}
+            key={`${r.axis}-${r.slice}`}
+            cx={r.cx}
+            cy={r.cy}
+            r={r.r}
+            fill="none"
+            className={
+              active >= 0 && r.axis === axes[active] && r.slice === sides[active]
+                ? "graph-ring active"
+                : "graph-ring"
+            }
+          />
+        ))}
+        {GRAPH_POINTS.map((p, i) => {
+          const at = graphPositionDuringMove(i, move, progress);
+          return (
+            <rect
+              key={i}
+              x={at.x - 7.5}
+              y={at.y - 7.5}
+              width={15}
+              height={15}
+              rx={4}
+              fill={GRAPH_COLOURS[state[i]!]}
+              stroke="#352a24"
+              strokeWidth={1.8}
+            >
+              <title>{`${p.face} sticker ${p.index + 1}`}</title>
+            </rect>
+          );
+        })}
+      </g>
     </svg>
   );
 }

@@ -235,8 +235,8 @@ function CoolStuff() {
               </label>
             )}
             <p className="mt-4 text-xs text-muted">
-              This graph shows sticker permutations, like the reference animation. It is not a
-              search tree of all possible cube states.
+              This graph shows sticker permutations, in our sticker atlas. It is not a search tree
+              of all possible cube states.
             </p>
           </article>
         </div>

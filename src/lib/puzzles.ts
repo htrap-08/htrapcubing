@@ -48,7 +48,7 @@ export const puzzles: Puzzle[] = [
   },
   {
     id: "3x3",
-    label: "3×3 Rubik's Cube",
+    label: "3×3 cube",
     short: "3×3",
     kind: "nxn",
     n: 3,

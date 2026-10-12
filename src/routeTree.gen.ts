@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AlgorithmsRouteImport } from './routes/algorithms'
 import { Route as CoolStuffRouteImport } from './routes/cool-stuff'
+import { Route as LegalRouteImport } from './routes/legal'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SolverRouteImport } from './routes/solver'
 import { Route as TimerRouteImport } from './routes/timer'
 
@@ -30,6 +32,16 @@ const CoolStuffRoute = CoolStuffRouteImport.update({
   path: '/cool-stuff',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LegalRoute = LegalRouteImport.update({
+  id: '/legal',
+  path: '/legal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SolverRoute = SolverRouteImport.update({
   id: '/solver',
   path: '/solver',
@@ -45,6 +57,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/algorithms': typeof AlgorithmsRoute
   '/cool-stuff': typeof CoolStuffRoute
+  '/legal': typeof LegalRoute
+  '/privacy': typeof PrivacyRoute
   '/solver': typeof SolverRoute
   '/timer': typeof TimerRoute
 }
@@ -52,6 +66,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/algorithms': typeof AlgorithmsRoute
   '/cool-stuff': typeof CoolStuffRoute
+  '/legal': typeof LegalRoute
+  '/privacy': typeof PrivacyRoute
   '/solver': typeof SolverRoute
   '/timer': typeof TimerRoute
 }
@@ -60,21 +76,47 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/algorithms': typeof AlgorithmsRoute
   '/cool-stuff': typeof CoolStuffRoute
+  '/legal': typeof LegalRoute
+  '/privacy': typeof PrivacyRoute
   '/solver': typeof SolverRoute
   '/timer': typeof TimerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/algorithms' | '/cool-stuff' | '/solver' | '/timer'
+  fullPaths:
+    | '/'
+    | '/algorithms'
+    | '/cool-stuff'
+    | '/legal'
+    | '/privacy'
+    | '/solver'
+    | '/timer'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/algorithms' | '/cool-stuff' | '/solver' | '/timer'
-  id: '__root__' | '/' | '/algorithms' | '/cool-stuff' | '/solver' | '/timer'
+  to:
+    | '/'
+    | '/algorithms'
+    | '/cool-stuff'
+    | '/legal'
+    | '/privacy'
+    | '/solver'
+    | '/timer'
+  id:
+    | '__root__'
+    | '/'
+    | '/algorithms'
+    | '/cool-stuff'
+    | '/legal'
+    | '/privacy'
+    | '/solver'
+    | '/timer'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AlgorithmsRoute: typeof AlgorithmsRoute
   CoolStuffRoute: typeof CoolStuffRoute
+  LegalRoute: typeof LegalRoute
+  PrivacyRoute: typeof PrivacyRoute
   SolverRoute: typeof SolverRoute
   TimerRoute: typeof TimerRoute
 }
@@ -102,6 +144,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoolStuffRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/legal': {
+      id: '/legal'
+      path: '/legal'
+      fullPath: '/legal'
+      preLoaderRoute: typeof LegalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/solver': {
       id: '/solver'
       path: '/solver'
@@ -123,6 +179,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AlgorithmsRoute: AlgorithmsRoute,
   CoolStuffRoute: CoolStuffRoute,
+  LegalRoute: LegalRoute,
+  PrivacyRoute: PrivacyRoute,
   SolverRoute: SolverRoute,
   TimerRoute: TimerRoute,
 }
