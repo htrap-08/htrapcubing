@@ -4,6 +4,17 @@ import {
   GRAPH_COLOURS,
   graphPositionDuringMove,
 } from "@/lib/cube-graph-model.js";
+// Reserve space for the rotated rings, outlines and moving sticker tokens.
+const ringBounds = GRAPH_RINGS.map(({ cx, cy, r }) => {
+  const x = 270 + (cx - 270) * Math.cos(Math.PI / 6) - (cy - 260) * Math.sin(Math.PI / 6);
+  const y = 260 + (cx - 270) * Math.sin(Math.PI / 6) + (cy - 260) * Math.cos(Math.PI / 6);
+  return { left: x - r, right: x + r, top: y - r, bottom: y + r };
+});
+const left = Math.min(...ringBounds.map((b) => b.left)) - 16;
+const top = Math.min(...ringBounds.map((b) => b.top)) - 16;
+const width = Math.max(...ringBounds.map((b) => b.right)) + 16 - left;
+const height = Math.max(...ringBounds.map((b) => b.bottom)) + 16 - top;
+const graphViewBox = `${left} ${top} ${width} ${height}`;
 export function CubeStickerGraph({
   state,
   move,
@@ -18,7 +29,7 @@ export function CubeStickerGraph({
     sides = [1, 1, 1, -1, -1, -1];
   return (
     <svg
-      viewBox="55 30 430 430"
+      viewBox={graphViewBox}
       className="sticker-graph"
       role="img"
       aria-label="54 sticker vertices on nine circular slice loops, moving in sync with the cube"

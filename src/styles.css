@@ -1678,3 +1678,9 @@ html[data-theme="dark"] body {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
+/* The longer active tab needs real side padding, like Algorithms. */
+.home-header > div nav a[href="/cool-stuff"][aria-current="page"] {
+  padding-inline: 6px;
+  flex-shrink: 0;
+}
