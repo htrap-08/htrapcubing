@@ -45,7 +45,7 @@ export function CubeStickerGraph({
             key={i}
             cx={at.x}
             cy={at.y}
-            r={6.4}
+            r={8}
             fill={GRAPH_COLOURS[state[i]!]}
             stroke="#363b36"
             strokeWidth={1.8}

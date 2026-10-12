@@ -82,11 +82,11 @@ export function graphSnapshots(start, moves) {
 const scale = 240,
   offset = { x: 270, y: 260 };
 const circleCentres = [
-  [Math.sqrt(3) * 0.16, 0.16],
-  [0, -0.32],
-  [-Math.sqrt(3) * 0.16, 0.16],
+  [Math.sqrt(3) * 0.14, 0.14],
+  [0, -0.28],
+  [-Math.sqrt(3) * 0.14, 0.14],
 ];
-const radius = (axis, slice) => 0.52 + (axis === 2 ? -1 : 1) * slice * 0.05;
+const radius = (axis, slice) => 0.52 + (axis === 2 ? -1 : 1) * slice * 0.09;
 function intersections(a, ra, b, rb) {
   const dx = b[0] - a[0],
     dy = b[1] - a[1],
