@@ -73,8 +73,9 @@ function Privacy() {
             project issue tracker
           </a>
           . Issues are public: do not post private information, camera images or credentials there.
-          A dedicated private privacy-contact channel has not yet been published. This notice will
-          be updated when processing or contact arrangements change.
+          For private privacy enquiries, email{" "}
+          <a href="mailto:parthg08@gmail.com">parthg08@gmail.com</a>. This notice will be updated
+          when processing or contact arrangements change.
         </p>
       </main>
       <SiteFooter compact />

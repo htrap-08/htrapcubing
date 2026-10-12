@@ -6,7 +6,7 @@ Implemented: full cubejs v1.3.2 MIT text retained in vendored source and publish
 
 ## Items still requiring action or evidence
 
-1. **Private contact**: supply a public-facing contact email for privacy/copyright enquiries. Current notice accurately says no private contact has yet been published and warns against posting personal data to public issues.
+**Resolved:** private privacy/copyright contact published as parthg08@gmail.com with the operator’s approval. Public issues still warn against posting personal information.
 2. **Trademark clearance**: search relevant registries/classes for “scrambled eggs” and review cube icon/design use in target jurisdictions, especially before monetization. No name change was made. Non-affiliation wording is not immunity from claims.
 3. **Design ownership**: confirm ownership/licensing of the initial site template and all Figma/imported elements. Code/files cannot establish who owns every design contribution. Record evidence.
 4. **Animation rights**: independent code, a more distinct visual treatment and attribution reduce concern but do not establish permission or legal clearance. Seek written permission or a qualified assessment if retaining resemblance to the reference. Attribution is not a substitute for permission.

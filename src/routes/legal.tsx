@@ -87,9 +87,11 @@ function Legal() {
         </p>
         <h2>Reporting a concern</h2>
         <p>
-          Use the <a href="https://github.com/htrap-08/htrapcubing/issues">project issue tracker</a>{" "}
-          for non-sensitive licence, attribution or content concerns. Do not post confidential
-          documents or personal information in public issues.
+          For private copyright or licence enquiries, email{" "}
+          <a href="mailto:parthg08@gmail.com">parthg08@gmail.com</a>. Use the{" "}
+          <a href="https://github.com/htrap-08/htrapcubing/issues">project issue tracker</a> for
+          non-sensitive licence, attribution or content concerns. Do not post confidential documents
+          or personal information in public issues.
         </p>
       </main>
       <SiteFooter compact />
