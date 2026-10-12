@@ -1,3 +1,4 @@
+import { readSolverSession, writeSolverSession, faceletsToGraphString } from "@/lib/solver-session";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Sticker } from "@/components/sticker";
 import type { StickerKey } from "@/lib/algorithms";
@@ -26,8 +27,17 @@ const brushes: { key: StickerKey; label: string }[] = [
 ];
 
 /** Paint your real cube's colours onto a 3D cube, then solve it automatically. */
-export function ColourSolver({ n, onSolved }: { n: number; onSolved: (solution: string) => void }) {
+export function ColourSolver({
+  n,
+  onSolved,
+  onInputChange,
+}: {
+  n: number;
+  onSolved: (solution: string, input?: string) => void;
+  onInputChange?: (input: string) => void;
+}) {
   const [state, setState] = useState<Facelets>(() => blankFacelets(n));
+  const [scramble, setScramble] = useState("");
   const [brush, setBrush] = useState<StickerKey>("u");
   const [mounted, setMounted] = useState(false);
   const request = useRef<AbortController | null>(null);
@@ -35,19 +45,67 @@ export function ColourSolver({ n, onSolved }: { n: number; onSolved: (solution: 
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (n === 3) {
+      const saved = readSolverSession();
+      if (saved.facelets) setState(saved.facelets);
+      if (saved.scramble) setScramble(saved.scramble);
+    }
     setMounted(true);
     return () => request.current?.abort();
-  }, []);
+  }, [n]);
+
+  useEffect(() => {
+    if (!mounted || n !== 3) return;
+    const input = faceletsToGraphString(state);
+    const saved = readSolverSession();
+    writeSolverSession({
+      facelets: state,
+      scramble,
+      mode: "colours",
+      input,
+      solution: saved.input === input ? (saved.solution ?? "") : "",
+    });
+    onInputChange?.(input);
+  }, [mounted, n, state, scramble, onInputChange]);
 
   const paint = (face: Face, i: number) => {
     // Odd cubes have fixed centre stickers.
     if (busy || (n % 2 === 1 && i === Math.floor((n * n) / 2))) return;
     setError(null);
+    setScramble("");
     setState((prev) => {
       const cells = [...prev[face]];
       cells[i] = brush;
       return { ...prev, [face]: cells };
     });
+  };
+
+  const applyScramble = async () => {
+    if (
+      !scramble.trim() ||
+      scramble.length > 400 ||
+      !/^([URFDLB](2|'|2')?\s*)+$/.test(scramble.trim())
+    ) {
+      setError("Use face turns such as R U R' U' or F2, with at most 400 characters.");
+      return;
+    }
+    try {
+      const { default: exported } = await import("@/vendor/cubejs/index.js");
+      const Cube = exported as { new (): { move(alg: string): { asString(): string } } };
+      const str = new Cube().move(scramble.trim()).asString();
+      const colour = { U: "u", R: "r", F: "l", D: "d", L: "f", B: "b" } as const;
+      setState(
+        Object.fromEntries(
+          ["U", "R", "F", "D", "L", "B"].map((face, i) => [
+            face,
+            [...str.slice(i * 9, i * 9 + 9)].map((c) => colour[c as keyof typeof colour]),
+          ]),
+        ) as Facelets,
+      );
+      setError(null);
+    } catch {
+      setError("That scramble could not be applied. Check the move notation.");
+    }
   };
 
   const solve = async () => {
@@ -63,7 +121,7 @@ export function ColourSolver({ n, onSolved }: { n: number; onSolved: (solution: 
       if (controller.signal.aborted) return;
       if (!res.ok) setError(res.error);
       else if (!res.solution) setError("That cube is already solved!");
-      else onSolved(res.solution);
+      else onSolved(res.solution, n === 3 ? faceletsToGraphString(state) : undefined);
     } catch {
       if (!controller.signal.aborted)
         setError("Something went wrong while solving — please try again.");
@@ -77,6 +135,37 @@ export function ColourSolver({ n, onSolved }: { n: number; onSolved: (solution: 
 
   return (
     <div className="colour-solver mt-3 flex flex-1 flex-col">
+      {n === 3 && (
+        <details className="mb-3 rounded-md border border-line bg-panel-2 p-3">
+          <summary className="min-h-11 cursor-pointer content-center text-sm">
+            Enter scramble moves
+          </summary>
+          <form
+            className="mt-2 flex flex-wrap gap-2"
+            onSubmit={(event) => {
+              event.preventDefault();
+              void applyScramble();
+            }}
+          >
+            <input
+              aria-label="Scramble moves"
+              value={scramble}
+              onChange={(e) => setScramble(e.target.value)}
+              placeholder="R U R' U' F2"
+              maxLength={400}
+              disabled={busy}
+              className="min-h-11 min-w-0 flex-1 rounded border border-line bg-background px-3 text-base"
+            />
+            <button
+              disabled={busy}
+              type="submit"
+              className="min-h-11 rounded border border-primary px-4 text-sm text-primary"
+            >
+              Apply scramble
+            </button>
+          </form>
+        </details>
+      )}
       {mounted ? (
         <Suspense fallback={<Loading />}>
           <PaintCube3D n={n} state={state} onPaint={paint} />
@@ -124,6 +213,7 @@ export function ColourSolver({ n, onSolved }: { n: number; onSolved: (solution: 
         <button
           type="button"
           onClick={() => {
+            setScramble("");
             setState(blankFacelets(n));
             setError(null);
           }}
@@ -145,6 +235,7 @@ export function ColourSolver({ n, onSolved }: { n: number; onSolved: (solution: 
         <button
           type="button"
           onClick={() => {
+            setScramble("");
             setState(solvedFacelets(n));
             setError(null);
           }}

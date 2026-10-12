@@ -14,7 +14,8 @@ export type ScanAction =
   | { type: "confirm" }
   | { type: "select"; index: number }
   | { type: "rescan" }
-  | { type: "reset" };
+  | { type: "reset" }
+  | { type: "restore"; state: ScanState };
 
 export function initialScanState(n = 3): ScanState {
   return {
@@ -28,6 +29,8 @@ export function initialScanState(n = 3): ScanState {
 export function cubeScanReducer(state: ScanState, action: ScanAction): ScanState {
   const face = FACES[state.index];
   switch (action.type) {
+    case "restore":
+      return action.state.n === state.n ? action.state : state;
     case "reset":
       return initialScanState(state.n);
     case "capture":

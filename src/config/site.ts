@@ -11,7 +11,7 @@ export const site = {
 } as const;
 
 export type NavItem = {
-  to: "/" | "/solver" | "/algorithms" | "/timer";
+  to: "/" | "/solver" | "/algorithms" | "/timer" | "/cool-stuff";
   label: string;
 };
 
@@ -20,4 +20,5 @@ export const navItems: NavItem[] = [
   { to: "/solver", label: "Solver" },
   { to: "/algorithms", label: "Algorithms" },
   { to: "/timer", label: "Timer" },
+  { to: "/cool-stuff", label: "Cool stuff" },
 ];

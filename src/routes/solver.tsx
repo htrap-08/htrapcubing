@@ -1,6 +1,7 @@
 import { PageWatermark } from "@/components/page-watermark";
 import { lazy, Suspense, useCallback, useEffect, useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { readSolverSession, writeSolverSession } from "@/lib/solver-session";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { TwistyCube } from "@/components/twisty-cube";
@@ -99,7 +100,26 @@ function SolverPage() {
   const puzzle = puzzleById(puzzleId);
   const [mode, setMode] = useState<"colours" | "scan">("colours");
   const [custom, setCustom] = useState<string | null>(null);
-  const onSolved = useCallback((solution: string) => setCustom(solution), []);
+  const [graphInput, setGraphInput] = useState("");
+  useEffect(() => {
+    if (puzzleId !== "3x3") return;
+    const saved = readSolverSession();
+    setGraphInput(saved.input ?? "");
+    if (saved.mode) setMode(saved.mode);
+    if (saved.solution) setCustom(saved.solution);
+  }, [puzzleId]);
+  const onInputChange = useCallback((input: string) => setGraphInput(input), []);
+  const onSolved = useCallback(
+    (solution: string, input?: string) => {
+      setCustom(solution);
+      if (puzzleId === "3x3") {
+        const value = input ?? readSolverSession().input ?? "";
+        setGraphInput(value);
+        writeSolverSession({ solution, input: value });
+      }
+    },
+    [puzzleId],
+  );
   const selectPuzzle = (id: PuzzleId) => {
     navigate({ search: { puzzle: id }, resetScroll: false });
     setCustom(null);
@@ -158,6 +178,15 @@ function SolverPage() {
                   </button>
                 ))}
               </div>
+              {puzzleId === "3x3" && graphInput.length === 54 && (
+                <Link
+                  to="/cool-stuff"
+                  search={{ source: "solver" }}
+                  className="cool-animation-link mt-5 flex min-h-11 items-center justify-center rounded-md border border-primary px-3 py-2 text-sm font-medium text-primary hover:bg-primary hover:text-primary-foreground"
+                >
+                  Cool animation
+                </Link>
+              )}
             </aside>
             <div className="rounded-xl border border-line bg-panel p-5 solver-panel">
               <div className="solver-panel-heading flex flex-wrap items-center justify-between gap-2">
@@ -206,9 +235,19 @@ function SolverPage() {
                 </div>
               ) : puzzle.kind === "nxn" ? (
                 mode === "scan" ? (
-                  <ScanColourSolver key={puzzle.id} n={puzzle.n!} onSolved={onSolved} />
+                  <ScanColourSolver
+                    key={puzzle.id}
+                    n={puzzle.n!}
+                    onSolved={onSolved}
+                    onInputChange={onInputChange}
+                  />
                 ) : (
-                  <ColourSolver key={puzzle.id} n={puzzle.n!} onSolved={onSolved} />
+                  <ColourSolver
+                    key={puzzle.id}
+                    n={puzzle.n!}
+                    onSolved={onSolved}
+                    onInputChange={onInputChange}
+                  />
                 )
               ) : (
                 <SideColourSolver key={puzzle.id} puzzle={puzzle.kind} onSolved={onSolved} />

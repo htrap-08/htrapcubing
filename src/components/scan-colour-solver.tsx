@@ -1,3 +1,4 @@
+import { readSolverSession, writeSolverSession } from "@/lib/solver-session";
 import { useEffect, useMemo, useReducer, useState } from "react";
 import { CubeCamera } from "./cube-camera";
 import {
@@ -28,9 +29,11 @@ const colours = Object.keys(CUBE_PALETTE) as CubeColour[];
 export function ScanColourSolver({
   n = 3,
   onSolved,
+  onInputChange,
 }: {
   n?: number;
-  onSolved: (solution: string) => void;
+  onSolved: (solution: string, input?: string) => void;
+  onInputChange?: (input: string) => void;
 }) {
   const [state, dispatch] = useReducer(cubeScanReducer, n, initialScanState);
   const [result, setResult] = useState<{ busy: boolean; message: string; error: boolean }>({
@@ -38,6 +41,14 @@ export function ScanColourSolver({
     message: "",
     error: false,
   });
+  const [restored, setRestored] = useState(false);
+  useEffect(() => {
+    if (n === 3) {
+      const saved = readSolverSession();
+      if (saved.scan) dispatch({ type: "restore", state: saved.scan });
+    }
+    setRestored(true);
+  }, [n]);
   const face = FACES[state.index]!;
   const current = guide[face];
   const count = FACES.filter((f) => state.faces[f]).length;
@@ -53,6 +64,18 @@ export function ScanColourSolver({
       };
     }
   }, [complete, state.faces, n]);
+
+  useEffect(() => {
+    if (!restored || n !== 3) return;
+    const saved = readSolverSession();
+    writeSolverSession({
+      scan: state,
+      mode: "scan",
+      input: formatted.value,
+      solution: saved.input === formatted.value ? (saved.solution ?? "") : "",
+    });
+    onInputChange?.(formatted.value);
+  }, [restored, n, state, formatted.value, onInputChange]);
 
   useEffect(() => {
     let cancelled = false;
@@ -79,7 +102,7 @@ export function ScanColourSolver({
           setResult({ busy: false, message: "Your cube is already solved!", error: false });
         else {
           setResult({ busy: false, message: "Solution found.", error: false });
-          onSolved(answer.solution);
+          onSolved(answer.solution, n === 3 ? formatted.value : undefined);
         }
       })
       .catch(() => {

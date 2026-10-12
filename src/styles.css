@@ -1515,3 +1515,124 @@ html[data-theme="dark"] body {
     padding-inline: 6px;
   }
 }
+/* Cool stuff: both visualizations use one timeline and keep their layout reserved. */
+.cool-experiment {
+  min-width: 0;
+}
+.cool-visuals {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  margin-block: 24px;
+}
+.cool-visual-panel {
+  min-width: 0;
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--background);
+  overflow: hidden;
+}
+.cool-panel-label {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  z-index: 1;
+  font-family: var(--font-mono-family);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.synced-cube {
+  height: 420px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sticker-graph {
+  display: block;
+  width: 100%;
+  height: 420px;
+}
+.graph-edges {
+  stroke: var(--muted);
+  stroke-width: 1.1;
+  opacity: 0.45;
+}
+.cool-visuals-placeholder {
+  min-height: 468px;
+  padding: 24px;
+}
+.cool-controls button,
+.cool-back-link {
+  min-height: 44px;
+}
+.cool-controls button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+@media (max-width: 767px) {
+  .cool-visuals {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+  .synced-cube,
+  .sticker-graph {
+    height: 310px;
+  }
+  .cool-visuals-placeholder {
+    min-height: 676px;
+  }
+  .mobile-navigation {
+    padding-inline: 8px;
+    gap: 2px;
+  }
+  .mobile-navigation a {
+    padding-inline: 2px;
+    font-size: clamp(9px, 2.5vw, 11px);
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+}
+/* Reference-style scene: one canvas, a white outlined cube, and nine slice rings. */
+.cool-visuals {
+  gap: 0;
+  padding: 20px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #f8f7f3;
+}
+.cool-visual-panel {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.cool-panel-label {
+  display: none;
+}
+.graph-ring {
+  stroke: #a7a79d;
+  stroke-width: 2.1;
+}
+.graph-ring.active {
+  stroke: #373c36;
+  stroke-width: 2.9;
+}
+@media (max-width: 767px) {
+  .cool-visuals {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    padding: 12px 0;
+  }
+  .synced-cube,
+  .sticker-graph {
+    height: clamp(190px, 44vw, 310px);
+  }
+  .cool-experiment {
+    padding: 12px;
+  }
+  .cool-visuals-placeholder {
+    min-height: 260px;
+  }
+}
