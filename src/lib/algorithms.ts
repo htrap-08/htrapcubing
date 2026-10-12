@@ -99,11 +99,11 @@ export const algorithms: Algorithm[] = [
     id: "b-cross-flip",
     track: "beginner",
     group: "White cross",
-    name: "Flip a cross edge",
+    name: "Cross orientation trigger",
     moves: "F R U R' U' F'",
     face: ["x", "u", "x", "u", "u", "u", "x", "u", "x"],
     description:
-      "The edge is in the right slot but showing the wrong colour. This flips it in place.",
+      "A top-edge orientation trigger. Match the dot, L or line case and grip; it does not flip a single edge in isolation.",
   },
   {
     id: "b-cross-insert",
@@ -185,7 +185,8 @@ export const algorithms: Algorithm[] = [
     name: "Twist the last corners",
     moves: "R' D' R D",
     face: ["x", "d", "x", "d", "d", "d", "x", "d", "x"],
-    description: "Repeat in pairs on one corner at a time, keeping the top face pointing at you.",
+    description:
+      "Hold the working corner at the top front-right. Repeat the full sequence until oriented, then turn only U to bring in the next corner. Keep the same grip; lower layers can look mixed until all corners are finished.",
   },
   {
     id: "b-pyraminx",
@@ -322,17 +323,17 @@ export const algorithms: Algorithm[] = [
     id: "a-comm-3cycle",
     track: "advanced",
     group: "Commutators",
-    name: "Corner 3-cycle [R, U]",
+    name: "Insertion commutator [R U R′, U]",
     moves: "R U R' · U · R U' R' · U'",
     face: ["p", "x", "p", "x", "d", "x", "p", "x", "x"],
     description:
-      "The A B A' B' skeleton: insert, interchange, undo, undo. Cycles three corners, touches nothing else.",
+      "An A B A′ B′ example with A = R U R′ and B = U. This affects several corners and edges; it is not a pure three-piece cycle.",
   },
   {
     id: "a-comm-edge",
     track: "advanced",
     group: "Commutators",
-    name: "Edge 3-cycle [M', U2]",
+    name: "Slice commutator [M', U2]",
     moves: "M' U2 M U2",
     face: ["x", "p", "x", "p", "d", "p", "x", "x", "x"],
     description: "Slice-based commutator for blindsolving and clean last-layer edge work.",
