@@ -60,10 +60,9 @@ function Privacy() {
           </a>
           .
         </p>
-        <h2>Development previews and external links</h2>
+        <h2>External links</h2>
         <p>
-          Lovable development previews may report application errors to the editor. External guides
-          and source-code links have their own privacy practices. The app has no
+          External guides and source-code links have their own privacy practices. The app has no
           account-registration or payment form and does not ask you to supply personal details.
         </p>
         <h2>Questions and changes</h2>

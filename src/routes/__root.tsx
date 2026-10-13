@@ -12,7 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
+import { reportRuntimeError } from "../lib/runtime-error-reporting";
 
 function NotFoundComponent() {
   return (
@@ -37,10 +37,9 @@ function NotFoundComponent() {
 }
 
 function ErrorComponent({ error, reset }: { error: unknown; reset: () => void }) {
-  console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    reportRuntimeError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
 
   return (

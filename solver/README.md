@@ -39,7 +39,7 @@ a private reverse proxy, and configure the website server's `NXN_SOLVER_URL` to 
 trusted service base URL. Do not expose the worker directly to the public internet.
 A production deployment needs appropriate access controls and resource limits at
 that proxy. Without a configured service, production returns a clear unavailable
-error. Localhost setup alone does not enable solving on the published Lovable site.
+error. Localhost setup alone does not enable solving on the published website.
 
 The JSON API has `GET /api/nxn/health`, `POST /api/nxn/solve` with `{n,state}`,
 `GET /api/nxn/jobs/:id`, and `DELETE /api/nxn/jobs/:id`. No third-party solve API receives
