@@ -14,8 +14,14 @@ import { Route as AlgorithmsRouteImport } from './routes/algorithms'
 import { Route as CoolStuffRouteImport } from './routes/cool-stuff'
 import { Route as LegalRouteImport } from './routes/legal'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ScrambledeggsRouteImport } from './routes/scrambledeggs'
 import { Route as SolverRouteImport } from './routes/solver'
 import { Route as TimerRouteImport } from './routes/timer'
+import { Route as ScrambledeggsIndexRouteImport } from './routes/scrambledeggs.index'
+import { Route as ScrambledeggsAlgorithmsRouteImport } from './routes/scrambledeggs.algorithms'
+import { Route as ScrambledeggsCoolStuffRouteImport } from './routes/scrambledeggs.cool-stuff'
+import { Route as ScrambledeggsSolverRouteImport } from './routes/scrambledeggs.solver'
+import { Route as ScrambledeggsTimerRouteImport } from './routes/scrambledeggs.timer'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -42,6 +48,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ScrambledeggsRoute = ScrambledeggsRouteImport.update({
+  id: '/scrambledeggs',
+  path: '/scrambledeggs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SolverRoute = SolverRouteImport.update({
   id: '/solver',
   path: '/solver',
@@ -52,6 +63,31 @@ const TimerRoute = TimerRouteImport.update({
   path: '/timer',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ScrambledeggsIndexRoute = ScrambledeggsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ScrambledeggsRoute,
+} as any)
+const ScrambledeggsAlgorithmsRoute = ScrambledeggsAlgorithmsRouteImport.update({
+  id: '/algorithms',
+  path: '/algorithms',
+  getParentRoute: () => ScrambledeggsRoute,
+} as any)
+const ScrambledeggsCoolStuffRoute = ScrambledeggsCoolStuffRouteImport.update({
+  id: '/cool-stuff',
+  path: '/cool-stuff',
+  getParentRoute: () => ScrambledeggsRoute,
+} as any)
+const ScrambledeggsSolverRoute = ScrambledeggsSolverRouteImport.update({
+  id: '/solver',
+  path: '/solver',
+  getParentRoute: () => ScrambledeggsRoute,
+} as any)
+const ScrambledeggsTimerRoute = ScrambledeggsTimerRouteImport.update({
+  id: '/timer',
+  path: '/timer',
+  getParentRoute: () => ScrambledeggsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -59,8 +95,14 @@ export interface FileRoutesByFullPath {
   '/cool-stuff': typeof CoolStuffRoute
   '/legal': typeof LegalRoute
   '/privacy': typeof PrivacyRoute
+  '/scrambledeggs': typeof ScrambledeggsRouteWithChildren
   '/solver': typeof SolverRoute
   '/timer': typeof TimerRoute
+  '/scrambledeggs/algorithms': typeof ScrambledeggsAlgorithmsRoute
+  '/scrambledeggs/cool-stuff': typeof ScrambledeggsCoolStuffRoute
+  '/scrambledeggs/solver': typeof ScrambledeggsSolverRoute
+  '/scrambledeggs/timer': typeof ScrambledeggsTimerRoute
+  '/scrambledeggs/': typeof ScrambledeggsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +112,11 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/solver': typeof SolverRoute
   '/timer': typeof TimerRoute
+  '/scrambledeggs/algorithms': typeof ScrambledeggsAlgorithmsRoute
+  '/scrambledeggs/cool-stuff': typeof ScrambledeggsCoolStuffRoute
+  '/scrambledeggs/solver': typeof ScrambledeggsSolverRoute
+  '/scrambledeggs/timer': typeof ScrambledeggsTimerRoute
+  '/scrambledeggs': typeof ScrambledeggsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -78,8 +125,14 @@ export interface FileRoutesById {
   '/cool-stuff': typeof CoolStuffRoute
   '/legal': typeof LegalRoute
   '/privacy': typeof PrivacyRoute
+  '/scrambledeggs': typeof ScrambledeggsRouteWithChildren
   '/solver': typeof SolverRoute
   '/timer': typeof TimerRoute
+  '/scrambledeggs/algorithms': typeof ScrambledeggsAlgorithmsRoute
+  '/scrambledeggs/cool-stuff': typeof ScrambledeggsCoolStuffRoute
+  '/scrambledeggs/solver': typeof ScrambledeggsSolverRoute
+  '/scrambledeggs/timer': typeof ScrambledeggsTimerRoute
+  '/scrambledeggs/': typeof ScrambledeggsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -89,8 +142,14 @@ export interface FileRouteTypes {
     | '/cool-stuff'
     | '/legal'
     | '/privacy'
+    | '/scrambledeggs'
     | '/solver'
     | '/timer'
+    | '/scrambledeggs/algorithms'
+    | '/scrambledeggs/cool-stuff'
+    | '/scrambledeggs/solver'
+    | '/scrambledeggs/timer'
+    | '/scrambledeggs/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +159,11 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/solver'
     | '/timer'
+    | '/scrambledeggs/algorithms'
+    | '/scrambledeggs/cool-stuff'
+    | '/scrambledeggs/solver'
+    | '/scrambledeggs/timer'
+    | '/scrambledeggs'
   id:
     | '__root__'
     | '/'
@@ -107,8 +171,14 @@ export interface FileRouteTypes {
     | '/cool-stuff'
     | '/legal'
     | '/privacy'
+    | '/scrambledeggs'
     | '/solver'
     | '/timer'
+    | '/scrambledeggs/algorithms'
+    | '/scrambledeggs/cool-stuff'
+    | '/scrambledeggs/solver'
+    | '/scrambledeggs/timer'
+    | '/scrambledeggs/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -117,6 +187,7 @@ export interface RootRouteChildren {
   CoolStuffRoute: typeof CoolStuffRoute
   LegalRoute: typeof LegalRoute
   PrivacyRoute: typeof PrivacyRoute
+  ScrambledeggsRoute: typeof ScrambledeggsRouteWithChildren
   SolverRoute: typeof SolverRoute
   TimerRoute: typeof TimerRoute
 }
@@ -158,6 +229,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/scrambledeggs': {
+      id: '/scrambledeggs'
+      path: '/scrambledeggs'
+      fullPath: '/scrambledeggs'
+      preLoaderRoute: typeof ScrambledeggsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/solver': {
       id: '/solver'
       path: '/solver'
@@ -172,8 +250,63 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TimerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/scrambledeggs/': {
+      id: '/scrambledeggs/'
+      path: '/'
+      fullPath: '/scrambledeggs/'
+      preLoaderRoute: typeof ScrambledeggsIndexRouteImport
+      parentRoute: typeof ScrambledeggsRoute
+    }
+    '/scrambledeggs/algorithms': {
+      id: '/scrambledeggs/algorithms'
+      path: '/algorithms'
+      fullPath: '/scrambledeggs/algorithms'
+      preLoaderRoute: typeof ScrambledeggsAlgorithmsRouteImport
+      parentRoute: typeof ScrambledeggsRoute
+    }
+    '/scrambledeggs/cool-stuff': {
+      id: '/scrambledeggs/cool-stuff'
+      path: '/cool-stuff'
+      fullPath: '/scrambledeggs/cool-stuff'
+      preLoaderRoute: typeof ScrambledeggsCoolStuffRouteImport
+      parentRoute: typeof ScrambledeggsRoute
+    }
+    '/scrambledeggs/solver': {
+      id: '/scrambledeggs/solver'
+      path: '/solver'
+      fullPath: '/scrambledeggs/solver'
+      preLoaderRoute: typeof ScrambledeggsSolverRouteImport
+      parentRoute: typeof ScrambledeggsRoute
+    }
+    '/scrambledeggs/timer': {
+      id: '/scrambledeggs/timer'
+      path: '/timer'
+      fullPath: '/scrambledeggs/timer'
+      preLoaderRoute: typeof ScrambledeggsTimerRouteImport
+      parentRoute: typeof ScrambledeggsRoute
+    }
   }
 }
+
+interface ScrambledeggsRouteChildren {
+  ScrambledeggsAlgorithmsRoute: typeof ScrambledeggsAlgorithmsRoute
+  ScrambledeggsCoolStuffRoute: typeof ScrambledeggsCoolStuffRoute
+  ScrambledeggsSolverRoute: typeof ScrambledeggsSolverRoute
+  ScrambledeggsTimerRoute: typeof ScrambledeggsTimerRoute
+  ScrambledeggsIndexRoute: typeof ScrambledeggsIndexRoute
+}
+
+const ScrambledeggsRouteChildren: ScrambledeggsRouteChildren = {
+  ScrambledeggsAlgorithmsRoute: ScrambledeggsAlgorithmsRoute,
+  ScrambledeggsCoolStuffRoute: ScrambledeggsCoolStuffRoute,
+  ScrambledeggsSolverRoute: ScrambledeggsSolverRoute,
+  ScrambledeggsTimerRoute: ScrambledeggsTimerRoute,
+  ScrambledeggsIndexRoute: ScrambledeggsIndexRoute,
+}
+
+const ScrambledeggsRouteWithChildren = ScrambledeggsRoute._addFileChildren(
+  ScrambledeggsRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -181,6 +314,7 @@ const rootRouteChildren: RootRouteChildren = {
   CoolStuffRoute: CoolStuffRoute,
   LegalRoute: LegalRoute,
   PrivacyRoute: PrivacyRoute,
+  ScrambledeggsRoute: ScrambledeggsRouteWithChildren,
   SolverRoute: SolverRoute,
   TimerRoute: TimerRoute,
 }

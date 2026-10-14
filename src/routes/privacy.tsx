@@ -11,7 +11,10 @@ function Privacy() {
       <SiteHeader compact />
       <main className="legal-copy">
         <h1>Privacy</h1>
-        <p>Updated 12 October 2026. scrambled eggs is a puzzle-tools project operated by Parth.</p>
+        <p>
+          Updated 12 October 2026. htrap.in is Parth’s portfolio. It also hosts scrambled eggs, a
+          puzzle-tools project operated by Parth.
+        </p>
         <h2>Camera scanning</h2>
         <p>
           Scanning requests camera permission, without microphone access. Video frames are sampled

@@ -11,14 +11,19 @@ export const site = {
 } as const;
 
 export type NavItem = {
-  to: "/" | "/solver" | "/algorithms" | "/timer" | "/cool-stuff";
+  to:
+    | "/scrambledeggs"
+    | "/scrambledeggs/solver"
+    | "/scrambledeggs/algorithms"
+    | "/scrambledeggs/timer"
+    | "/scrambledeggs/cool-stuff";
   label: string;
 };
 
 export const navItems: NavItem[] = [
-  { to: "/", label: "Home" },
-  { to: "/solver", label: "Solver" },
-  { to: "/algorithms", label: "Algorithms" },
-  { to: "/timer", label: "Timer" },
-  { to: "/cool-stuff", label: "Cool stuff" },
+  { to: "/scrambledeggs", label: "Home" },
+  { to: "/scrambledeggs/solver", label: "Solver" },
+  { to: "/scrambledeggs/algorithms", label: "Algorithms" },
+  { to: "/scrambledeggs/timer", label: "Timer" },
+  { to: "/scrambledeggs/cool-stuff", label: "Cool stuff" },
 ];

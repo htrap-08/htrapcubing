@@ -3,7 +3,9 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { navItems, site } from "@/config/site";
 
 export function SiteHeader({ compact = false }: { compact?: boolean }) {
-  const isHome = useLocation({ select: (location) => location.pathname === "/" });
+  const isHome = useLocation({
+    select: (location) => location.pathname.replace(/\/$/, "") === "/scrambledeggs",
+  });
   const [dark, setDark] = useState(false);
   useEffect(() => {
     setDark(document.documentElement.dataset["theme"] === "dark");
@@ -23,7 +25,7 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
       className={`site-header sticky top-0 z-30 border-b border-line bg-background/90 md:backdrop-blur-sm ${compact ? "home-header" : ""}`}
     >
       <div className="mx-auto flex h-14 max-w-[1440px] items-center gap-6 px-5 sm:px-8">
-        <Link to="/" className="flex items-center gap-2.5">
+        <Link to="/scrambledeggs" className="flex items-center gap-2.5">
           <span className={`grid grid-cols-2 gap-[2px] ${compact ? "hidden" : ""}`}>
             <span className="size-2.5 bg-primary" />
             <span className="size-2.5 bg-foreground/80" />
@@ -53,7 +55,7 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
               key={item.to}
               to={item.to}
               className="rounded-md px-2.5 py-1.5 transition-colors"
-              activeOptions={{ exact: item.to === "/" }}
+              activeOptions={{ exact: item.to === "/scrambledeggs" }}
               inactiveProps={{ className: "text-muted hover:text-foreground" }}
               activeProps={{ className: "bg-display text-background hover:text-background" }}
             >
@@ -62,6 +64,9 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
           ))}
         </nav>
 
+        <Link to="/" className="portfolio-return">
+          ← Portfolio
+        </Link>
         {isHome && (
           <button
             type="button"
@@ -90,7 +95,7 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
             key={item.to}
             to={item.to}
             className="rounded-md px-2.5 py-1.5"
-            activeOptions={{ exact: item.to === "/" }}
+            activeOptions={{ exact: item.to === "/scrambledeggs" }}
             inactiveProps={{ className: "text-muted hover:text-foreground" }}
             activeProps={{ className: "bg-display text-background" }}
           >

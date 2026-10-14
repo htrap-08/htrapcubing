@@ -15,7 +15,7 @@ export function SiteFooter({ compact = false }: { compact?: boolean }) {
     return (
       <footer className="home-footer bg-background">
         <div className="home-container">
-          <Link to="/">scrambled eggs</Link>
+          <Link to="/scrambledeggs">scrambled eggs</Link>
           <span className="footer-credit">
             <span aria-hidden="true">|</span> a passion project by Parth
           </span>
@@ -33,7 +33,7 @@ export function SiteFooter({ compact = false }: { compact?: boolean }) {
         </span>
         <nav className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-[11px] uppercase tracking-[0.1em] text-muted">
           {navItems
-            .filter((i) => i.to !== "/")
+            .filter((i) => i.to !== "/scrambledeggs")
             .map((item) => (
               <Link key={item.to} to={item.to} className="transition hover:text-foreground">
                 {item.label}
