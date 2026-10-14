@@ -104,10 +104,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico?v=cube", sizes: "16x16 32x32 48x48 64x64" },
-      { rel: "icon", href: "/favicon.svg?v=cube", type: "image/svg+xml", sizes: "any" },
-      { rel: "apple-touch-icon", href: "/apple-touch-icon.png?v=cube", sizes: "180x180" },
-      { rel: "manifest", href: "/site.webmanifest" },
     ],
   }),
   shellComponent: RootShell,
@@ -117,6 +113,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const pathname = useLocation({ select: (location) => location.pathname });
+  const cubing = pathname === "/scrambledeggs" || pathname.startsWith("/scrambledeggs/");
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -125,6 +123,23 @@ function RootShell({ children }: { children: ReactNode }) {
             __html: `try{document.documentElement.dataset.theme=localStorage.getItem('scrambled-eggs-theme')==='dark'?'dark':'light'}catch{}`,
           }}
         />
+        <link
+          rel="icon"
+          href={cubing ? "/favicon.ico?v=cube" : "/portfolio-favicon.ico?v=1"}
+          sizes="32x32"
+        />
+        <link
+          rel="icon"
+          href={cubing ? "/favicon.svg?v=cube" : "/portfolio-favicon.svg?v=1"}
+          type="image/svg+xml"
+          sizes="any"
+        />
+        <link
+          rel="apple-touch-icon"
+          href={cubing ? "/apple-touch-icon.png?v=cube" : "/portfolio-icon-180.png?v=1"}
+          sizes="180x180"
+        />
+        <link rel="manifest" href={cubing ? "/site.webmanifest" : "/portfolio.webmanifest"} />
         <HeadContent />
       </head>
       <body>

@@ -15,5 +15,7 @@
   ],
   "theme_color": "#f8f2e5",
   "background_color": "#f8f2e5",
-  "display": "browser"
+  "display": "browser",
+  "start_url": "/scrambledeggs",
+  "scope": "/scrambledeggs/"
 }
