@@ -1918,7 +1918,7 @@ html[data-theme="dark"] body {
   }
 }
 
-/* Live squeeze lettering: three elastic emphasis phases, followed by a readable rest. */
+/* A single right-to-left reveal across the full name, with no reverse phase. */
 .portfolio-intro .portfolio-squeeze {
   margin-top: 22px;
   font-size: inherit;
@@ -1928,7 +1928,7 @@ html[data-theme="dark"] body {
 .portfolio-squeeze-letters {
   display: flex;
   width: 100%;
-  height: clamp(105px, 17vw, 210px);
+  height: clamp(150px, 24vw, 310px);
   gap: clamp(1px, 0.35vw, 5px);
 }
 .portfolio-squeeze-letter {
@@ -1936,7 +1936,7 @@ html[data-theme="dark"] body {
   min-width: 0;
   flex-basis: 0;
   flex-grow: 1;
-  animation: portfolio-squeeze 1800ms cubic-bezier(0.55, 0, 0.2, 1) both;
+  animation: portfolio-squeeze-reveal 650ms cubic-bezier(0.22, 1, 0.36, 1) var(--squeeze-delay) both;
 }
 .portfolio-squeeze-letter.surname-start {
   margin-left: clamp(10px, 2vw, 28px);
@@ -1953,44 +1953,16 @@ html[data-theme="dark"] body {
   font-size: 112px;
   font-weight: 700;
 }
-.portfolio-replay {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 44px;
-  margin-top: 6px;
-  font-size: 12px;
-  color: var(--muted);
-}
-.portfolio-replay:hover {
-  color: var(--foreground);
-}
-@keyframes portfolio-squeeze {
-  0%,
-  8% {
-    flex-grow: var(--squeeze-first);
+@keyframes portfolio-squeeze-reveal {
+  from {
+    flex-grow: var(--squeeze-start);
   }
-  31% {
-    flex-grow: var(--squeeze-middle);
-  }
-  55% {
-    flex-grow: var(--squeeze-last);
-  }
-  78% {
-    flex-grow: var(--squeeze-settle);
-  }
-  90% {
-    flex-grow: var(--squeeze-rebound);
-  }
-  100% {
+  to {
     flex-grow: 1;
   }
 }
 @media (prefers-reduced-motion: reduce) {
   .portfolio-squeeze-letter {
     animation: none;
-  }
-  .portfolio-replay {
-    display: none;
   }
 }
