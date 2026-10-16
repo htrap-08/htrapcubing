@@ -1,15 +1,16 @@
+import { PortfolioNameIntro } from "@/components/portfolio-name-intro";
 import { createFileRoute, Link } from "@tanstack/react-router";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Parth — Portfolio" },
+      { title: "Parth Gupta — Portfolio" },
       {
         name: "description",
         content:
-          "Parth’s portfolio and projects. Explore scrambled eggs, an interactive cubing toolkit.",
+          "Parth Gupta’s portfolio and projects. Explore scrambled eggs, an interactive cubing toolkit.",
       },
-      { property: "og:title", content: "Parth — Portfolio" },
-      { property: "og:description", content: "Projects and experiments by Parth." },
+      { property: "og:title", content: "Parth Gupta — Portfolio" },
+      { property: "og:description", content: "Projects and experiments by Parth Gupta." },
       { property: "og:type", content: "website" },
     ],
   }),
@@ -29,7 +30,7 @@ function Portfolio() {
       <main className="portfolio-main">
         <section className="portfolio-intro">
           <p className="portfolio-eyebrow">htrap.in / portfolio</p>
-          <h1>Hi, I’m Parth.</h1>
+          <PortfolioNameIntro />
           <p className="portfolio-intro-copy">Projects and experiments.</p>
         </section>
         <section aria-labelledby="portfolio-projects" className="portfolio-projects">
