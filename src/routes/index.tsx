@@ -1,3 +1,4 @@
+import { PortfolioProjectShowcase } from "@/components/portfolio-project-showcase";
 import { PortfolioNameIntro } from "@/components/portfolio-name-intro";
 import { createFileRoute, Link } from "@tanstack/react-router";
 export const Route = createFileRoute("/")({
@@ -33,49 +34,7 @@ function Portfolio() {
           <PortfolioNameIntro />
           <p className="portfolio-intro-copy">Projects and experiments.</p>
         </section>
-        <section aria-labelledby="portfolio-projects" className="portfolio-projects">
-          <h2 id="portfolio-projects">Projects</h2>
-          <article className="portfolio-project">
-            <div className="portfolio-project-icon" aria-hidden="true">
-              <svg viewBox="0 0 64 64" fill="none">
-                <rect
-                  x="5"
-                  y="5"
-                  width="54"
-                  height="54"
-                  rx="8"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
-                {[0, 1, 2].flatMap((r) =>
-                  [0, 1, 2].map((c) => (
-                    <rect
-                      key={`${r}-${c}`}
-                      x={10 + c * 15}
-                      y={10 + r * 15}
-                      width="13"
-                      height="13"
-                      rx="2"
-                      fill={(r + c) % 2 === 0 ? "#e85522" : "currentColor"}
-                      opacity={(r + c) % 2 === 0 ? 1 : 0.16}
-                    />
-                  )),
-                )}
-              </svg>
-            </div>
-            <div className="portfolio-project-content">
-              <p className="portfolio-eyebrow">Cubing toolkit</p>
-              <h3>scrambled eggs</h3>
-              <p>
-                Puzzle solvers, camera colour scanning, visual move tutorials, a timer and
-                interactive cube experiments.
-              </p>
-              <Link to="/scrambledeggs" className="portfolio-project-button">
-                Open scrambled eggs <span aria-hidden="true">↗</span>
-              </Link>
-            </div>
-          </article>
-        </section>
+        <PortfolioProjectShowcase />
       </main>
       <footer className="portfolio-footer">
         <span>Parth · htrap.in</span>

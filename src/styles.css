@@ -1966,3 +1966,316 @@ html[data-theme="dark"] body {
     animation: none;
   }
 }
+
+/* Linear-style project cards unfold with the scroll, below the name intro. */
+.linear-projects {
+  margin-top: clamp(80px, 15vh, 150px);
+  height: 240svh;
+}
+.linear-project-stage {
+  position: sticky;
+  top: 0;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 32px;
+}
+.linear-project-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+.linear-project-heading h2 {
+  font-family: var(--font-display-family);
+  font-weight: 700;
+  font-size: clamp(30px, 4vw, 52px);
+  letter-spacing: -0.045em;
+  margin-top: 8px;
+}
+.linear-project-heading h2 span {
+  color: var(--primary);
+}
+.linear-project-open,
+.linear-feature-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  min-height: 48px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.linear-project-open {
+  white-space: nowrap;
+}
+.linear-project-deck {
+  position: relative;
+  height: clamp(340px, 49vh, 480px);
+  isolation: isolate;
+  overflow: clip;
+  border-radius: 22px;
+}
+.linear-project-card {
+  --card-entry: 0;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  overflow: hidden;
+  background: var(--panel);
+  transform: translate3d(
+    calc((1 - var(--card-entry)) * 12%),
+    calc((1 - var(--card-entry)) * 110%),
+    0
+  );
+}
+.linear-project-card:first-child {
+  --card-entry: 1;
+}
+.linear-card-art {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: #f8f3e6;
+  background: #1c1b19;
+}
+.linear-card-timer .linear-card-art {
+  background: #e85522;
+  color: #17140e;
+}
+.linear-card-graph .linear-card-art {
+  background: #22201c;
+  color: #ed6639;
+}
+.linear-art-brand,
+.linear-art-caption {
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  font-family: var(--font-mono-family);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+.linear-art-brand {
+  top: 24px;
+  letter-spacing: -0.04em;
+  font-family: var(--font-display-family);
+  font-size: 20px;
+}
+.linear-art-caption {
+  bottom: 24px;
+  opacity: 0.6;
+}
+.linear-cube-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: min(48%, 200px);
+  aspect-ratio: 1;
+  gap: 6px;
+  transform: rotate(-10deg);
+}
+.linear-cube-grid span {
+  border-radius: 5px;
+  background: #e85522;
+}
+.linear-cube-grid span:nth-child(3n) {
+  background: #f5ecd8;
+}
+.linear-cube-grid span:nth-child(4n) {
+  background: #e9b936;
+}
+.linear-timer-art {
+  text-align: center;
+  width: 100%;
+}
+.linear-timer-art > span {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+}
+.linear-timer-art strong {
+  display: block;
+  font-size: clamp(65px, 8vw, 112px);
+  line-height: 1.25;
+  letter-spacing: -0.08em;
+  font-variant-numeric: tabular-nums;
+}
+.linear-timer-art > div {
+  font-size: 12px;
+}
+.linear-timer-art i {
+  display: inline-block;
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  margin-right: 6px;
+}
+.linear-graph-art {
+  width: 75%;
+  max-height: 78%;
+  overflow: visible;
+}
+.linear-graph-art ellipse {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: 0.6;
+}
+.linear-graph-art circle {
+  fill: currentColor;
+}
+.linear-card-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(24px, 4vw, 52px);
+}
+.linear-card-copy h3 {
+  font-size: clamp(27px, 3.2vw, 42px);
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  margin: 18px 0;
+}
+.linear-card-copy > p:not(.portfolio-eyebrow) {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.65;
+}
+.linear-feature-link {
+  margin-top: 20px;
+  align-self: flex-start;
+}
+.linear-scroll-hint {
+  margin-top: 22px;
+  font-size: 11px;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+}
+.linear-project-open:focus-visible,
+.linear-feature-link:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+@media (max-width: 600px) {
+  .linear-projects {
+    height: 260svh;
+  }
+  .linear-project-heading {
+    margin-bottom: 18px;
+    gap: 10px;
+  }
+  .linear-project-heading h2 {
+    font-size: 30px;
+  }
+  .linear-project-open {
+    font-size: 12px;
+    gap: 8px;
+  }
+  .linear-project-deck {
+    height: min(66svh, 600px);
+    min-height: 430px;
+  }
+  .linear-project-card {
+    grid-template-columns: 1fr;
+    grid-template-rows: 44% 56%;
+  }
+  .linear-art-brand {
+    top: 16px;
+    font-size: 16px;
+  }
+  .linear-art-caption {
+    bottom: 14px;
+    font-size: 8px;
+  }
+  .linear-cube-grid {
+    height: 58%;
+    width: auto;
+    gap: 4px;
+  }
+  .linear-timer-art strong {
+    font-size: 65px;
+  }
+  .linear-card-copy {
+    padding: 22px;
+  }
+  .linear-card-copy h3 {
+    font-size: 28px;
+    margin: 10px 0;
+  }
+  .linear-card-copy > p:not(.portfolio-eyebrow) {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .linear-feature-link {
+    margin-top: 10px;
+  }
+  .linear-project-stage {
+    padding-block: 20px;
+  }
+}
+@media (max-height: 600px) and (min-width: 601px) {
+  .linear-project-stage {
+    padding-block: 12px;
+  }
+  .linear-card-copy > p:not(.portfolio-eyebrow) {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .linear-feature-link {
+    margin-top: 6px;
+    min-height: 44px;
+  }
+  .linear-project-deck {
+    height: 56svh;
+    min-height: 210px;
+  }
+  .linear-project-heading {
+    margin-bottom: 12px;
+  }
+  .linear-project-heading h2 {
+    font-size: 28px;
+  }
+  .linear-card-copy {
+    padding: 20px;
+  }
+  .linear-card-copy h3 {
+    font-size: 22px;
+    margin: 6px 0;
+  }
+  .linear-scroll-hint {
+    margin-top: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .linear-projects {
+    height: auto;
+  }
+  .linear-project-stage {
+    position: static;
+    min-height: 0;
+  }
+  .linear-project-deck {
+    height: auto;
+    overflow: visible;
+    display: grid;
+    gap: 20px;
+  }
+  .linear-project-card {
+    position: relative;
+    transform: none;
+    min-height: 400px;
+  }
+  .linear-scroll-hint {
+    display: none;
+  }
+}
