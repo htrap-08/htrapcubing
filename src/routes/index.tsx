@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { PortfolioContact } from "@/components/portfolio-contact";
 import { PortfolioProjectShowcase } from "@/components/portfolio-project-showcase";
 import { PortfolioNameIntro } from "@/components/portfolio-name-intro";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -36,14 +36,6 @@ function Portfolio() {
         <PortfolioProjectShowcase />
         <PortfolioContact />
       </main>
-      <footer className="portfolio-footer">
-        <span>Parth · htrap.in</span>
-        <a href="mailto:parthg08@gmail.com">parthg08@gmail.com</a>
-        <nav aria-label="Site information">
-          <Link to="/privacy">Privacy</Link>
-          <Link to="/legal">Licences</Link>
-        </nav>
-      </footer>
     </div>
   );
 }
