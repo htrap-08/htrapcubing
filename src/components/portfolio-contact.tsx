@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 
 const contacts = [
   { text: "parthg08@gmail.com", href: "mailto:parthg08@gmail.com" },
+  { text: "+91 7718826029", href: "tel:+917718826029" },
   { text: "LinkedIn", href: "https://www.linkedin.com/in/parth-gupta-35254035" },
   { text: "GitHub", href: "https://github.com/htrap-08" },
 ];
