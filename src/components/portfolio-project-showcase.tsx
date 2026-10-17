@@ -71,6 +71,7 @@ export function PortfolioProjectShowcase() {
       aria-label="Scrambled eggs project showcase"
     >
       <div className="project-reel-stage">
+        <h2 className="portfolio-projects-heading">Projects</h2>
         <div className="project-reel">
           <div className="project-reel-canvas">
             {cards.map((card, index) => (

@@ -32,11 +32,6 @@ function Portfolio() {
       <main className="portfolio-main">
         <section className="portfolio-intro">
           <PortfolioNameIntro />
-          <h2 className="portfolio-projects-heading">
-            <a href="#portfolio-projects">
-              Projects <span aria-hidden="true">↓</span>
-            </a>
-          </h2>
         </section>
         <PortfolioProjectShowcase />
         <PortfolioContact />
