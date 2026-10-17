@@ -1993,36 +1993,36 @@ html[data-theme="dark"] body {
   }
 }
 
-/* Square cards expand out of a diagonal stack, then travel off the upper left. */
+/* Square cards reveal in a staggered sequence as the page scrolls. */
 .project-reel-section {
   padding: 40px 16px 80px;
 }
 .project-reel {
-  width: min(100%, 80svh, 900px);
-  aspect-ratio: 1;
+  width: min(100%, 900px);
   margin-inline: auto;
-  background: transparent;
   position: relative;
-  overflow: hidden;
-  isolation: isolate;
   container-type: inline-size;
 }
 .project-reel-canvas {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(64px, 16vh, 140px);
 }
 .project-reel-card {
-  position: absolute;
+  --card-reveal: 1;
+  position: relative;
   width: 76%;
   aspect-ratio: 1;
-  left: 12%;
-  top: 12%;
+  align-self: flex-start;
   background: #e9e5dc;
   color: #191713;
-  animation: project-linear-reel 12s var(--reel-delay) infinite;
-  animation-timing-function: cubic-bezier(0.65, 0, 0.25, 1);
-  transform-origin: center;
-  box-shadow: 0 1px 0 #ffffff22;
+  transform: translate3d(0, calc((1 - var(--card-reveal)) * 64px), 0)
+    scale(calc(0.8 + var(--card-reveal) * 0.2));
+  transform-origin: center top;
+}
+.project-reel-card:nth-child(even) {
+  align-self: flex-end;
 }
 .project-reel-card-link {
   display: flex;
@@ -2156,137 +2156,29 @@ html[data-theme="dark"] body {
   outline: 3px solid #e85522;
   outline-offset: -5px;
 }
-.project-reel[data-playing="false"] .project-reel-card,
-.project-reel:has(.project-reel-card-link:focus) .project-reel-card {
-  animation-play-state: paused;
-}
 .project-reel-card:focus-within {
-  transform: none !important;
-  opacity: 1 !important;
-  z-index: 20 !important;
-}
-@keyframes project-linear-reel {
-  0% {
-    transform: translate(38%, 38%) scale(0.42);
-    opacity: 0;
-    z-index: 1;
-  }
-  4% {
-    transform: translate(38%, 38%) scale(0.42);
-    opacity: 1;
-    z-index: 1;
-  }
-  25% {
-    transform: translate(13%, 13%) scale(0.42);
-    opacity: 1;
-    z-index: 2;
-  }
-  45% {
-    transform: translate(-13%, -13%) scale(0.42);
-    opacity: 1;
-    z-index: 3;
-  }
-  54% {
-    transform: translate(-25%, -25%) scale(0.42);
-    opacity: 1;
-    z-index: 4;
-  }
-  62%,
-  75% {
-    transform: translate(0, 0) scale(1);
-    opacity: 1;
-    z-index: 5;
-  }
-  83% {
-    transform: translate(-25%, -25%) scale(0.42);
-    opacity: 1;
-    z-index: 5;
-  }
-  97%,
-  100% {
-    transform: translate(-98%, -98%) scale(0.42);
-    opacity: 0;
-    z-index: 5;
-  }
+  transform: none;
 }
 @media (max-width: 600px) {
-  .project-reel-section {
-    padding-inline: 8px;
-  }
-  .reel-card-information p {
-    font-size: 2.5cqw;
-    max-width: 100%;
-  }
-  .reel-card-action {
-    font-size: 2.6cqw;
-  }
-  .reel-card-category {
-    font-size: 1.8cqw;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .project-reel {
-    aspect-ratio: auto;
-    overflow: visible;
-    background: transparent;
-  }
-  .project-reel-canvas {
-    position: static;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-  }
   .project-reel-card {
-    animation: none;
-    position: relative;
-    inset: auto;
     width: 100%;
   }
-  .project-reel-card-link {
-    min-height: 100%;
-  }
   .reel-cover-title {
-    font-size: 5.4cqw;
-  }
-  .reel-card-information h3 {
-    font-size: 2.9cqw;
-  }
-  .reel-card-information p {
-    font-size: 1.6cqw;
-  }
-  .reel-card-art svg {
-    max-height: 10cqw;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reel-card-information h3 {
-    font-size: clamp(22px, 2.9cqw, 30px);
-  }
-  .reel-card-information p {
-    font-size: max(14px, 1.6cqw);
-  }
-  .reel-card-action {
-    font-size: max(14px, 1.7cqw);
-    min-height: 44px;
-    align-items: center;
-  }
-  .reel-card-category {
-    font-size: max(10px, 1.2cqw);
-  }
-}
-@media (prefers-reduced-motion: reduce) and (max-width: 600px) {
-  .project-reel-canvas {
-    grid-template-columns: 1fr;
-  }
-  .project-reel-card {
-    min-height: 400px;
-  }
-  .reel-cover-title {
-    font-size: 12cqw;
+    font-size: 14cqw;
   }
   .reel-card-brand {
-    font-size: 5cqw;
+    font-size: 4cqw;
+  }
+  .reel-card-information h3 {
+    font-size: 6cqw;
+  }
+  .reel-card-art svg {
+    max-height: 35cqw;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-reel-card {
+    transform: none;
   }
 }
 
@@ -2301,37 +2193,4 @@ html[data-theme="dark"] body {
 }
 .reel-card-action {
   font-size: max(13px, 1.7cqw);
-}
-
-/* One shared clock ends the offset card animations after exactly two 12s cycles. */
-.project-reel-canvas {
-  animation: project-reel-clock 24s linear 1 forwards;
-}
-@keyframes project-reel-clock {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 1;
-  }
-}
-.project-reel[data-playing="false"] .project-reel-canvas,
-.project-reel:has(.project-reel-card-link:focus) .project-reel-canvas {
-  animation-play-state: paused;
-}
-.project-reel[data-finished="true"] .project-reel-card {
-  animation: none;
-}
-.project-reel[data-finished="true"] .project-reel-card:not(.reel-cover) {
-  display: none;
-}
-.project-reel[data-finished="true"] .reel-cover {
-  transform: none;
-  opacity: 1;
-  z-index: 5;
-}
-@media (prefers-reduced-motion: reduce) {
-  .project-reel-canvas {
-    animation: none;
-  }
 }

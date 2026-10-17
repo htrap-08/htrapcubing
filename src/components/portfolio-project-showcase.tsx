@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 
 const cards = [
@@ -36,43 +36,47 @@ function CubeArtwork() {
   );
 }
 
-/** A self-contained diagonal card reel; page scrolling remains completely native. */
+/** Cards stay in normal page flow; their reveal follows the viewport, not a timer. */
 export function PortfolioProjectShowcase() {
   const reel = useRef<HTMLDivElement>(null);
-  const [finished, setFinished] = useState(false);
   useEffect(() => {
     const element = reel.current;
-    if (!element || !("IntersectionObserver" in window)) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        element.dataset["playing"] = String(entry?.isIntersecting ?? false);
-      },
-      { threshold: 0.15 },
-    );
-    observer.observe(element);
-    return () => observer.disconnect();
+    if (!element || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const canvas = element.querySelector<HTMLElement>(".project-reel-canvas");
+    if (!canvas) return;
+    const items = element.querySelectorAll<HTMLElement>(".project-reel-card");
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const top = canvas.getBoundingClientRect().top;
+      const viewport = window.innerHeight;
+      items.forEach((card) => {
+        const progress = Math.max(
+          0,
+          Math.min(1, (viewport * 0.95 - top - card.offsetTop) / (viewport * 0.6)),
+        );
+        card.style.setProperty("--card-reveal", String(progress));
+      });
+    };
+    const schedule = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
   }, []);
 
   return (
     <section className="project-reel-section" aria-label="Scrambled eggs project showcase">
-      <div ref={reel} className="project-reel" data-finished={finished} data-playing="false">
-        <div
-          className="project-reel-canvas"
-          onAnimationEnd={(event) => {
-            if (
-              event.target === event.currentTarget &&
-              event.animationName === "project-reel-clock"
-            ) {
-              setFinished(true);
-            }
-          }}
-        >
+      <div ref={reel} className="project-reel">
+        <div className="project-reel-canvas">
           {cards.map((card, index) => (
-            <article
-              key={card.kind}
-              className={`project-reel-card reel-${card.kind}`}
-              style={{ "--reel-delay": `${-((7.44 - index * 3 + 12) % 12)}s` } as CSSProperties}
-            >
+            <article key={card.kind} className={`project-reel-card reel-${card.kind}`}>
               <Link to={card.to} className="project-reel-card-link" aria-label={card.label}>
                 {card.kind === "cover" ? (
                   <>
