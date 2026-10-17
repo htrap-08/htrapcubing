@@ -39,7 +39,7 @@ function CubeArtwork() {
 /** A self-contained diagonal card reel; page scrolling remains completely native. */
 export function PortfolioProjectShowcase() {
   const reel = useRef<HTMLDivElement>(null);
-  const [paused, setPaused] = useState(false);
+  const [finished, setFinished] = useState(false);
   useEffect(() => {
     const element = reel.current;
     if (!element || !("IntersectionObserver" in window)) return;
@@ -55,8 +55,18 @@ export function PortfolioProjectShowcase() {
 
   return (
     <section className="project-reel-section" aria-label="Scrambled eggs project showcase">
-      <div ref={reel} className="project-reel" data-paused={paused} data-playing="false">
-        <div className="project-reel-canvas">
+      <div ref={reel} className="project-reel" data-finished={finished} data-playing="false">
+        <div
+          className="project-reel-canvas"
+          onAnimationEnd={(event) => {
+            if (
+              event.target === event.currentTarget &&
+              event.animationName === "project-reel-clock"
+            ) {
+              setFinished(true);
+            }
+          }}
+        >
           {cards.map((card, index) => (
             <article
               key={card.kind}
@@ -113,15 +123,6 @@ export function PortfolioProjectShowcase() {
             </article>
           ))}
         </div>
-        <button
-          className="project-reel-toggle"
-          type="button"
-          onClick={() => setPaused(!paused)}
-          aria-label={paused ? "Play project animation" : "Pause project animation"}
-          aria-pressed={paused}
-        >
-          {paused ? "▶" : "Ⅱ"}
-        </button>
       </div>
     </section>
   );

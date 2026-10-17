@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { PortfolioProjectShowcase } from "@/components/portfolio-project-showcase";
 import { PortfolioNameIntro } from "@/components/portfolio-name-intro";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -18,6 +19,13 @@ export const Route = createFileRoute("/")({
   component: Portfolio,
 });
 function Portfolio() {
+  useEffect(() => {
+    const navigation = performance.getEntriesByType("navigation")[0] as
+      PerformanceNavigationTiming | undefined;
+    if (navigation?.type !== "reload") return;
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, []);
+
   return (
     <div className="portfolio-page">
       <main className="portfolio-main">

@@ -2001,7 +2001,7 @@ html[data-theme="dark"] body {
   width: min(100%, 80svh, 900px);
   aspect-ratio: 1;
   margin-inline: auto;
-  background: #080808;
+  background: transparent;
   position: relative;
   overflow: hidden;
   isolation: isolate;
@@ -2152,25 +2152,11 @@ html[data-theme="dark"] body {
   font-size: 1.7cqw;
   font-weight: 600;
 }
-.project-reel-toggle {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-  width: 44px;
-  height: 44px;
-  z-index: 30;
-  border: 1px solid #ffffff40;
-  border-radius: 50%;
-  background: #080808;
-  color: #f8f3e7;
-  font-size: 17px;
-}
 .project-reel-card-link:focus-visible {
   outline: 3px solid #e85522;
   outline-offset: -5px;
 }
 .project-reel[data-playing="false"] .project-reel-card,
-.project-reel[data-paused="true"] .project-reel-card,
 .project-reel:has(.project-reel-card-link:focus) .project-reel-card {
   animation-play-state: paused;
 }
@@ -2271,9 +2257,6 @@ html[data-theme="dark"] body {
   .reel-card-art svg {
     max-height: 10cqw;
   }
-  .project-reel-toggle {
-    display: none;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2318,4 +2301,37 @@ html[data-theme="dark"] body {
 }
 .reel-card-action {
   font-size: max(13px, 1.7cqw);
+}
+
+/* One shared clock ends the offset card animations after exactly two 12s cycles. */
+.project-reel-canvas {
+  animation: project-reel-clock 24s linear 1 forwards;
+}
+@keyframes project-reel-clock {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.project-reel[data-playing="false"] .project-reel-canvas,
+.project-reel:has(.project-reel-card-link:focus) .project-reel-canvas {
+  animation-play-state: paused;
+}
+.project-reel[data-finished="true"] .project-reel-card {
+  animation: none;
+}
+.project-reel[data-finished="true"] .project-reel-card:not(.reel-cover) {
+  display: none;
+}
+.project-reel[data-finished="true"] .reel-cover {
+  transform: none;
+  opacity: 1;
+  z-index: 5;
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-reel-canvas {
+    animation: none;
+  }
 }
