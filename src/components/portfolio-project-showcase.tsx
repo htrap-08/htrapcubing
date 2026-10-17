@@ -28,38 +28,31 @@ const features = [
   },
 ] as const;
 
-/** Scroll only updates compositor transforms; no animation library or media downloads. */
+/** Reveal cards once as they enter the normal document viewport. */
 export function PortfolioProjectShowcase() {
   const section = useRef<HTMLElement>(null);
   useEffect(() => {
     const element = section.current;
-    if (!element) return;
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const bounds = element.getBoundingClientRect();
-      const distance = bounds.height - window.innerHeight;
-      const progress = Math.max(0, Math.min(1, -bounds.top / Math.max(1, distance)));
-      element.querySelectorAll<HTMLElement>(".linear-project-card").forEach((card, index) => {
-        const step = Math.max(0, Math.min(1, progress * 2.5 - (index - 1)));
-        card.style.setProperty("--card-entry", String(index === 0 ? 1 : step));
-        // Keep covered cards out of the keyboard sequence while retaining the final CTA.
-        card.inert = !media.matches && index !== Math.min(2, Math.floor(progress * 2.5 + 0.05));
-      });
-    };
-    const schedule = () => {
-      if (!frame) frame = window.requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
-    media.addEventListener("change", schedule);
+    if (!element || !("IntersectionObserver" in window)) return;
+    const cards = element.querySelectorAll<HTMLElement>(".linear-project-card");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-revealed");
+            observer.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.08 },
+    );
+    cards.forEach((card) => {
+      card.dataset["reveal"] = "true";
+      observer.observe(card);
+    });
     return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
-      media.removeEventListener("change", schedule);
+      observer.disconnect();
+      cards.forEach((card) => delete card.dataset["reveal"]);
     };
   }, []);
 
@@ -78,11 +71,10 @@ export function PortfolioProjectShowcase() {
           </Link>
         </div>
         <div className="linear-project-deck">
-          {features.map((feature, index) => (
+          {features.map((feature) => (
             <article
               key={feature.kind}
               className={`linear-project-card linear-card-${feature.kind}`}
-              style={{ zIndex: index + 1 }}
             >
               <div className="linear-card-art" aria-hidden="true">
                 <span className="linear-art-brand">scrambled eggs</span>
@@ -132,9 +124,6 @@ export function PortfolioProjectShowcase() {
             </article>
           ))}
         </div>
-        <p className="linear-scroll-hint">
-          Scroll to explore <span aria-hidden="true">↓</span>
-        </p>
       </div>
     </section>
   );

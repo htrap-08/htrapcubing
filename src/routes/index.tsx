@@ -20,19 +20,9 @@ export const Route = createFileRoute("/")({
 function Portfolio() {
   return (
     <div className="portfolio-page">
-      <header className="portfolio-header">
-        <Link to="/" className="portfolio-name">
-          Parth<span aria-hidden="true">.</span>
-        </Link>
-        <a href="mailto:parthg08@gmail.com" className="portfolio-contact">
-          Get in touch ↗
-        </a>
-      </header>
       <main className="portfolio-main">
         <section className="portfolio-intro">
-          <p className="portfolio-eyebrow">htrap.in / portfolio</p>
           <PortfolioNameIntro />
-          <p className="portfolio-intro-copy">Projects and experiments.</p>
         </section>
         <PortfolioProjectShowcase />
       </main>
