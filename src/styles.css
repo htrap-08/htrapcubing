@@ -1993,36 +1993,87 @@ html[data-theme="dark"] body {
   }
 }
 
-/* Square cards reveal in a staggered sequence as the page scrolls. */
+/* The viewport holds the reel while native scrolling scrubs a single pass. */
 .project-reel-section {
-  padding: 40px 16px 80px;
+  --reel-time: 0s;
+  height: 400svh;
+  padding-inline: 16px;
+}
+.project-reel-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: grid;
+  place-items: center;
 }
 .project-reel {
-  width: min(100%, 900px);
+  width: min(100%, 80svh, 900px);
+  aspect-ratio: 1;
   margin-inline: auto;
   position: relative;
+  overflow: hidden;
+  isolation: isolate;
   container-type: inline-size;
 }
 .project-reel-canvas {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(64px, 16vh, 140px);
+  position: absolute;
+  inset: 0;
 }
 .project-reel-card {
-  --card-reveal: 1;
-  position: relative;
+  position: absolute;
   width: 76%;
   aspect-ratio: 1;
-  align-self: flex-start;
+  left: 12%;
+  top: 12%;
   background: #e9e5dc;
   color: #191713;
-  transform: translate3d(0, calc((1 - var(--card-reveal)) * 64px), 0)
-    scale(calc(0.8 + var(--card-reveal) * 0.2));
-  transform-origin: center top;
+  animation: project-linear-reel 12s cubic-bezier(0.65, 0, 0.25, 1) infinite both paused;
+  animation-delay: calc(var(--reel-offset) - var(--reel-time));
+  transform-origin: center;
 }
-.project-reel-card:nth-child(even) {
-  align-self: flex-end;
+@keyframes project-linear-reel {
+  0% {
+    transform: translate(38%, 38%) scale(0.42);
+    opacity: 0;
+    z-index: 1;
+  }
+  4% {
+    transform: translate(38%, 38%) scale(0.42);
+    opacity: 1;
+    z-index: 1;
+  }
+  25% {
+    transform: translate(13%, 13%) scale(0.42);
+    opacity: 1;
+    z-index: 2;
+  }
+  45% {
+    transform: translate(-13%, -13%) scale(0.42);
+    opacity: 1;
+    z-index: 3;
+  }
+  54% {
+    transform: translate(-25%, -25%) scale(0.42);
+    opacity: 1;
+    z-index: 4;
+  }
+  62%,
+  75% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+    z-index: 10;
+  }
+  83% {
+    transform: translate(-25%, -25%) scale(0.42);
+    opacity: 1;
+    z-index: 5;
+  }
+  97%,
+  100% {
+    transform: translate(-98%, -98%) scale(0.42);
+    opacity: 0;
+    z-index: 5;
+  }
 }
 .project-reel-card-link {
   display: flex;
@@ -2157,27 +2208,48 @@ html[data-theme="dark"] body {
   outline-offset: -5px;
 }
 .project-reel-card:focus-within {
-  transform: none;
+  transform: none !important;
+  opacity: 1 !important;
+  z-index: 20 !important;
 }
 @media (max-width: 600px) {
-  .project-reel-card {
-    width: 100%;
-  }
   .reel-cover-title {
-    font-size: 14cqw;
+    font-size: 11cqw;
   }
   .reel-card-brand {
     font-size: 4cqw;
   }
   .reel-card-information h3 {
-    font-size: 6cqw;
+    font-size: 4.5cqw;
   }
   .reel-card-art svg {
     max-height: 35cqw;
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .project-reel-section {
+    height: auto;
+    padding-block: 32px;
+  }
+  .project-reel-stage {
+    position: static;
+    height: auto;
+  }
+  .project-reel {
+    width: min(100%, 680px);
+    aspect-ratio: auto;
+    overflow: visible;
+  }
+  .project-reel-canvas {
+    position: relative;
+    display: grid;
+    gap: 24px;
+  }
   .project-reel-card {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    animation: none;
     transform: none;
   }
 }
