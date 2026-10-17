@@ -2267,17 +2267,22 @@ html[data-theme="dark"] body {
   font-size: max(13px, 1.7cqw);
 }
 
-/* Glide-style contact typography, revealed once below the project sequence. */
+/* Scroll-controlled Glide contact typography below the project sequence. */
 .glide-contact {
   width: min(100% - 48px, 1060px);
   margin: 0 auto;
-  min-height: 80svh;
-  padding-block: clamp(72px, 12vh, 140px);
+  height: 200svh;
+}
+.glide-contact-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  padding-block: 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.glide-contact > h2 {
+.glide-contact-stage > h2 {
   margin-bottom: 28px;
 }
 .glide-contact-links {
@@ -2297,15 +2302,14 @@ html[data-theme="dark"] body {
 .glide-contact-word {
   display: inline-block;
   max-width: 100%;
+  transform: translateX(calc((100cqw - 100%) * (1 - var(--glide-progress, 1))));
+  opacity: calc(0.28 + var(--glide-progress, 1) * 0.72);
 }
 .glide-contact-arrow {
   display: inline-block;
   font-size: 0.65em;
   margin-left: 0.6em;
   color: var(--primary);
-}
-.glide-contact.is-visible .glide-contact-word {
-  animation: portfolio-contact-glide 1800ms cubic-bezier(0.22, 1, 0.36, 1) var(--glide-delay) both;
 }
 .glide-contact-line:hover {
   color: var(--primary);
@@ -2315,25 +2319,12 @@ html[data-theme="dark"] body {
   outline-offset: 4px;
 }
 .glide-contact-line:focus .glide-contact-word {
-  animation: none;
-}
-@keyframes portfolio-contact-glide {
-  0% {
-    transform: translateX(calc(100cqw - 100%));
-    opacity: 0.28;
-  }
-  35% {
-    opacity: 0.4;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
+  transform: none;
+  opacity: 1;
 }
 @media (max-width: 600px) {
   .glide-contact {
     width: calc(100% - 32px);
-    min-height: 65svh;
   }
   .glide-contact-line {
     font-size: clamp(18px, 4.6vw, 26px);
@@ -2341,7 +2332,16 @@ html[data-theme="dark"] body {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .glide-contact.is-visible .glide-contact-word {
-    animation: none;
+  .glide-contact {
+    height: auto;
+  }
+  .glide-contact-stage {
+    position: static;
+    height: auto;
+    min-height: 65svh;
+  }
+  .glide-contact-word {
+    transform: none;
+    opacity: 1;
   }
 }
