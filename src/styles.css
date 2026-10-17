@@ -2360,3 +2360,39 @@ html[data-theme="dark"] body {
     opacity: 1;
   }
 }
+
+/* The project heading remains visible at the foot of the opening screen. */
+.portfolio-intro {
+  position: relative;
+}
+.portfolio-projects-heading {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100% - 48px, 1060px);
+  font-family: var(--font-display-family);
+  font-size: clamp(24px, 2.8vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+}
+.portfolio-projects-heading a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+}
+.portfolio-projects-heading span {
+  color: var(--primary);
+  font-size: 0.75em;
+}
+.portfolio-projects-heading a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+}
+@media (max-width: 600px) {
+  .portfolio-projects-heading {
+    width: calc(100% - 32px);
+  }
+}

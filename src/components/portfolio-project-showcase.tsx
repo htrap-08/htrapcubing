@@ -65,6 +65,7 @@ export function PortfolioProjectShowcase() {
 
   return (
     <section
+      id="portfolio-projects"
       ref={section}
       className="project-reel-section"
       aria-label="Scrambled eggs project showcase"
