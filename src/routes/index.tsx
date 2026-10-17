@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { PortfolioContact } from "@/components/portfolio-contact";
 import { PortfolioProjectShowcase } from "@/components/portfolio-project-showcase";
 import { PortfolioNameIntro } from "@/components/portfolio-name-intro";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -33,6 +34,7 @@ function Portfolio() {
           <PortfolioNameIntro />
         </section>
         <PortfolioProjectShowcase />
+        <PortfolioContact />
       </main>
       <footer className="portfolio-footer">
         <span>Parth · htrap.in</span>
