@@ -1,129 +1,127 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { Link } from "@tanstack/react-router";
 
-const features = [
+const cards = [
+  { kind: "cover", title: "scrambled eggs", to: "/scrambledeggs", label: "Open scrambled eggs" },
   {
-    label: "01 / SOLVE",
+    kind: "solver",
     title: "Every scramble has a solution.",
-    copy: "Paint your puzzle or scan its colours. Find the solution and follow every turn.",
+    copy: "Paint your puzzle or scan its colours. Follow the solution, one turn at a time.",
     to: "/scrambledeggs/solver",
-    action: "Explore the solver",
-    kind: "cube",
+    label: "Explore the solver",
   },
   {
-    label: "02 / IMPROVE",
-    title: "One more solve.",
-    copy: "Fresh scrambles, a focused timer and your session history. Make the next solve your best.",
-    to: "/scrambledeggs/timer",
-    action: "Try the timer",
     kind: "timer",
+    title: "One more solve.",
+    copy: "Fresh scrambles. A focused timer. Your next personal best.",
+    to: "/scrambledeggs/timer",
+    label: "Try the timer",
   },
   {
-    label: "03 / EXPERIMENT",
-    title: "A different way to see a cube.",
-    copy: "Follow the connections between stickers as a cube solves itself. A little maths, in motion.",
-    to: "/scrambledeggs/cool-stuff",
-    action: "Explore cool stuff",
     kind: "graph",
+    title: "See the connections.",
+    copy: "Watch the sticker graph move with the cube. A little maths, in motion.",
+    to: "/scrambledeggs/cool-stuff",
+    label: "Explore cool stuff",
   },
 ] as const;
 
-/** Reveal cards once as they enter the normal document viewport. */
+function CubeArtwork() {
+  return (
+    <div className="project-cube" aria-hidden="true">
+      {Array.from({ length: 9 }, (_, i) => (
+        <span key={i} />
+      ))}
+    </div>
+  );
+}
+
+/** A self-contained diagonal card reel; page scrolling remains completely native. */
 export function PortfolioProjectShowcase() {
-  const section = useRef<HTMLElement>(null);
+  const reel = useRef<HTMLDivElement>(null);
+  const [paused, setPaused] = useState(false);
   useEffect(() => {
-    const element = section.current;
+    const element = reel.current;
     if (!element || !("IntersectionObserver" in window)) return;
-    const cards = element.querySelectorAll<HTMLElement>(".linear-project-card");
     const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-revealed");
-            observer.unobserve(entry.target);
-          }
-        }
+      ([entry]) => {
+        element.dataset["playing"] = String(entry?.isIntersecting ?? false);
       },
-      { threshold: 0.08 },
+      { threshold: 0.15 },
     );
-    cards.forEach((card) => {
-      card.dataset["reveal"] = "true";
-      observer.observe(card);
-    });
-    return () => {
-      observer.disconnect();
-      cards.forEach((card) => delete card.dataset["reveal"]);
-    };
+    observer.observe(element);
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <section ref={section} className="linear-projects" aria-labelledby="portfolio-projects">
-      <div className="linear-project-stage">
-        <div className="linear-project-heading">
-          <div>
-            <p className="portfolio-eyebrow">Selected project / 01</p>
-            <h2 id="portfolio-projects">
-              scrambled eggs<span>.</span>
-            </h2>
-          </div>
-          <Link to="/scrambledeggs" className="linear-project-open">
-            Open project <span aria-hidden="true">↗</span>
-          </Link>
-        </div>
-        <div className="linear-project-deck">
-          {features.map((feature) => (
+    <section className="project-reel-section" aria-label="Scrambled eggs project showcase">
+      <div ref={reel} className="project-reel" data-paused={paused} data-playing="false">
+        <div className="project-reel-canvas">
+          {cards.map((card, index) => (
             <article
-              key={feature.kind}
-              className={`linear-project-card linear-card-${feature.kind}`}
+              key={card.kind}
+              className={`project-reel-card reel-${card.kind}`}
+              style={{ "--reel-delay": `${-((7.44 - index * 3 + 12) % 12)}s` } as CSSProperties}
             >
-              <div className="linear-card-art" aria-hidden="true">
-                <span className="linear-art-brand">scrambled eggs</span>
-                {feature.kind === "cube" && (
-                  <div className="linear-cube-grid">
-                    {Array.from({ length: 9 }, (_, i) => (
-                      <span key={i} />
-                    ))}
-                  </div>
-                )}
-                {feature.kind === "timer" && (
-                  <div className="linear-timer-art">
-                    <span>YOUR NEXT PERSONAL BEST</span>
-                    <strong>12.84</strong>
-                    <div>
-                      <i /> ready when you are
+              <Link to={card.to} className="project-reel-card-link" aria-label={card.label}>
+                {card.kind === "cover" ? (
+                  <>
+                    <h2 className="reel-cover-title">
+                      scrambled
+                      <br />
+                      eggs<span>.</span>
+                    </h2>
+                    <CubeArtwork />
+                  </>
+                ) : (
+                  <>
+                    <span className="reel-card-brand" aria-hidden="true">
+                      scrambled eggs
+                    </span>
+                    <div className="reel-card-art" aria-hidden="true">
+                      {card.kind === "solver" && <CubeArtwork />}
+                      {card.kind === "timer" && (
+                        <strong className="reel-timer">
+                          12.84<span>PERSONAL BEST</span>
+                        </strong>
+                      )}
+                      {card.kind === "graph" && (
+                        <svg viewBox="0 0 320 240">
+                          {[0, 1, 2, 3, 4, 5].map((i) => (
+                            <g key={i} transform={`rotate(${i * 60} 160 120)`}>
+                              <ellipse cx="160" cy="120" rx="102" ry="50" />
+                              <circle cx="262" cy="120" r="5" />
+                            </g>
+                          ))}
+                          <circle cx="160" cy="120" r="7" />
+                        </svg>
+                      )}
                     </div>
-                  </div>
+                    <div className="reel-card-information">
+                      <span className="reel-card-category">
+                        0{index} / {card.kind === "graph" ? "COOL STUFF" : card.kind.toUpperCase()}
+                      </span>
+                      <h3>{card.title}</h3>
+                      <p>{card.copy}</p>
+                      <span className="reel-card-action">
+                        {card.label} <span aria-hidden="true">↗</span>
+                      </span>
+                    </div>
+                  </>
                 )}
-                {feature.kind === "graph" && (
-                  <svg className="linear-graph-art" viewBox="0 0 320 260">
-                    {[0, 1, 2, 3, 4, 5].map((i) => (
-                      <g key={i} transform={`rotate(${i * 60} 160 130)`}>
-                        <ellipse cx="160" cy="130" rx="103" ry="52" />
-                        <circle cx="263" cy="130" r="5" />
-                      </g>
-                    ))}
-                    <circle cx="160" cy="130" r="8" />
-                  </svg>
-                )}
-                <span className="linear-art-caption">
-                  {feature.kind === "cube"
-                    ? "FROM SCRAMBLE TO SOLVED"
-                    : feature.kind === "timer"
-                      ? "FOCUS. TURN. REPEAT."
-                      : "EVERY STICKER IS CONNECTED"}
-                </span>
-              </div>
-              <div className="linear-card-copy">
-                <p className="portfolio-eyebrow">{feature.label}</p>
-                <h3>{feature.title}</h3>
-                <p>{feature.copy}</p>
-                <Link to={feature.to} className="linear-feature-link">
-                  {feature.action} <span aria-hidden="true">↗</span>
-                </Link>
-              </div>
+              </Link>
             </article>
           ))}
         </div>
+        <button
+          className="project-reel-toggle"
+          type="button"
+          onClick={() => setPaused(!paused)}
+          aria-label={paused ? "Play project animation" : "Pause project animation"}
+          aria-pressed={paused}
+        >
+          {paused ? "▶" : "Ⅱ"}
+        </button>
       </div>
     </section>
   );
