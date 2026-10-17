@@ -6,34 +6,28 @@ const contacts = [
   { text: "GitHub", href: "https://github.com/htrap-08" },
 ];
 
-/** The viewport holds the contact links while scroll scrubs their staggered glide. */
+/** The first scroll into view starts one complete, independent Glide playback. */
 export function PortfolioContact() {
   const section = useRef<HTMLElement>(null);
   useEffect(() => {
     const element = section.current;
     if (!element || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const lines = element.querySelectorAll<HTMLElement>(".glide-contact-line");
+    element.classList.add("is-ready");
     let frame = 0;
-    const update = () => {
+    const check = () => {
       frame = 0;
-      const bounds = element.getBoundingClientRect();
-      const distance = bounds.height - window.innerHeight;
-      const progress = Math.max(0, Math.min(1, -bounds.top / Math.max(1, distance)));
-      lines.forEach((line, index) => {
-        const step = Math.max(0, Math.min(1, (progress - index * 0.12) / 0.76));
-        line.style.setProperty("--glide-progress", String(1 - Math.pow(1 - step, 3)));
-      });
+      const bounds = element.querySelector(".glide-contact-links")?.getBoundingClientRect();
+      if (!bounds || bounds.top > window.innerHeight * 0.9 || bounds.bottom < 0) return;
+      element.classList.add("is-playing");
+      window.removeEventListener("scroll", onScroll);
     };
-    const schedule = () => {
-      if (!frame) frame = window.requestAnimationFrame(update);
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(check);
     };
-    update();
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
