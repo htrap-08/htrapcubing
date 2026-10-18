@@ -48,3 +48,6 @@ godaddy pin.png
 
 # Generated 4x4 verification replay corpus
 solver/layer-by-layer/geometric-replays.json
+
+# Local security scanner reports can contain sensitive proof-of-concept data
+strix_runs/

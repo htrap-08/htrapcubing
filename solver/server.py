@@ -78,6 +78,18 @@ def run_job(job_id, n, state):
 
 
 class Handler(BaseHTTPRequestHandler):
+    def setup(self):
+        super().setup()
+        self.connection.settimeout(10)
+
+    def browser_request(self):
+        # Only our server-side proxy talks to this loopback service. Reject direct
+        # browser-origin writes, including form POSTs that do not need CORS.
+        if self.headers.get('Origin') is not None or self.headers.get('Sec-Fetch-Site') == 'cross-site':
+            self.send_json(403, {'error': 'Direct browser requests are not allowed.'})
+            return True
+        return False
+
     def send_json(self, status, data):
         body = json.dumps(data).encode()
         self.send_response(status)
@@ -97,6 +109,10 @@ class Handler(BaseHTTPRequestHandler):
         self.send_json(200 if response else 404, response or {'error': 'Solve not found. Please try again.'})
 
     def do_POST(self):
+        if self.browser_request():
+            return
+        if self.headers.get('Content-Type', '').split(';')[0].strip().lower() != 'application/json':
+            return self.send_json(415, {'error': 'Use application/json.'})
         if self.path != '/api/nxn/solve':
             return self.send_json(404, {'error': 'Not found.'})
         try:
@@ -123,6 +139,8 @@ class Handler(BaseHTTPRequestHandler):
         self.send_json(202, {'id': job_id, 'status': 'solving'})
 
     def do_DELETE(self):
+        if self.browser_request():
+            return
         job_id = self.path.removeprefix('/api/nxn/jobs/')
         with LOCK:
             job = JOBS.get(job_id)

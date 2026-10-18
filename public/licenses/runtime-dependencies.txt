@@ -11089,7 +11089,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 ========================================================================
-source-map-js@1.2.1
+source-map-js@1.2.2
 Declared licence: BSD-3-Clause
 
 LICENSE

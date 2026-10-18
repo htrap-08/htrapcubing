@@ -1,4 +1,5 @@
 import "./lib/error-capture";
+import { proxySolver, securityHeaders } from "./lib/server-security";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
@@ -44,50 +45,34 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
-export default {
-  async fetch(request: Request, env: unknown, ctx: unknown) {
-    try {
-      const path = new URL(request.url).pathname;
-      if (path.startsWith("/api/nxn/")) {
-        const configured =
-          (env as { NXN_SOLVER_URL?: string } | undefined)?.NXN_SOLVER_URL ??
-          (typeof process !== "undefined" ? process.env["NXN_SOLVER_URL"] : undefined);
-        const base = configured ?? (import.meta.env.DEV ? "http://127.0.0.1:5174" : undefined);
-        if (!base)
-          return Response.json(
-            { error: "The larger-cube solver is not available on this server yet." },
-            { status: 503 },
-          );
-        try {
-          const upstream = new URL(path, base);
-          const token =
-            (env as { NXN_SOLVER_TOKEN?: string } | undefined)?.NXN_SOLVER_TOKEN ??
-            (typeof process !== "undefined" ? process.env["NXN_SOLVER_TOKEN"] : undefined);
-          return await fetch(upstream, {
-            method: request.method,
-            headers: {
-              "Content-Type": "application/json",
-              ...(token ? { Authorization: `Bearer ${token}` } : {}),
-            },
-            ...(request.method === "POST" ? { body: await request.text() } : {}),
-            signal: AbortSignal.timeout(15000),
-          });
-        } catch {
-          return Response.json(
-            { error: "The larger-cube solver is offline. Please try again later." },
-            { status: 503 },
-          );
-        }
-      }
-      const handler = await getServerEntry();
-      const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
-    } catch (error) {
-      console.error(error);
-      return new Response(renderErrorPage(), {
-        status: 500,
-        headers: { "content-type": "text/html; charset=utf-8" },
+async function handleRequest(request: Request, env: unknown, ctx: unknown) {
+  try {
+    const path = new URL(request.url).pathname;
+    if (path.startsWith("/api/nxn/")) {
+      const configured = env as { NXN_SOLVER_URL?: string; NXN_SOLVER_TOKEN?: string } | undefined;
+      return proxySolver(request, {
+        base:
+          configured?.NXN_SOLVER_URL ??
+          process.env["NXN_SOLVER_URL"] ??
+          (import.meta.env.DEV ? "http://127.0.0.1:5174" : undefined),
+        token: configured?.NXN_SOLVER_TOKEN ?? process.env["NXN_SOLVER_TOKEN"],
+        development: import.meta.env.DEV,
       });
     }
+    const handler = await getServerEntry();
+    const response = await handler.fetch(request, env, ctx);
+    return await normalizeCatastrophicSsrResponse(response);
+  } catch (error) {
+    console.error(error);
+    return new Response(renderErrorPage(), {
+      status: 500,
+      headers: { "content-type": "text/html; charset=utf-8" },
+    });
+  }
+}
+
+export default {
+  async fetch(request: Request, env: unknown, ctx: unknown) {
+    return securityHeaders(await handleRequest(request, env, ctx));
   },
 };
