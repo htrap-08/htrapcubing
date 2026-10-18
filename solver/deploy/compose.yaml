@@ -1,0 +1,34 @@
+services:
+  solver:
+    build:
+      context: ../..
+      dockerfile: solver/deploy/Dockerfile
+    init: true
+    restart: unless-stopped
+    network_mode: host
+    mem_limit: 8g
+    pids_limit: 128
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - solver-runtime:/app/solver/.runtime
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+  https:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      SOLVER_DOMAIN: ${SOLVER_DOMAIN:?Set SOLVER_DOMAIN in .env}
+      NXN_SOLVER_TOKEN: ${NXN_SOLVER_TOKEN:?Set a random token in .env}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+volumes:
+  solver-runtime:
+  caddy-data:
+  caddy-config:

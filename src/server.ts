@@ -60,9 +60,15 @@ export default {
           );
         try {
           const upstream = new URL(path, base);
+          const token =
+            (env as { NXN_SOLVER_TOKEN?: string } | undefined)?.NXN_SOLVER_TOKEN ??
+            (typeof process !== "undefined" ? process.env["NXN_SOLVER_TOKEN"] : undefined);
           return await fetch(upstream, {
             method: request.method,
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              ...(token ? { Authorization: `Bearer ${token}` } : {}),
+            },
             ...(request.method === "POST" ? { body: await request.text() } : {}),
             signal: AbortSignal.timeout(15000),
           });

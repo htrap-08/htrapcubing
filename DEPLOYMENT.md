@@ -9,3 +9,8 @@ Add `htrap.in` and `www.htrap.in` in the Vercel project’s Settings → Domains
 2×2, 3×3, Pyraminx, Skewb and Megaminx solve in the browser. Physical-colour solving for 4×4–10×10 requires the separate Python/C service documented in solver/README.md, with persistent lookup-table storage. Its local tables are excluded from deployment.
 
 Set the server-side Vercel environment variable `NXN_SOLVER_URL` to the reachable base URL of that hosted service, then redeploy. Never use localhost or 127.0.0.1 here: those refer to the Vercel function itself. Until this service is hosted, larger-cube physical-colour solving reports that the server is unavailable.
+
+A Linux deployment with persistent storage and an authenticated HTTPS proxy is
+provided in `solver/deploy/compose.yaml`; follow `solver/README.md`. Set
+`NXN_SOLVER_TOKEN` on Vercel as well as the solver proxy. The token is forwarded
+server-to-server only. No table files need to enter GitHub or the Vercel bundle.

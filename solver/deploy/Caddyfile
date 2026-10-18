@@ -1,0 +1,15 @@
+{
+  admin off
+}
+{$SOLVER_DOMAIN} {
+  @authorized {
+    path /api/nxn/*
+    header Authorization "Bearer {$NXN_SOLVER_TOKEN}"
+  }
+  handle @authorized {
+    reverse_proxy 127.0.0.1:5174
+  }
+  handle {
+    respond "Unauthorized" 401
+  }
+}

@@ -1,0 +1,13 @@
+**
+!package.json
+!solver/
+!solver/server.py
+!solver/worker.py
+!solver/setup.py
+!solver/tables.json
+!solver/bin/
+!solver/bin/**
+!src/
+!src/vendor/
+!src/vendor/cubejs/
+!src/vendor/cubejs/**
