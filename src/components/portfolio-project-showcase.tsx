@@ -36,13 +36,17 @@ function CubeArtwork() {
   );
 }
 
-/** Native page scroll scrubs one pass through the diagonal card animation. */
+/** Desktop scroll scrubs the reel; phones show the same cards in normal flow. */
 export function PortfolioProjectShowcase() {
   const section = useRef<HTMLElement>(null);
   useEffect(() => {
     const element = section.current;
-    if (!element || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!element) return;
+    const staticLayout = window.matchMedia(
+      "(max-width: 767px), (max-width: 950px) and (max-height: 500px) and (pointer: coarse), (prefers-reduced-motion: reduce)",
+    );
     let frame = 0;
+    let listening = false;
     const update = () => {
       frame = 0;
       const bounds = element.getBoundingClientRect();
@@ -53,13 +57,29 @@ export function PortfolioProjectShowcase() {
     const schedule = () => {
       if (!frame) frame = window.requestAnimationFrame(update);
     };
-    update();
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
-    return () => {
+    const stop = () => {
       window.cancelAnimationFrame(frame);
+      frame = 0;
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
+      listening = false;
+    };
+    const syncLayout = () => {
+      stop();
+      if (staticLayout.matches) {
+        element.style.removeProperty("--reel-time");
+        return;
+      }
+      update();
+      window.addEventListener("scroll", schedule, { passive: true });
+      window.addEventListener("resize", schedule);
+      listening = true;
+    };
+    syncLayout();
+    staticLayout.addEventListener("change", syncLayout);
+    return () => {
+      if (listening) stop();
+      staticLayout.removeEventListener("change", syncLayout);
     };
   }, []);
 

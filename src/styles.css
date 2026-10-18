@@ -2222,7 +2222,7 @@ html[data-theme="dark"] body {
     max-height: 35cqw;
   }
 }
-@media (prefers-reduced-motion: reduce) {
+@media (max-width: 767px), (max-width: 950px) and (max-height: 500px) and (pointer: coarse), (prefers-reduced-motion: reduce) {
   .project-reel-section {
     height: auto;
     padding-block: 32px;
@@ -2381,11 +2381,40 @@ html[data-theme="dark"] body {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (max-width: 767px), (max-width: 950px) and (max-height: 500px) and (pointer: coarse), (prefers-reduced-motion: reduce) {
   .portfolio-projects-heading {
     position: static;
     transform: none;
     width: 100%;
     margin-bottom: 24px;
+  }
+}
+
+/* Phone project cards stay readable and scroll with the document. */
+@media (max-width: 767px), (max-width: 950px) and (max-height: 500px) and (pointer: coarse) {
+  .project-reel-card {
+    min-height: 360px;
+  }
+  .reel-cover-title {
+    font-size: clamp(40px, 11cqw, 72px);
+  }
+  .reel-card-information h3 {
+    font-size: clamp(24px, 6cqw, 34px);
+    max-width: 100%;
+    margin-block: 10px;
+  }
+  .reel-card-information p {
+    font-size: 14px;
+    max-width: 100%;
+  }
+  .reel-card-category {
+    font-size: 11px;
+  }
+  .reel-card-action {
+    font-size: 14px;
+    margin-top: 16px;
+  }
+  .reel-timer strong span {
+    font-size: 10px;
   }
 }
