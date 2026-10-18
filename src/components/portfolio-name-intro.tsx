@@ -1,33 +1,24 @@
 import type { CSSProperties } from "react";
 
-/** One right-to-left squeeze reveal; the name remains real, accessible text. */
+/** Animate strips of a fixed Pricedown wordmark; keep the name accessible. */
 export function PortfolioNameIntro() {
   return (
     <div className="portfolio-name-intro">
       <h1 className="portfolio-squeeze" aria-label="PARTH GUPTA">
         <span className="portfolio-squeeze-letters" aria-hidden="true">
-          {[..."PARTHGUPTA"].map((letter, index) => (
+          {Array.from({ length: 10 }, (_, index) => (
             <span
               key={index}
-              className={`portfolio-squeeze-letter${index === 5 ? " surname-start" : ""}`}
+              className="portfolio-squeeze-letter"
               style={
                 {
                   "--squeeze-start": index === 9 ? 1 : 0.08,
                   "--squeeze-delay": `${(9 - index) * 110}ms`,
+                  "--wordmark-position": `${(index / 9) * 100}%`,
                 } as CSSProperties
               }
             >
-              <svg viewBox="0 0 100 120" preserveAspectRatio="none" focusable="false">
-                <text
-                  x="50"
-                  y="101"
-                  textAnchor="middle"
-                  textLength="94"
-                  lengthAdjust="spacingAndGlyphs"
-                >
-                  {letter}
-                </text>
-              </svg>
+              <span className="portfolio-name-artwork" />
             </span>
           ))}
         </span>
