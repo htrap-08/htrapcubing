@@ -2007,7 +2007,7 @@ html[data-theme="dark"] body {
   place-items: center;
 }
 .project-reel {
-  width: min(100%, 80svh, 900px);
+  width: min(100%, 88svh, 1000px);
   aspect-ratio: 1;
   margin-inline: auto;
   position: relative;
@@ -2021,10 +2021,10 @@ html[data-theme="dark"] body {
 }
 .project-reel-card {
   position: absolute;
-  width: 76%;
+  width: 82%;
   aspect-ratio: 1;
-  left: 12%;
-  top: 12%;
+  left: 9%;
+  top: 9%;
   background: #e9e5dc;
   color: #191713;
   animation: project-linear-reel 12s cubic-bezier(0.65, 0, 0.25, 1) infinite both paused;
