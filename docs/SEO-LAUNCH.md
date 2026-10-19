@@ -51,3 +51,15 @@ Draft for owner review:
 ## Next review
 
 After verification, use actual Search Console queries/impressions to select the next tutorials. Complete case-specific diagrams and worked solves with a knowledgeable human reviewer; the new example states are illustrative, not a full case catalogue. Broader puzzle tutorials remain expandable and cannot honestly be called exhaustive. Restore and test the separate big-cube backend before promoting automatic solving. Review indexing, broken links, solver availability and real-user performance periodically; no recurring monitoring was configured.
+
+## Deployed verification and lab measurements
+
+Production crawl passed for all 34 sitemap URLs after deployment. `www.htrap.in/solver` returned a direct 301 to the canonical 3×3 solver. The versioned Inter response advertised immutable one-year caching and noindex; repeat anonymous homepage requests returned `x-vercel-cache: HIT`. The phone number was absent from both the live HTML and the rendered contact list. GitHub CI passed the implementation commit.
+
+| Mobile Lighthouse run | Performance | LCP | CLS | TBT |
+| --- | ---: | ---: | ---: | ---: |
+| Baseline, 18 October | 99 | 1.813 s | 0 | 0 ms |
+| Initial deployment, 19 October | 74 | 3.861 s | 0 | 0 ms |
+| With public-page CDN caching, 19 October | 87 | 2.495 s | 0 | 0 ms |
+
+These are single Lighthouse lab runs on different deployments/times, not a controlled experiment or field Core Web Vitals. The final performance score remains below the baseline, so no overall speed improvement is claimed. Speed Index was particularly variable (2.484 / 7.849 / 9.305 s); the final run's filmstrip showed blank early captures despite recorded paint metrics. A representative multi-device/multi-region measurement is still needed before diagnosing that as a user-visible delay. The directly verified improvements are reduced font transfer size, long-lived font caching and shared CDN hits for eligible public pages. All 51 JavaScript tests passed after the cache guard was added; the type check and production build also passed.
