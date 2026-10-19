@@ -5,13 +5,13 @@ export default defineNitroConfig({
     "/licenses/**": { headers: { "x-robots-tag": "noindex" } },
     "/fonts/**": { headers: { "x-robots-tag": "noindex" } },
     "/fonts/inter-regular-latin-v1.woff2": {
-      headers: { "cache-control": "public, max-age=31536000, immutable" },
+      headers: { "cache-control": "public, max-age=31536000, immutable", "x-robots-tag": "noindex" },
     },
     "/fonts/spacegrotesk-bold-v1.woff2": {
-      headers: { "cache-control": "public, max-age=31536000, immutable" },
+      headers: { "cache-control": "public, max-age=31536000, immutable", "x-robots-tag": "noindex" },
     },
     "/fonts/sour-gummy-bold-v1.woff2": {
-      headers: { "cache-control": "public, max-age=31536000, immutable" },
+      headers: { "cache-control": "public, max-age=31536000, immutable", "x-robots-tag": "noindex" },
     },
     "/images/**": { headers: { "cache-control": "public, max-age=86400" } },
   },

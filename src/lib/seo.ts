@@ -219,3 +219,16 @@ export function seoRedirect(url: URL): string | undefined {
     return `${url.hostname === "www.htrap.in" ? SITE_ORIGIN : url.origin}${path}${search}`;
   return undefined;
 }
+
+/** Cache only public editorial HTML, never APIs, errors or credentialed requests. */
+export function cachePublicHtml(request: Request, response: Response): Response {
+  const publicPaths = ["/", "/scrambledeggs", "/scrambledeggs/algorithms", "/scrambledeggs/about", "/privacy", "/legal"];
+  if (request.method === "GET" && response.status === 200 &&
+      publicPaths.includes(new URL(request.url).pathname) &&
+      response.headers.get("content-type")?.includes("text/html") &&
+      !request.headers.has("cookie") && !request.headers.has("authorization") &&
+      !response.headers.has("set-cookie")) {
+    response.headers.set("Cache-Control", "public, max-age=0, s-maxage=600, stale-while-revalidate=3600");
+  }
+  return response;
+}

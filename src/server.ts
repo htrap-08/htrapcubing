@@ -1,5 +1,5 @@
 import "./lib/error-capture";
-import { seoRedirect, sitemapXml } from "./lib/seo";
+import { seoRedirect, sitemapXml, cachePublicHtml } from "./lib/seo";
 import { proxySolver, securityHeaders } from "./lib/server-security";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
@@ -86,6 +86,6 @@ export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     const response = securityHeaders(await handleRequest(request, env, ctx));
     if (new URL(request.url).pathname.startsWith("/api/")) response.headers.set("X-Robots-Tag", "noindex");
-    return response;
+    return cachePublicHtml(request, response);
   },
 };

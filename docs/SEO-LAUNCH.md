@@ -10,6 +10,7 @@
 - Availability disclosure above the big-cube editor; homepage copy no longer promises an available 4×4–10×10 solving service. Editors remain available.
 - Shared outer-layer finishing material is consolidated into the 3×3 guide. Larger-cube pages include size-specific centre/edge checkpoints. 4×4 keeps its parity sequences, with the PLL sequence corrected to the linked source's wide-U turns and checked on a mock cube.
 - More useful colour-entry, invalid-state, camera, privacy, timer-average, storage and sticker-permutation explanations. Constructed 2×2/3×3 starting-state examples use the inverse of the displayed sequence; they do not claim to cover every case.
+- Public editorial HTML gets a ten-minute shared CDN cache, with stale-while-revalidate. Credentialed requests, errors, API responses and solver state pages are excluded.
 - Inter regular was subset for this English site: 108,416 → 30,464 bytes. Versioned critical fonts have long immutable caching; images get a one-day browser cache. Removed blanket font preloading on the portfolio. Cube icons below the first two are lazy-loaded with explicit dimensions. Existing SVG diagrams were retained rather than converted to raster images.
 
 ## Checks
@@ -17,7 +18,7 @@
 - Local production crawl: all 34 sitemap URLs returned 200, each with one H1, a matching canonical, a unique title and valid JSON-LD syntax. This is not Google's rich-result eligibility test or proof of indexing.
 - 50 JavaScript tests passed, including SEO/redirect and algorithm regression checks. TypeScript and production build passed.
 - Phone viewport: solver and tutorial pages had no horizontal overflow. The constructed 3×3 example loaded and played.
-- Mobile Lighthouse baseline of the existing live cubing homepage: performance 99/100, LCP 1.813 s, CLS 0, TBT 0 ms. Follow-up measurements are recorded after deployment below. A single lab run is not real-user Core Web Vitals or a guarantee of ranking changes.
+- Mobile Lighthouse baseline of the existing live cubing homepage: performance 99/100, LCP 1.813 s, CLS 0, TBT 0 ms. The first deployed follow-up measured 74/100, LCP 3.861 s, CLS 0, TBT 0 ms, with substantially longer document and asset waits. Selective CDN caching was then added; a second measurement is recorded below. These runs were not simultaneous and network/server conditions differed, so they are not a controlled causal comparison. A single lab run is not real-user Core Web Vitals or a guarantee of ranking changes.
 
 ## Search Console: owner action still needed
 

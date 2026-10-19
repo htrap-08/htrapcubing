@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   canonicalUrl,
+  cachePublicHtml,
   solverMeta,
   algorithmMeta,
   sitemapXml,
@@ -74,4 +75,13 @@ test("schema describes the creator, current page and visible breadcrumb", () => 
       (g) => g["@type"] === "WebApplication",
     ),
   );
+});
+
+test('only anonymous successful public HTML gets a shared cache policy',()=>{
+ const response=()=>new Response('page',{headers:{'Content-Type':'text/html'}});
+ assert.match(cachePublicHtml(new Request('https://htrap.in/scrambledeggs'),response()).headers.get('cache-control'),/s-maxage=600/);
+ for(const request of [new Request('https://htrap.in/api/nxn/health'),new Request('https://htrap.in/scrambledeggs',{headers:{cookie:'session=private'}}),new Request('https://htrap.in/scrambledeggs',{headers:{authorization:'private'}})])
+   assert.equal(cachePublicHtml(request,response()).headers.get('cache-control'),null);
+ for(const r of [new Response('error',{status:500,headers:{'Content-Type':'text/html'}}),Response.json({private:true}),new Response('page',{headers:{'Content-Type':'text/html','Set-Cookie':'session=private'}})])
+   assert.equal(cachePublicHtml(new Request('https://htrap.in/scrambledeggs'),r).headers.get('cache-control'),null);
 });
