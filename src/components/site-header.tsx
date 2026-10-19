@@ -54,6 +54,7 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
             <Link
               key={item.to}
               to={item.to}
+              search={item.to === "/scrambledeggs/solver" ? { puzzle: "3x3" } : {}}
               className="rounded-md px-2.5 py-1.5 transition-colors"
               activeOptions={{ exact: item.to === "/scrambledeggs" }}
               inactiveProps={{ className: "text-muted hover:text-foreground" }}
@@ -94,6 +95,7 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
           <Link
             key={item.to}
             to={item.to}
+            search={item.to === "/scrambledeggs/solver" ? { puzzle: "3x3" } : {}}
             className="rounded-md px-2.5 py-1.5"
             activeOptions={{ exact: item.to === "/scrambledeggs" }}
             inactiveProps={{ className: "text-muted hover:text-foreground" }}

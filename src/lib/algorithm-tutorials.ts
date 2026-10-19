@@ -222,7 +222,6 @@ export function algorithmBelongsTo(a: Algorithm, id: PuzzleId): boolean {
   if (id === "pyraminx" || id === "megaminx" || id === "skewb")
     return a.puzzle?.toLowerCase() === id;
   // Existing parity sequences are 4×4-specific, not interchangeable on larger cubes.
-  const outerReduction = !a.puzzle && !["Commutators", "Big cube parity"].includes(a.group);
-  if (id === "4x4") return outerReduction || ["a-parity-oll", "a-parity-pll"].includes(a.id);
-  return outerReduction;
+  // Shared outer-turn finishing algorithms are taught once in the 3×3 guide.
+  return id === "4x4" && ["a-parity-oll", "a-parity-pll"].includes(a.id);
 }

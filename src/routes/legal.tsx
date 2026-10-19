@@ -1,8 +1,13 @@
+import { seoMeta } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 export const Route = createFileRoute("/legal")({
-  head: () => ({ meta: [{ title: "Licences & information — scrambled eggs" }] }),
+  head: () =>
+    seoMeta(
+      "Licences & Project Information | scrambled eggs",
+      "Software licences, tutorial attribution, project independence and limitations for scrambled eggs. Find source links and copyright contact information.",
+    ),
   component: Legal,
 });
 function Legal() {

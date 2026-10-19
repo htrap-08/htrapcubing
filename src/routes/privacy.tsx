@@ -1,8 +1,13 @@
+import { seoMeta } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 export const Route = createFileRoute("/privacy")({
-  head: () => ({ meta: [{ title: "Privacy — scrambled eggs" }] }),
+  head: () =>
+    seoMeta(
+      "Privacy & Camera Scanning | scrambled eggs",
+      "How scrambled eggs handles camera frames, puzzle colours, local timer history and analytics. Read the privacy notice and contact the project owner.",
+    ),
   component: Privacy,
 });
 function Privacy() {

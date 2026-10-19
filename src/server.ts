@@ -1,4 +1,5 @@
 import "./lib/error-capture";
+import { seoRedirect, sitemapXml } from "./lib/seo";
 import { proxySolver, securityHeaders } from "./lib/server-security";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
@@ -47,7 +48,17 @@ function isH3SwallowedErrorBody(body: string): boolean {
 
 async function handleRequest(request: Request, env: unknown, ctx: unknown) {
   try {
-    const path = new URL(request.url).pathname;
+    const url = new URL(request.url);
+    const redirect = seoRedirect(url);
+    if (redirect) return Response.redirect(redirect, 301);
+    const path = url.pathname;
+    if (path === "/sitemap.xml")
+      return new Response(sitemapXml(), {
+        headers: {
+          "Content-Type": "application/xml; charset=utf-8",
+          "Cache-Control": "public, max-age=3600",
+        },
+      });
     if (path.startsWith("/api/nxn/")) {
       const configured = env as { NXN_SOLVER_URL?: string; NXN_SOLVER_TOKEN?: string } | undefined;
       return proxySolver(request, {
@@ -73,6 +84,8 @@ async function handleRequest(request: Request, env: unknown, ctx: unknown) {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
-    return securityHeaders(await handleRequest(request, env, ctx));
+    const response = securityHeaders(await handleRequest(request, env, ctx));
+    if (new URL(request.url).pathname.startsWith("/api/")) response.headers.set("X-Robots-Tag", "noindex");
+    return response;
   },
 };

@@ -11,6 +11,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/react";
 
+import { canonicalUrl, structuredData } from "@/lib/seo";
 import appCss from "../styles.css?url";
 import { reportRuntimeError } from "../lib/runtime-error-reporting";
 
@@ -93,13 +94,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
-      ...["home-0", "home-5", "sour-gummy-bold"].map((font) => ({
-        rel: "preload",
-        href: `/fonts/${font}.woff2`,
-        as: "font",
-        type: "font/woff2",
-        crossOrigin: "anonymous" as const,
-      })),
       {
         rel: "stylesheet",
         href: appCss,
@@ -113,11 +107,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
-  const pathname = useLocation({ select: (location) => location.pathname });
+  const location = useLocation();
+  const pathname = location.pathname;
+  const canonical = canonicalUrl(pathname, location.search as Record<string, unknown>);
   const cubing = pathname === "/scrambledeggs" || pathname.startsWith("/scrambledeggs/");
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="canonical" href={canonical} />
+        <meta property="og:url" content={canonical} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(
+              structuredData(pathname, location.search as Record<string, unknown>),
+            ).replace(/</g, "\\u003c"),
+          }}
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `try{document.documentElement.dataset.theme=localStorage.getItem('scrambled-eggs-theme')==='dark'?'dark':'light'}catch{}`,
@@ -140,6 +146,17 @@ function RootShell({ children }: { children: ReactNode }) {
           sizes="180x180"
         />
         <link rel="manifest" href={cubing ? "/site.webmanifest" : "/portfolio.webmanifest"} />
+        {cubing &&
+          ["inter-regular-latin-v1", "spacegrotesk-bold-v1", "sour-gummy-bold-v1"].map((font) => (
+            <link
+              key={font}
+              rel="preload"
+              href={`/fonts/${font}.woff2`}
+              as="font"
+              type="font/woff2"
+              crossOrigin="anonymous"
+            />
+          ))}
         <HeadContent />
       </head>
       <body>

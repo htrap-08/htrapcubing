@@ -1,3 +1,4 @@
+import { seoMeta } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -6,27 +7,11 @@ import { FaceDiagram } from "@/components/sticker";
 import { puzzles } from "@/lib/puzzles";
 
 export const Route = createFileRoute("/scrambledeggs/")({
-  head: () => ({
-    meta: [
-      { title: "scrambled eggs" },
-      {
-        name: "description",
-        content:
-          "Step-by-step solve guides for 2×2 to 10×10, Pyraminx, Megaminx and Skewb, a visual beginner and CFOP algorithm library, plus scrambles and a speedsolving timer.",
-      },
-      {
-        property: "og:title",
-        content: "scrambled eggs",
-      },
-      {
-        property: "og:description",
-        content:
-          "Solve guides for every cube from 2×2 to 10×10, a visual algorithm library, and a scramble timer built for speedcubers.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    seoMeta(
+      "Online Cube Solver, Algorithms & Timer | scrambled eggs",
+      "Solve a 3×3, explore puzzle tutorials and 3D algorithms, scan cube colours, or practise with a speedcubing timer. Check availability for larger-cube solving.",
+    ),
   component: Home,
 });
 
@@ -35,7 +20,7 @@ const sections = [
     to: "/scrambledeggs/solver" as const,
     tag: "Solver",
     title: "We solve it for you",
-    body: "Pick any cube from 2×2 to 10×10, plus a lot more. Paint it yourself or scan the cube using your camera. Follow the solution",
+    body: "Enter or scan your puzzle colours and follow animated moves. 4×4–10×10 automatic solving is currently unavailable; colour editors and guides remain available.",
   },
   {
     to: "/scrambledeggs/algorithms" as const,
@@ -73,15 +58,15 @@ function Home() {
       <SiteHeader compact />
       <main>
         <section className="home-hero">
-          <img className="home-gradient" src="/images/home-gradient.svg" alt="" />
+          <img className="home-gradient" src="/images/home-gradient.svg" alt="" loading="lazy" />
           <div className="home-watermark" aria-hidden="true">
             CUBE
           </div>
           <div className="home-container home-hero-content">
             <h1>not just a cube solver</h1>
             <p className="home-intro">
-              Various puzzles, a visual algorithm library from layer-by-layer to advanced
-              algorithms, a timer and many more
+              Online cube solvers, camera colour scanning, beginner and advanced algorithms, a
+              speedcubing timer and experiments with cube mathematics.
             </p>
             <div className="home-features">
               {sections.map((section) => (
@@ -114,6 +99,10 @@ function Home() {
                       src={`/images/home-cube-${puzzle.n}.svg`}
                       alt={`${puzzle.n} by ${puzzle.n} cube grid`}
                       className="home-cube-icon"
+                      width={44}
+                      height={44}
+                      loading={index < 2 ? "eager" : "lazy"}
+                      decoding="async"
                     />
                   ) : (
                     <FaceDiagram
@@ -129,6 +118,29 @@ function Home() {
               );
             })}
           </div>
+        </section>
+        <section className="seo-content">
+          <h2>Choose a way to learn</h2>
+          <p>
+            Need moves for a physical cube? Start with the{" "}
+            <Link to="/scrambledeggs/solver" search={{ puzzle: "3x3" }}>
+              3×3 colour solver
+            </Link>
+            . To learn the method, use the{" "}
+            <Link to="/scrambledeggs/algorithms" search={{ puzzle: "3x3" }}>
+              beginner 3×3 guide
+            </Link>{" "}
+            or the{" "}
+            <Link to="/scrambledeggs/algorithms" search={{ puzzle: "4x4" }}>
+              4×4 reduction and parity guide
+            </Link>
+            . Explore <Link to="/scrambledeggs/cool-stuff">sticker permutations</Link> to connect
+            each move with its mathematical effect.
+          </p>
+          <p>
+            Built by <Link to="/scrambledeggs/about">Parth Gupta</Link>. Check the project page for
+            current capabilities, testing and feedback details.
+          </p>
         </section>
       </main>
       <SiteFooter compact />

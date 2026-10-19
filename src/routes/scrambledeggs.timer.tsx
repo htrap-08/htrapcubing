@@ -1,3 +1,6 @@
+import { TimerHelp } from "@/components/learning-content";
+import { Breadcrumbs } from "@/components/seo-navigation";
+import { seoMeta } from "@/lib/seo";
 import { PageWatermark } from "@/components/page-watermark";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
@@ -7,24 +10,11 @@ import { generateScramble, puzzleById, puzzles, type PuzzleId, type Puzzle } fro
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/scrambledeggs/timer")({
-  head: () => ({
-    meta: [
-      { title: "Timer — scrambled eggs" },
-      {
-        name: "description",
-        content:
-          "Competition-style scrambles and a hold-to-start speedcubing timer with a saved session log, best time, Ao5 and Ao12.",
-      },
-      { property: "og:title", content: "Timer — scrambled eggs" },
-      {
-        property: "og:description",
-        content:
-          "Generate a scramble, hold space, solve, and log every time with best, Ao5 and Ao12 statistics.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    seoMeta(
+      "Online Speedcubing Timer with Ao5 & Ao12 | scrambled eggs",
+      "Time your solves with keyboard or touch controls, generate puzzle scrambles and track best times, Ao5 and Ao12. Results stay in your browser.",
+    ),
   component: TimerPage,
 });
 
@@ -183,10 +173,11 @@ function TimerPage() {
       <section className="themed-section bg-display text-background">
         <PageWatermark title="TIMER" />
         <div className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8">
+          <Breadcrumbs />
           <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
             <div>
               <h1 className="font-mono text-[11px] uppercase tracking-[0.2em] text-primary">
-                timer
+                Speedcubing timer
               </h1>
 
               <div className="mt-6 flex flex-wrap gap-1.5 font-mono text-[11px]">
@@ -338,6 +329,7 @@ function TimerPage() {
         </div>
       </section>
 
+      <TimerHelp />
       <SiteFooter compact />
     </div>
   );

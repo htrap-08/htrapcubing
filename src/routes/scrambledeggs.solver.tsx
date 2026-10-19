@@ -1,3 +1,6 @@
+import { SolverHelp } from "@/components/learning-content";
+import { solverMeta } from "@/lib/seo";
+import { Breadcrumbs } from "@/components/seo-navigation";
 import { PageWatermark } from "@/components/page-watermark";
 import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { readSolverSession, writeSolverSession } from "@/lib/solver-session";
@@ -74,23 +77,7 @@ export const Route = createFileRoute("/scrambledeggs/solver")({
     const id = String(search["puzzle"] ?? "3x3") as PuzzleId;
     return { puzzle: puzzles.some((p) => p.id === id) ? id : "3x3" };
   },
-  head: () => ({
-    meta: [
-      { title: "Solver — scrambled eggs" },
-      {
-        name: "description",
-        content:
-          "Enter or scan your puzzle colours and follow an animated solution for 2×2 through 10×10, Pyraminx, Megaminx, Skewb and Square-1.",
-      },
-      { property: "og:title", content: "Solver — scrambled eggs" },
-      {
-        property: "og:description",
-        content: "Pick a puzzle, enter its colours, and follow the solution moves.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: ({ match }) => solverMeta(match.search.puzzle),
   component: SolverPage,
 });
 
@@ -98,6 +85,20 @@ function SolverPage() {
   const { puzzle: puzzleId } = Route.useSearch();
   const navigate = Route.useNavigate();
   const puzzle = puzzleById(puzzleId);
+  const [engineReady, setEngineReady] = useState(false);
+  useEffect(() => {
+    if (!puzzle.n || puzzle.n < 4) return;
+    const controller = new AbortController();
+    fetch("/api/nxn/health", { signal: controller.signal })
+      .then(async (response) => {
+        const health = await response.json();
+        if (!controller.signal.aborted) setEngineReady(response.ok && health.ready === true);
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) setEngineReady(false);
+      });
+    return () => controller.abort();
+  }, [puzzleId, puzzle.n]);
   const [mode, setMode] = useState<"colours" | "scan">("colours");
   const [custom, setCustom] = useState<string | null>(null);
   const [graphInput, setGraphInput] = useState("");
@@ -133,8 +134,9 @@ function SolverPage() {
       <section className="themed-section relative overflow-hidden border-b border-line">
         <PageWatermark title="SOLVER" />
         <div className="solver-container relative mx-auto px-5 pb-4 pt-6 sm:px-8">
+          <Breadcrumbs />
           <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
-            solve it, one move at a time
+            {puzzle.short} cube solver
           </h1>
           <p className="mt-4 max-w-[52ch] text-[15px] text-muted">
             Enter your puzzle’s colors or scan it to get its solution.
@@ -212,6 +214,18 @@ function SolverPage() {
                   </div>
                 )}
               </div>
+              {puzzle.n && puzzle.n >= 4 && !engineReady && (
+                <div className="solver-service-notice" role="status">
+                  <strong>Automatic big-cube solving is currently unavailable.</strong>
+                  <p>
+                    You can use the colour editor and scanner, but they cannot return a solution
+                    until the separate service is online.{" "}
+                    <Link to="/scrambledeggs/algorithms" search={{ puzzle: puzzle.id }}>
+                      Learn the {puzzle.short} reduction method instead →
+                    </Link>
+                  </p>
+                </div>
+              )}
               {puzzle.kind === "square1" ? (
                 <Square1Solver key={puzzle.id} />
               ) : custom !== null ? (
@@ -256,6 +270,7 @@ function SolverPage() {
           </div>
         </div>
       </section>
+      <SolverHelp puzzle={puzzleId} />
       <SiteFooter compact />
     </div>
   );

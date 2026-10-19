@@ -1,3 +1,6 @@
+import { TutorialNotes } from "@/components/learning-content";
+import { algorithmMeta } from "@/lib/seo";
+import { Breadcrumbs } from "@/components/seo-navigation";
 import { PageWatermark } from "@/components/page-watermark";
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -13,16 +16,7 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/scrambledeggs/algorithms")({
   validateSearch: (search: Record<string, unknown>): { puzzle?: PuzzleId } =>
     puzzles.some((p) => p.id === search["puzzle"]) ? { puzzle: search["puzzle"] as PuzzleId } : {},
-  head: () => ({
-    meta: [
-      { title: "Algorithms — scrambled eggs" },
-      {
-        name: "description",
-        content:
-          "Learn cube notation with interactive 3D moves, then explore puzzle-specific tutorials and algorithms.",
-      },
-    ],
-  }),
+  head: ({ match }) => algorithmMeta(match.search.puzzle),
   component: AlgorithmsPage,
 });
 const basicMoves = [
@@ -90,12 +84,12 @@ function MoveCard({ face, name, description }: (typeof basicMoves)[number]) {
 function AlgorithmsPage() {
   const { puzzle } = Route.useSearch();
   const navigate = Route.useNavigate();
-  const [track, setTrack] = useState<Track>("beginner");
+  const [track, setTrack] = useState<Track>(puzzle === "4x4" ? "advanced" : "beginner");
   const [group, setGroup] = useState("");
   const [query, setQuery] = useState("");
   const [preview, setPreview] = useState<string | null>(null);
   useEffect(() => {
-    setTrack("beginner");
+    setTrack(puzzle === "4x4" ? "advanced" : "beginner");
     setGroup("");
     setQuery("");
     setPreview(null);
@@ -116,7 +110,10 @@ function AlgorithmsPage() {
       <section className="themed-section border-b border-line">
         <PageWatermark title="ALGORITHMS" />
         <div className="algorithms-container mx-auto max-w-[1440px] px-5 py-10 sm:px-8">
-          <h1 className="algorithms-title mb-6 font-display font-bold">algorithms</h1>
+          <Breadcrumbs />
+          <h1 className="algorithms-title mb-6 font-display font-bold">
+            {selected ? `${selected.short} algorithms & guide` : "Cube moves & algorithms"}
+          </h1>
           <div className="tutorial-layout">
             <aside className="tutorial-sidebar">
               <label className="block lg:hidden text-sm font-bold">
@@ -232,6 +229,10 @@ function AlgorithmsPage() {
                     {selected?.short} learning path
                   </p>
                   <h2 className="mt-2 text-3xl font-bold">Learn the {selected?.short}</h2>
+                  <p className="tutorial-byline">
+                    By <Link to="/scrambledeggs/about">Parth Gupta</Link> · Updated{" "}
+                    <time dateTime="2026-10-19">19 October 2026</time>
+                  </p>
                   <p className="mt-3 text-muted">{tutorial?.intro}</p>
                   <div className="tutorial-card mt-5">
                     <h3 className="text-lg font-bold">Notation & grip</h3>
@@ -274,10 +275,13 @@ function AlgorithmsPage() {
                       </Link>
                     </div>
                   )}
+                  <TutorialNotes puzzle={puzzle} />
                   <h2 className="mt-8 text-2xl font-bold">{selected?.short} algorithm library</h2>
                   <p className="mt-2 text-sm text-muted">
-                    Match the case and starting orientation first. Previews demonstrate the moves
-                    from a solved puzzle, not the starting case or a complete solve.
+                    Match the case and starting orientation first. For 2×2 and 3×3, the 3D example
+                    starts with the inverse sequence applied to a solved cube, then shows the
+                    sequence restoring it. This is one constructed case, not every possible setup.
+                    Other puzzle previews demonstrate movement from a solved puzzle.
                   </p>
                   {pool.length > 0 ? (
                     <>
@@ -357,7 +361,11 @@ function AlgorithmsPage() {
                               {preview === a.id ? "Hide" : "Show"} 3D moves
                             </button>
                             {preview === a.id && (
-                              <AlgorithmMoveDemo puzzle={puzzle} alg={a.moves} />
+                              <AlgorithmMoveDemo
+                                puzzle={puzzle}
+                                alg={a.moves}
+                                caseDemo={puzzle === "2x2" || puzzle === "3x3"}
+                              />
                             )}
                           </article>
                         ))}

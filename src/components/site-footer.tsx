@@ -4,6 +4,7 @@ import { navItems, site } from "@/config/site";
 function LegalLinks() {
   return (
     <nav aria-label="Site information" className="legal-footer-links">
+      <Link to="/scrambledeggs/about">About</Link>
       <Link to="/privacy">Privacy</Link>
       <Link to="/legal">Licences & information</Link>
     </nav>

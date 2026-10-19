@@ -7,10 +7,12 @@ export function AlgorithmMoveDemo({
   puzzle = "3x3",
   alg,
   face,
+  caseDemo = false,
 }: {
   puzzle?: PuzzleId;
   alg: string;
   face?: string;
+  caseDemo?: boolean;
 }) {
   const host = useRef<HTMLDivElement>(null);
   const player = useRef<TwistyPlayer | null>(null);
@@ -68,10 +70,24 @@ export function AlgorithmMoveDemo({
   }, [visible, puzzle, face]);
   useEffect(() => {
     if (!ready || !player.current) return;
-    player.current.pause();
-    player.current.alg = alg.replace(/[·\n]/g, " ");
-    player.current.jumpToStart();
-  }, [alg, ready]);
+    let cancelled = false;
+    const p = player.current;
+    p.pause();
+    const moves = alg.replace(/[·\n]/g, " ");
+    import("cubing/alg")
+      .then(({ Alg }) => {
+        if (cancelled) return;
+        p.experimentalSetupAlg = caseDemo ? new Alg(moves).invert() : "";
+        p.alg = moves;
+        p.jumpToStart();
+      })
+      .catch(() => {
+        if (!cancelled) setError(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [alg, ready, caseDemo]);
   return (
     <div>
       <div

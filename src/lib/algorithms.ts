@@ -354,7 +354,7 @@ export const algorithms: Algorithm[] = [
     name: "4×4 OLL parity",
     moves: "r U2 x r U2 r U2 r' U2 l U2 r' U2 r U2 r' U2 r'",
     face: ["x", "d", "x", "d", "d", "d", "x", "x", "x"],
-    puzzle: "4×4 · 6×6 · 8×8 · 10×10",
+    puzzle: "4×4",
     description: "A single flipped edge after reduction — only possible on even-order cubes.",
   },
   {
@@ -362,9 +362,9 @@ export const algorithms: Algorithm[] = [
     track: "advanced",
     group: "Big cube parity",
     name: "4×4 PLL parity",
-    moves: "2R2 U2 2R2 u2 2R2 2U2",
+    moves: "2R2 U2 2R2 Uw2 2R2 Uw2",
     face: ["d", "d", "d", "p", "d", "p", "d", "d", "d"],
-    puzzle: "4×4 · 6×6 · 8×8 · 10×10",
+    puzzle: "4×4",
     description: "Two last-layer edges swapped. Run it, then finish with a normal PLL.",
   },
   {

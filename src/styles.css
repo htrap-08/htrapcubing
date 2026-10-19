@@ -477,7 +477,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: optional;
-  src: url(/fonts/home-0.woff2) format("woff2");
+  src: url(/fonts/inter-regular-latin-v1.woff2) format("woff2");
 }
 @font-face {
   font-family: "Inter";
@@ -512,7 +512,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: optional;
-  src: url(/fonts/home-5.woff2) format("woff2");
+  src: url(/fonts/spacegrotesk-bold-v1.woff2) format("woff2");
 }
 
 .square1-playbar button {
@@ -534,7 +534,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(/fonts/sour-gummy-bold.woff2) format("woff2");
+  src: url(/fonts/sour-gummy-bold-v1.woff2) format("woff2");
 }
 
 /* Figma solver layout: trim margins while preserving the live 3D viewport. */
@@ -2418,3 +2418,25 @@ html[data-theme="dark"] body {
     font-size: 10px;
   }
 }
+
+/* Shared, document-flow learning content and breadcrumbs. */
+.seo-content { width: min(100% - 40px, 1060px); margin: 32px auto; color: var(--foreground); }
+.seo-content h2 { font-family: var(--font-display-family); font-size: clamp(22px, 3vw, 30px); font-weight: 700; line-height: 1.25; margin-block: 20px 12px; }
+.seo-content h3 { font-size: 18px; font-weight: 650; margin-block: 20px 8px; }
+.seo-content p { font-size: 15px; line-height: 1.7; margin-block: 12px; overflow-wrap: anywhere; }
+.seo-content a, .solver-service-notice a, .tutorial-byline a { text-decoration: underline; text-underline-offset: 3px; }
+.seo-help-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 12px; }
+.seo-help-grid details { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+.seo-help-grid summary { font-weight: 600; min-height: 44px; cursor: pointer; }
+.seo-breadcrumbs { margin-block: 0 16px; font-size: 13px; }
+.seo-breadcrumbs ol { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; }
+.seo-breadcrumbs li { display: flex; align-items: center; gap: 6px; }
+.seo-breadcrumbs a { display: inline-flex; min-height: 44px; align-items: center; text-decoration: underline; }
+.seo-breadcrumbs [aria-current] { overflow-wrap: anywhere; }
+.solver-service-notice { border: 1px solid var(--primary); border-radius: 8px; margin-block: 16px; padding: 16px; font-size: 14px; line-height: 1.6; }
+.tutorial-byline { font-size: 13px; line-height: 1.6; margin-block: 10px; }
+.seo-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 12px; margin-block: 16px; }
+.seo-facts > div { padding: 16px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+.seo-facts dt { font-size: 13px; }
+.seo-facts dd { font-size: 18px; font-weight: 600; margin-top: 6px; }
+.tutorial-content .seo-content, #tutorial-content .seo-content { width: 100%; }

@@ -1,3 +1,6 @@
+import { GraphExplanation } from "@/components/learning-content";
+import { Breadcrumbs } from "@/components/seo-navigation";
+import { seoMeta } from "@/lib/seo";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site-header";
@@ -10,15 +13,11 @@ type Prepared = { input: string; solution: string; moves: string[]; states: stri
 export const Route = createFileRoute("/scrambledeggs/cool-stuff")({
   validateSearch: (search: Record<string, unknown>): { source?: "solver" } =>
     search["source"] === "solver" ? { source: "solver" } : {},
-  head: () => ({
-    meta: [
-      { title: "Cool stuff — scrambled eggs" },
-      {
-        name: "description",
-        content: "Watch a 3×3 cube solve beside a synchronized graph of its moving stickers.",
-      },
-    ],
-  }),
+  head: () =>
+    seoMeta(
+      "Rubik’s Cube Sticker Graph Animation | scrambled eggs",
+      "Explore sticker permutations with a 3×3 cube and synchronized graph. Watch each turn move stickers, or bring your entered cube from the solver.",
+    ),
   component: CoolStuff,
 });
 function CoolStuff() {
@@ -123,9 +122,10 @@ function CoolStuff() {
   return (
     <div className="solver-page cool-stuff-page min-h-screen bg-background text-foreground">
       <SiteHeader compact />
+      <Breadcrumbs />
       <section className="themed-section border-b border-line">
         <div className="solver-container mx-auto px-5 pb-10 pt-6 sm:px-8">
-          <h1 className="font-display font-bold">cool stuff</h1>
+          <h1 className="font-display font-bold">Cube sticker graph</h1>
           <p className="text-muted">Small experiments with a twist.</p>
           <article className="cool-experiment mt-8 rounded-xl border border-line bg-panel p-5">
             <div className="flex flex-wrap items-start justify-between gap-4">
@@ -241,6 +241,7 @@ function CoolStuff() {
           </article>
         </div>
       </section>
+      <GraphExplanation />
       <SiteFooter compact />
     </div>
   );
